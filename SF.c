@@ -238,9 +238,14 @@ void Query(){
 	}
 
 	//登陆成功
-	DispStr_CE(0,4,"恭喜！登陆成功",DISP_CENTER|DISP_CLRSCR);
-	DispStr_CE(0,6,"按任意键进行巡检",DISP_CENTER);
-	EXT_Display_Multi_Lines("请将巡检芯片放在感应区下方，按任意键进行巡检。",8,16);
+	Disp_Clear();
+
+	DispStr_CE(0,2,"登陆成功!",DISP_CENTER|DISP_CLRSCR);
+	DispStr_CE(0,4,"巡 检 人:",DISP_POSITION);
+	DispStr_CE(0,4,username,DISP_CURRENT);
+
+	DispStr_CE(0,8,"按任意键进行巡检",DISP_CENTER);
+	EXT_Display_Multi_Lines("请将巡检芯片放在感应区下方，按任意键进行巡检。",10,16);
 	WarningBeep(0);
 	delay_and_wait_key(0,EXIT_KEY_ALL,0);
 
@@ -629,67 +634,45 @@ void  SysSetMenu()
         }
 } 
 
-  void GetInfo() //标签校验 
-{
+void GetInfo(){ //标签校验 
 
-long key_value;
-int flag = 1;
-int index=0; 
-char temp[5];
-   while(flag)
-   {      
-      memset(anticode,0,ANTIFAKECODE_LEN);  //清空防伪码 
-      short err = ultralight_local_read_card(anticode); 
-    
-    //获取防伪码
-    if(err ==0)
-    {
-             DispStr_CE(0,2,"获取信息成功",DISP_CENTER|DISP_CLRSCR);
-             DispStr_CE(0,6,"标签结果如下",DISP_CENTER);          
-             DispStr_CE(0,10,"防伪码:",DISP_POSITION);
-   	     
-                Disp_Set_Magnification(3);
-              for(index =0;index<4;index++)
-              {
-                 memset(temp,0,5);
-                strncpy(temp,anticode+index*4,4);
-                
-                DispStr_CE(0,10+index*6,temp,DISP_CENTER);  
-                  //DispStr_CE(0,10+index*4,"  ",DISP_CURRENT);  
-              //  delay_and_wait_key(0,EXIT_KEY_F2,0);
-             }
-             Disp_Set_Magnification(1);
-             
-             EXT_ClearLine(36,0);
-             Disp_Goto_XY(0,36);
-             DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-             DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-             
-             key_value = delay_and_wait_key(0,EXIT_KEY_F1|EXIT_KEY_F3,0); 
-             switch(key_value)
-             {
-             case EXIT_KEY_F1:         
-             {
-            
-                flag = 0;//退出循环 
-                
-                break;
-             }
-             case EXIT_KEY_F3:
-              {
-                         break; 
-               } 
-                           
-             }    
-             
-    }
-    else
-   {
-     flag =0;
-   }
-   } 
-   
-   
+	long key_value;
+	int flag = 1;
+	int index=0; 
+
+	while(flag){
+		memset(anticode,0,ANTIFAKECODE_LEN);//清空防伪码 
+		short err = ultralight_local_read_card(anticode);
+
+		//获取防伪码
+		if(err ==0){
+			//Disp_Set_Magnification(3);
+			//Disp_Set_Magnification(1);
+
+			DispStr_CE(0,4,"标签读取成功",DISP_CENTER|DISP_CLRSCR);
+			DispStr_CE(0,8,"校 验 码：",DISP_POSITION);
+			DispStr_CE(0,8,anticode,DISP_CURRENT);
+
+			EXT_ClearLine(36,0);
+			Disp_Goto_XY(0,36);
+			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
+
+			key_value = delay_and_wait_key(0,EXIT_KEY_F1|EXIT_KEY_F3,0); 
+			switch(key_value){
+				case EXIT_KEY_F1:{
+					flag = 0;//退出循环 
+					break;
+				}
+				case EXIT_KEY_F3:{
+					break; 
+				} 
+			}
+
+		}else{
+			flag =0;
+		}
+	}
 }
 
 //======================================================================
@@ -698,74 +681,61 @@ char temp[5];
 //参数  ：无 
 //返回值：无 
 //======================================================================
-void MainMenu()
-{      
-        //初始化菜单 
-        short ret;
-        BROWINFO  main_menu;
-        char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置"; 
-        char welcome[20];
-        char choose[20];
-        memset(welcome,0,20);
-        memset(choose,0,20);
-        strcpy(welcome ,"欢迎使用");
-        strcpy(choose,"请选择功能模块");
-        main_menu.iStr = MAIN_MENU;
-        main_menu.lPtr = 0;
-        main_menu.cPtr = 0;
-        main_menu.startLine = 10;
-        while(1)
-        {
-           
-           Disp_Clear();
-           DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
-           DispStr_CE(0,6,choose,DISP_CENTER);
-            
-           main_menu.dispLines = 4;
-           main_menu.mInt = 4;
-           main_menu.lineMax = 11;
-           main_menu.sFont = 0;
-           main_menu.numEnable = 1;
-           main_menu.qEvent = EXIT_KEY_F1 ;
-            
-           Disp_Set_Magnification(2);
-           ret = EXT_Brow_Select(&main_menu);
-           Disp_Set_Magnification(1);
-             
-           switch(ret)
-           {
-                 case 0:
-                 {
-                
-                    //巡检
-                   Query(); 
-                   break;
-                 }
-                 case 1:
-                 {
-             
-                  //提交数据 
-                  SubmitData();
-                   break;
-                 }
-                 case 2:
-                 {        
-                    
-                      GetInfo();
-                      
-                      break; 
-                 } 
-                 case 3:
-                  {  
-                      SysSetMenu();
-                  } 
-                 default :
-                 {   
-                    break;
-                 }
-           }
-           
-        } 
+void MainMenu(){
+	//初始化菜单 
+	short ret;
+	BROWINFO  main_menu;
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置"; 
+	char welcome[20];
+	char choose[20];
+	memset(welcome,0,20);
+	memset(choose,0,20);
+	strcpy(welcome ,"欢迎使用");
+	strcpy(choose,"请选择功能模块");
+	main_menu.iStr = MAIN_MENU;
+	main_menu.lPtr = 0;
+	main_menu.cPtr = 0;
+	main_menu.startLine = 10;
+
+	while(1){
+		Disp_Clear();
+		DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,6,choose,DISP_CENTER);
+
+		main_menu.dispLines = 4;
+		main_menu.mInt = 4;
+		main_menu.lineMax = 11;
+		main_menu.sFont = 0;
+		main_menu.numEnable = 1;
+		main_menu.qEvent = EXIT_KEY_F1 ;
+
+		Disp_Set_Magnification(2);
+		ret = EXT_Brow_Select(&main_menu);
+		Disp_Set_Magnification(1);
+
+		switch(ret){
+			case 0:{
+				//巡检
+				Query(); 
+				break;
+			}
+			case 1:{
+				//提交数据 
+				SubmitData();
+				break;
+			}
+			case 2:{
+				GetInfo();
+				break; 
+			} 
+			case 3:{  
+				SysSetMenu();
+			} 
+			default :{
+				break;
+			}
+		}
+	} 
 }
 
 //======================================================================
