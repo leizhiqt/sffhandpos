@@ -685,7 +685,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret;
 	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置"; 
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. Ver1.2"; 
 	char welcome[20];
 	char choose[20];
 	memset(welcome,0,20);
@@ -702,8 +702,8 @@ void MainMenu(){
 		DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
 		DispStr_CE(0,6,choose,DISP_CENTER);
 
-		main_menu.dispLines = 4;
-		main_menu.mInt = 4;
+		main_menu.dispLines = 5;
+		main_menu.mInt = 5;
 		main_menu.lineMax = 11;
 		main_menu.sFont = 0;
 		main_menu.numEnable = 1;
@@ -731,7 +731,8 @@ void MainMenu(){
 			case 3:{  
 				SysSetMenu();
 			} 
-			default :{
+                       
+                        default :{
 				break;
 			}
 		}

@@ -211,7 +211,7 @@ LOAD E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libtcpip.a
 LOAD E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//librf433.a
 END GROUP
 
-.text           0x0c060000    0x22c50
+.text           0x0c060000    0x22c54
                 0x0c060000                _stext = .
  *(.text)
  .text          0x0c060000      0x324 E:/WF/develop_windows/sffhandpos/Release/crt0.o
@@ -990,228 +990,228 @@ END GROUP
  .rodata        0x0c0820d4       0x10 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
  *(.rodata*)
  .rodata.str1.4
-                0x0c0820e4      0x3f5 E:/WF/develop_windows/sffhandpos/Release/SF.o
-                                0x3f8 (size before relaxing)
- *fill*         0x0c0824d9        0x3 00
+                0x0c0820e4      0x3fe E:/WF/develop_windows/sffhandpos/Release/SF.o
+                                0x400 (size before relaxing)
+ *fill*         0x0c0824e2        0x2 00
  .rodata.str1.4
-                0x0c0824dc       0xad E:/WF/develop_windows/sffhandpos/Release/Card.o
+                0x0c0824e4       0xad E:/WF/develop_windows/sffhandpos/Release/Card.o
                                  0xbc (size before relaxing)
- *fill*         0x0c082589        0x3 00
+ *fill*         0x0c082591        0x3 00
  .rodata.str1.4
-                0x0c08258c      0x112 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
+                0x0c082594      0x10e E:/WF/develop_windows/sffhandpos/Release/DataBase.o
                                 0x154 (size before relaxing)
- *fill*         0x0c08269e        0x2 00
+ *fill*         0x0c0826a2        0x2 00
  .rodata.str1.4
-                0x0c0826a0       0x4a E:/WF/develop_windows/sffhandpos/Release/Common.o
+                0x0c0826a4       0x4a E:/WF/develop_windows/sffhandpos/Release/Common.o
                                  0x50 (size before relaxing)
- *fill*         0x0c0826ea        0x2 00
+ *fill*         0x0c0826ee        0x2 00
  .rodata.str1.4
-                0x0c0826ec      0x139 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
+                0x0c0826f0      0x139 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
                                 0x13c (size before relaxing)
- *fill*         0x0c082825        0x3 00
+ *fill*         0x0c082829        0x3 00
  .rodata.str1.4
-                0x0c082828       0x5f E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
+                0x0c08282c       0x5f E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
                                  0x64 (size before relaxing)
- *fill*         0x0c082887        0x1 00
+ *fill*         0x0c08288b        0x1 00
  .rodata.str1.4
-                0x0c082888       0x1e E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
+                0x0c08288c       0x1e E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
                                  0x20 (size before relaxing)
- *fill*         0x0c0828a6        0x2 00
+ *fill*         0x0c0828aa        0x2 00
  .rodata.str1.4
-                0x0c0828a8       0x10 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
+                0x0c0828ac       0x10 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
                                  0x14 (size before relaxing)
  .rodata.str1.4
-                0x0c0828b8        0x2 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
+                0x0c0828bc        0x2 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
                                   0x4 (size before relaxing)
- *fill*         0x0c0828ba        0x2 00
+ *fill*         0x0c0828be        0x2 00
  .rodata.str1.4
-                0x0c0828bc        0xb E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
+                0x0c0828c0        0xb E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
                                  0x18 (size before relaxing)
- *fill*         0x0c0828c7        0x1 00
+ *fill*         0x0c0828cb        0x1 00
  .rodata.str1.4
-                0x0c0828c8       0x76 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
+                0x0c0828cc       0x76 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
                                  0x88 (size before relaxing)
- *fill*         0x0c08293e        0x2 00
+ *fill*         0x0c082942        0x2 00
  .rodata.str1.4
-                0x0c082940      0x100 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
+                0x0c082944      0x100 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
                                 0x10c (size before relaxing)
  .rodata.str1.4
-                0x0c082a40      0x20c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
+                0x0c082a44      0x20c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
                                 0x220 (size before relaxing)
  .rodata.str1.4
-                0x0c082c4c        0x4 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
+                0x0c082c50        0x4 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
  *(.glue_7t)
- .glue_7t       0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/crt0.o
- .glue_7t       0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
- .glue_7t       0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/Card.o
- .glue_7t       0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
- .glue_7t       0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
- .glue_7t       0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
- .glue_7t       0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/crt0.o
+ .glue_7t       0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
+ .glue_7t       0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/Card.o
+ .glue_7t       0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
+ .glue_7t       0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
+ .glue_7t       0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
+ .glue_7t       0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
  *(.glue_7)
- .glue_7        0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/crt0.o
- .glue_7        0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
- .glue_7        0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/Card.o
- .glue_7        0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
- .glue_7        0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
- .glue_7        0x0c082c50        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
- .glue_7        0x0c082c50        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
-                0x0c082c50                . = ALIGN (0x4)
-                0x0c082c50                _etext = .
+ .glue_7        0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/crt0.o
+ .glue_7        0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
+ .glue_7        0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/Card.o
+ .glue_7        0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
+ .glue_7        0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
+ .glue_7        0x0c082c54        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
+ .glue_7        0x0c082c54        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
+                0x0c082c54                . = ALIGN (0x4)
+                0x0c082c54                _etext = .
 
 .vfp11_veneer   0x00000000        0x0
  .vfp11_veneer  0x00000000        0x0 E:/WF/develop_windows/sffhandpos/Release/crt0.o
@@ -1299,694 +1299,694 @@ END GROUP
  .vfp11_veneer  0x00000000        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
  .vfp11_veneer  0x00000000        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
 
-.data           0x0c082c50    0x1696c
-                0x0c082c50                . = ALIGN (0x4)
-                0x0c082c50                _data = .
+.data           0x0c082c58    0x1696c
+                0x0c082c58                . = ALIGN (0x4)
+                0x0c082c58                _data = .
  *(.data)
- .data          0x0c082c50        0xc E:/WF/develop_windows/sffhandpos/Release/crt0.o
-                0x0c082c50                environ
-                0x0c082c54                stack_ptr
-                0x0c082c58                funcmain
- .data          0x0c082c5c        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
- .data          0x0c082c5c        0x8 E:/WF/develop_windows/sffhandpos/Release/Card.o
-                0x0c082c5c                dummy_key
- .data          0x0c082c64        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
- .data          0x0c082c64        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
- .data          0x0c082c64        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
- .data          0x0c082c64        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
- .data          0x0c082c64      0x404 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
-                0x0c082c64                _impure_ptr
- .data          0x0c083068       0x10 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
-                0x0c083068                __mb_cur_max
-                0x0c08306c                __lc_ctype
- .data          0x0c083078        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
- .data          0x0c083078      0x410 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
-                0x0c083484                __malloc_sbrk_base
-                0x0c083078                __malloc_av_
-                0x0c083480                __malloc_trim_threshold
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
- .data          0x0c083488        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
- .data          0x0c083488     0x5ce8 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
-                0x0c086f68                PY_mb_tu
-                0x0c0851f8                PY_mb_ka
-                0x0c083d08                PY_mb_chui
-                0x0c086780                PY_mb_san
-                0x0c084a1c                PY_mb_hou
-                0x0c083964                PY_mb_cao
-                0x0c0840b8                PY_mb_die
-                0x0c087338                PY_mb_xia
-                0x0c088400                PY_mb_zuo
-                0x0c086f0c                PY_mb_tong
-                0x0c085580                PY_mb_leng
-                0x0c084758                PY_mb_gua
-                0x0c087e44                PY_mb_zei
-                0x0c083cf0                PY_mb_chuang
-                0x0c083980                PY_mb_ce
-                0x0c0867a4                PY_mb_sao
-                0x0c087fcc                PY_mb_zhen
-                0x0c087eb8                PY_mb_zhai
-                0x0c086200                PY_mb_pu
-                0x0c087cb0                PY_mb_yuan
-                0x0c086bcc                PY_mb_song
-                0x0c0849c4                PY_mb_hei
-                0x0c083e80                PY_mb_da
-                0x0c0859e8                PY_mb_mang
-                0x0c0888a4                PY_index_k
-                0x0c085e88                PY_mb_nuo
-                0x0c084d54                PY_mb_jia
-                0x0c085d68                PY_mb_ng
-                0x0c0842f4                PY_mb_fa
-                0x0c08812c                PY_mb_zhong
-                0x0c088398                PY_mb_zu
-                0x0c087054                PY_mb_wai
-                0x0c085e18                PY_mb_ning
-                0x0c088bfc                PY_index_q
-                0x0c08790c                PY_mb_yen
-                0x0c0875b4                PY_mb_xiu
-                0x0c086fa4                PY_mb_tui
-                0x0c08504c                PY_mb_jiong
-                0x0c086318                PY_mb_qia
-                0x0c0881b0                PY_mb_zhu
-                0x0c088380                PY_mb_zou
-                0x0c086ed0                PY_mb_tie
-                0x0c083a9c                PY_mb_chao
-                0x0c0859bc                PY_mb_man
-                0x0c085698                PY_mb_liang
-                0x0c084dbc                PY_mb_jian
-                0x0c088b5c                PY_index_o
-                0x0c083f98                PY_mb_de
-                0x0c0853e4                PY_mb_kui
-                0x0c084f0c                PY_mb_jie
-                0x0c0865f0                PY_mb_que
-                0x0c084558                PY_mb_gan
-                0x0c0854a4                PY_mb_lan
-                0x0c084f94                PY_mb_jin
-                0x0c085cac                PY_mb_na
-                0x0c085350                PY_mb_ku
-                0x0c086e18                PY_mb_ti
-                0x0c08417c                PY_mb_du
-                0x0c08580c                PY_mb_lou
-                0x0c08589c                PY_mb_luan
-                0x0c087540                PY_mb_xin
-                0x0c0847d4                PY_mb_gui
-                0x0c086c58                PY_mb_sui
-                0x0c088064                PY_mb_zhi
-                0x0c0883d8                PY_mb_zui
-                0x0c088368                PY_mb_zong
-                0x0c08677c                PY_mb_sal
-                0x0c087d08                PY_mb_yue
-                0x0c08403c                PY_mb_dian
-                0x0c084778                PY_mb_guai
-                0x0c0837c4                PY_mb_biao
-                0x0c083d3c                PY_mb_chuo
-                0x0c086ea0                PY_mb_tiao
-                0x0c083488                PY_mb_a
-                0x0c084400                PY_mb_feng
-                0x0c086190                PY_mb_ping
-                0x0c088794                PY_index_h
-                0x0c085970                PY_mb_ma
-                0x0c084530                PY_mb_gai
-                0x0c083c68                PY_mb_chu
-                0x0c087030                PY_mb_uu
-                0x0c085dc8                PY_mb_niang
-                0x0c085450                PY_mb_kuo
-                0x0c086248                PY_mb_q
-                0x0c08554c                PY_mb_lei
-                0x0c085234                PY_mb_kan
-                0x0c08613c                PY_mb_piao
-                0x0c0842c4                PY_mb_ei
-                0x0c088eec                PY_index_x
-                0x0c084440                PY_mb_fou
-                0x0c085ea8                PY_mb_nv
-                0x0c087e68                PY_mb_zha
-                0x0c08411c                PY_mb_diu
-                0x0c085a04                PY_mb_mao
-                0x0c083cb8                PY_mb_chua
-                0x0c087ee0                PY_mb_zhan
-                0x0c087dbc                PY_mb_zan
-                0x0c086754                PY_mb_sa
-                0x0c0875e0                PY_mb_xu
-                0x0c08624c                PY_mb_qi
-                0x0c087a50                PY_mb_yin
-                0x0c088a04                PY_index_m
-                0x0c086170                PY_mb_pin
-                0x0c085fbc                PY_mb_pei
-                0x0c085d64                PY_mb_neus
-                0x0c084e98                PY_mb_jiao
-                0x0c0870d4                PY_mb_wei
-                0x0c0849f4                PY_mb_hong
-                0x0c085798                PY_mb_liu
-                0x0c0870ac                PY_mb_wang
-                0x0c084884                PY_mb_ha
-                0x0c088284                PY_mb_zhui
-                0x0c0863e8                PY_mb_qiao
-                0x0c085f10                PY_mb_pai
-                0x0c084124                PY_mb_dong
-                0x0c08558c                PY_mb_li
-                0x0c08421c                PY_mb_duo
-                0x0c085f2c                PY_mb_pan
-                0x0c088434                PY_index_a
-                0x0c087ab0                PY_mb_ying
-                0x0c0857e0                PY_mb_long
-                0x0c0846ec                PY_mb_gu
-                0x0c086b48                PY_mb_shuo
-                0x0c0849cc                PY_mb_hen
-                0x0c085ae0                PY_mb_mi
-                0x0c0852ec                PY_mb_kei
-                0x0c087034                PY_mb_wa
-                0x0c085830                PY_mb_lu
-                0x0c08407c                PY_mb_diao
-                0x0c085dd0                PY_mb_niao
-                0x0c0871e8                PY_mb_wu
-                0x0c0871b8                PY_mb_wo
-                0x0c08564c                PY_mb_lian
-                0x0c085468                PY_mb_la
-                0x0c0842d4                PY_mb_er
-                0x0c084438                PY_mb_fiao
-                0x0c08673c                PY_mb_run
-                0x0c086888                PY_mb_shang
-                0x0c083f5c                PY_mb_dao
-                0x0c08513c                PY_mb_juan
-                0x0c087e18                PY_mb_ze
-                0x0c085504                PY_mb_lao
-                0x0c087910                PY_mb_yi
-                0x0c084ae4                PY_mb_huai
-                0x0c086918                PY_mb_shen
-                0x0c085d54                PY_mb_nen
-                0x0c0845bc                PY_mb_gao
-                0x0c084c40                PY_mb_ji
-                0x0c0868a8                PY_mb_shao
-                0x0c0835e8                PY_mb_bang
-                0x0c088ea4                PY_index_w
-                0x0c0839b0                PY_mb_cha
-                0x0c086b6c                PY_mb_si
-                0x0c083de4                PY_mb_cu
-                0x0c0860e8                PY_mb_pianpang
-                0x0c0858c0                PY_mb_lun
-                0x0c087d8c                PY_mb_za
-                0x0c0874c4                PY_mb_xie
-                0x0c088240                PY_mb_zhuai
-                0x0c086c88                PY_mb_sun
-                0x0c08525c                PY_mb_kang
-                0x0c08358c                PY_mb_bai
-                0x0c086634                PY_mb_rang
-                0x0c086cd4                PY_mb_ta
-                0x0c0839f0                PY_mb_chai
-                0x0c0848b4                PY_mb_han
-                0x0c0884dc                PY_index_c
-                0x0c08698c                PY_mb_shi
-                0x0c087710                PY_mb_ya
-                0x0c085ff0                PY_mb_pen
-                0x0c086fe4                PY_mb_tuo
-                0x0c088024                PY_mb_zheng
-                0x0c084514                PY_mb_ga
-                0x0c0861e8                PY_mb_pou
-                0x0c084ab4                PY_mb_hua
-                0x0c083994                PY_mb_cen
-                0x0c088834                PY_index_j
-                0x0c0883c4                PY_mb_zuan
-                0x0c0836b8                PY_mb_beng
-                0x0c0883f0                PY_mb_zun
-                0x0c088264                PY_mb_zhuang
-                0x0c085d70                PY_mb_ni
-                0x0c083a5c                PY_mb_chang
-                0x0c085718                PY_mb_lin
-                0x0c088a9c                PY_index_n
-                0x0c0886fc                PY_index_g
-                0x0c085ec0                PY_mb_o
-                0x0c086a64                PY_mb_shu
-                0x0c08596c                PY_mb_m
-                0x0c08527c                PY_mb_kao
-                0x0c083514                PY_mb_ao
-                0x0c087f84                PY_mb_zhe
-                0x0c083b30                PY_mb_cheng
-                0x0c087694                PY_mb_xue
-                0x0c087d44                PY_mb_yun
-                0x0c085be8                PY_mb_mo
-                0x0c0876b8                PY_mb_xun
-                0x0c0866a4                PY_mb_ri
-                0x0c0838e0                PY_mb_bu
-                0x0c0857dc                PY_mb_lo
-                0x0c087f1c                PY_mb_zhang
-                0x0c08531c                PY_mb_keop
-                0x0c0836a0                PY_mb_ben
-                0x0c086714                PY_mb_ruan
-                0x0c087458                PY_mb_xiao
-                0x0c085eb8                PY_mb_nve
-                0x0c0841f4                PY_mb_dun
-                0x0c0839ac                PY_mb_ceok
-                0x0c086b14                PY_mb_shuang
-                0x0c085da4                PY_mb_nian
-                0x0c088694                PY_index_e
-                0x0c086b04                PY_mb_shuan
-                0x0c088df4                PY_index_t
-                0x0c087410                PY_mb_xiang
-                0x0c086d08                PY_mb_tai
-                0x0c08557c                PY_mb_len
-                0x0c0864bc                PY_mb_qing
-                0x0c0866a8                PY_mb_rong
-                0x0c084fe4                PY_mb_jing
-                0x0c085e10                PY_mb_nin
-                0x0c085d48                PY_mb_nei
-                0x0c0875a0                PY_mb_xiong
-                0x0c0843c0                PY_mb_fen
-                0x0c0851cc                PY_mb_jun
-                0x0c083860                PY_mb_bo
-                0x0c086694                PY_mb_reng
-                0x0c086668                PY_mb_ren
-                0x0c085334                PY_mb_kou
-                0x0c0871b4                PY_mb_wie
-                0x0c0853a8                PY_mb_kuan
-                0x0c083d1c                PY_mb_chun
-                0x0c085b98                PY_mb_min
-                0x0c0852f0                PY_mb_kem
-                0x0c083498                PY_mb_ai
-                0x0c0834d4                PY_mb_an
-                0x0c084b48                PY_mb_huang
-                0x0c086000                PY_mb_peng
-                0x0c087e4c                PY_mb_zen
-                0x0c08882c                PY_index_i
-                0x0c084038                PY_mb_dia
-                0x0c08380c                PY_mb_bin
-                0x0c086510                PY_mb_qiu
-                0x0c084660                PY_mb_geng
-                0x0c083ae8                PY_mb_chen
-                0x0c0867ec                PY_mb_sha
-                0x0c088238                PY_mb_zhua
-                0x0c086744                PY_mb_ruo
-                0x0c085cec                PY_mb_nan
-                0x0c083f3c                PY_mb_dang
-                0x0c0846b8                PY_mb_gou
-                0x0c08695c                PY_mb_sheng
-                0x0c0868dc                PY_mb_she
-                0x0c087860                PY_mb_yao
-                0x0c086bf0                PY_mb_sou
-                0x0c0849dc                PY_mb_heng
-                0x0c083654                PY_mb_bei
-                0x0c0835b0                PY_mb_ban
-                0x0c085e38                PY_mb_niu
-                0x0c083e48                PY_mb_cun
-                0x0c085cd0                PY_mb_nai
-                0x0c087fc8                PY_mb_zhei
-                0x0c085ca4                PY_mb_n
-                0x0c084314                PY_mb_fan
-                0x0c0856c4                PY_mb_liao
-                0x0c088fd4                PY_index_z
-                0x0c083e58                PY_mb_cuo
-                0x0c083fd0                PY_mb_di
-                0x0c084650                PY_mb_gen
-                0x0c0882a8                PY_mb_zhun
-                0x0c084594                PY_mb_gang
-                0x0c083fac                PY_mb_dei
-                0x0c088cdc                PY_index_s
-                0x0c089104                PY_index_headletter
-                0x0c086334                PY_mb_qian
-                0x0c085648                PY_mb_lia
-                0x0c0867e8                PY_mb_seng
-                0x0c086ee4                PY_mb_ting
-                0x0c086c48                PY_mb_suan
-                0x0c084374                PY_mb_fei
-                0x0c0863b0                PY_mb_qiang
-                0x0c085bc0                PY_mb_ming
-                0x0c088430                PY_mb_space
-                0x0c087dec                PY_mb_zao
-                0x0c088308                PY_mb_zi
-                0x0c086478                PY_mb_qin
-                0x0c0860c4                PY_mb_pian
-                0x0c085d6c                PY_mb_ngag
-                0x0c087170                PY_mb_wen
-                0x0c084a40                PY_mb_hu
-                0x0c087e54                PY_mb_zeng
-                0x0c083920                PY_mb_cai
-                0x0c0854e0                PY_mb_lang
-                0x0c087b14                PY_mb_yong
-                0x0c085298                PY_mb_ke
-                0x0c087060                PY_mb_wan
-                0x0c08482c                PY_mb_gun
-                0x0c084e64                PY_mb_jiang
-                0x0c084894                PY_mb_hai
-                0x0c0837f4                PY_mb_bie
-                0x0c085374                PY_mb_kua
-                0x0c085b2c                PY_mb_mian
-                0x0c083610                PY_mb_bao
-                0x0c0890fc                PY_index_end
-                0x0c086df4                PY_mb_te
-                0x0c083fb0                PY_mb_deng
-                0x0c083d68                PY_mb_ci
-                0x0c086b24                PY_mb_shui
-                0x0c088b6c                PY_index_p
-                0x0c085be0                PY_mb_miu
-                0x0c085de4                PY_mb_nie
-                0x0c086b68                PY_mb_shw
-                0x0c084448                PY_mb_fu
-                0x0c08815c                PY_mb_zhou
-                0x0c084260                PY_mb_e
-                0x0c083834                PY_mb_bing
-                0x0c0841d8                PY_mb_dui
-                0x0c085c6c                PY_mb_mu
-                0x0c086ae4                PY_mb_shua
-                0x0c083eac                PY_mb_dai
-                0x0c0867c0                PY_mb_se
-                0x0c086618                PY_mb_qun
-                0x0c085e4c                PY_mb_nong
-                0x0c085f94                PY_mb_pao
-                0x0c085e5c                PY_mb_nou
-                0x0c084848                PY_mb_guo
-                0x0c086c14                PY_mb_su
-                0x0c0845ec                PY_mb_ge
-                0x0c086160                PY_mb_pie
-                0x0c08542c                PY_mb_kun
-                0x0c085d08                PY_mb_nang
-                0x0c087b50                PY_mb_you
-                0x0c085388                PY_mb_kuai
-                0x0c085b58                PY_mb_miao
-                0x0c085538                PY_mb_le
-                0x0c087278                PY_mb_xi
-                0x0c086dc4                PY_mb_tao
-                0x0c084afc                PY_mb_huan
-                0x0c085d18                PY_mb_nao
-                0x0c083ee8                PY_mb_dan
-                0x0c0866d0                PY_mb_rou
-                0x0c08505c                PY_mb_jiu
-                0x0c0886b4                PY_index_f
-                0x0c085488                PY_mb_lai
-                0x0c0858b4                PY_mb_lue
-                0x0c0842c8                PY_mb_en
-                0x0c083b88                PY_mb_chi
-                0x0c087768                PY_mb_yan
-                0x0c083a0c                PY_mb_chan
-                0x0c08492c                PY_mb_hao
-                0x0c083da8                PY_mb_cong
-                0x0c08764c                PY_mb_xuan
-                0x0c086914                PY_mb_shei
-                0x0c086624                PY_mb_ran
-                0x0c086648                PY_mb_rao
-                0x0c084680                PY_mb_gong
-                0x0c083914                PY_mb_ca
-                0x0c08399c                PY_mb_ceng
-                0x0c087dd8                PY_mb_zang
-                0x0c083938                PY_mb_can
-                0x0c085ec8                PY_mb_ou
-                0x0c0878c0                PY_mb_ye
-                0x0c085e80                PY_mb_nue
-                0x0c086f4c                PY_mb_tou
-                0x0c087b0c                PY_mb_yo
-                0x0c085c4c                PY_mb_mou
-                0x0c086e0c                PY_mb_teng
-                0x0c083784                PY_mb_bian
-                0x0c083cbc                PY_mb_chuai
-                0x0c085754                PY_mb_ling
-                0x0c085320                PY_mb_kong
-                0x0c0885e4                PY_index_d
-                0x0c083dc8                PY_mb_cou
-                0x0c087380                PY_mb_xian
-                0x0c086e64                PY_mb_tian
-                0x0c0841c0                PY_mb_duan
-                0x0c085a48                PY_mb_me
-                0x0c084154                PY_mb_dou
-                0x0c0836dc                PY_mb_bi
-                0x0c088934                PY_index_l
-                0x0c085e78                PY_mb_nuan
-                0x0c083c34                PY_mb_chou
-                0x0c08756c                PY_mb_xing
-                0x0c084be4                PY_mb_hun
-                0x0c084b80                PY_mb_hui
-                0x0c085aac                PY_mb_meng
-                0x0c0861b4                PY_mb_po
-                0x0c084960                PY_mb_he
-                0x0c086a40                PY_mb_shou
-                0x0c085a94                PY_mb_men
-                0x0c0859a0                PY_mb_mai
-                0x0c0853b8                PY_mb_kuang
-                0x0c086ca0                PY_mb_suo
-                0x0c088f5c                PY_index_y
-                0x0c088e94                PY_index_u
-                0x0c0866e0                PY_mb_ru
-                0x0c087824                PY_mb_yang
-                0x0c086f90                PY_mb_tuan
-                0x0c086720                PY_mb_rui
-                0x0c08655c                PY_mb_qu
-                0x0c084784                PY_mb_guan
-                0x0c0867e0                PY_mb_sen
-                0x0c08676c                PY_mb_sai
-                0x0c0864f8                PY_mb_qiong
-                0x0c0847bc                PY_mb_guang
-                0x0c0858d4                PY_mb_luo
-                0x0c086d84                PY_mb_tang
-                0x0c08592c                PY_mb_lv
-                0x0c083954                PY_mb_cang
-                0x0c083ccc                PY_mb_chuan
-                0x0c0852f4                PY_mb_ken
-                0x0c08520c                PY_mb_kai
-                0x0c086038                PY_mb_pi
-                0x0c083508                PY_mb_ang
-                0x0c083e0c                PY_mb_cuan
-                0x0c0871a4                PY_mb_weng
-                0x0c086e08                PY_mb_tei
-                0x0c085d38                PY_mb_ne
-                0x0c08434c                PY_mb_fang
-                0x0c087f50                PY_mb_zhao
-                0x0c085170                PY_mb_jue
-                0x0c086af4                PY_mb_shuai
-                0x0c0865b4                PY_mb_quan
-                0x0c088248                PY_mb_zhuan
-                0x0c087da4                PY_mb_zai
-                0x0c085d5c                PY_mb_neng
-                0x0c08464c                PY_mb_gei
-                0x0c0856f4                PY_mb_lie
-                0x0c085a50                PY_mb_mei
-                0x0c08354c                PY_mb_ba
-                0x0c088c6c                PY_index_r
-                0x0c088e9c                PY_index_v
-                0x0c085e60                PY_mb_nu
-                0x0c08443c                PY_mb_fo
-                0x0c0850a0                PY_mb_ju
-                0x0c084c08                PY_mb_huo
-                0x0c086444                PY_mb_qie
-                0x0c08665c                PY_mb_re
-                0x0c083c08                PY_mb_chong
-                0x0c08490c                PY_mb_hang
-                0x0c0840ec                PY_mb_ding
-                0x0c086820                PY_mb_shai
-                0x0c086fc0                PY_mb_tun
-                0x0c085f6c                PY_mb_pang
-                0x0c086d34                PY_mb_tan
-                0x0c085b84                PY_mb_mie
-                0x0c085308                PY_mb_keng
-                0x0c083ac8                PY_mb_che
-                0x0c085eec                PY_mb_pa
-                0x0c0882c0                PY_mb_zhuo
-                0x0c083e20                PY_mb_cui
-                0x0c08845c                PY_index_b
-                0x0c087bb8                PY_mb_yu
-                0x0c08682c                PY_mb_shan
-                0x0c086794                PY_mb_sang
-                0x0c085318                PY_mb_keo
-                0x0c086b34                PY_mb_shun
- .data          0x0c089170       0x10 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
-                0x0c089170                STATUS_REG_READ_WM
-                0x0c089172                IIC_CLK_WIDTH
- .data          0x0c089180       0x7c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
-                0x0c0891c6                arr_FD_32
-                0x0c089180                arr_FD_31
- .data          0x0c0891fc        0x1 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
- .data          0x0c0891fd        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
- .data          0x0c0891fd        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
- .data          0x0c0891fd        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
- .data          0x0c0891fd        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
- *fill*         0x0c0891fd        0x3 00
- .data          0x0c089200        0x8 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
- .data          0x0c089208        0xc E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
- .data          0x0c089214    0x103a0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
-                0x0c0913e4                UCS2_GB
-                0x0c089214                GB_UCS2
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
- .data          0x0c0995b4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
- .data          0x0c0995b4        0x4 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
-                0x0c0995b4                __ctype_ptr
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
- .data          0x0c0995b8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
- .data          0x0c0995b8        0x4 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
-                0x0c0995b8                __fdlib_version
- .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
- .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
- .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
- .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
- .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
-                0x0c0995bc                . = ALIGN (0x4)
-                0x0c0995bc                _edata = .
+ .data          0x0c082c58        0xc E:/WF/develop_windows/sffhandpos/Release/crt0.o
+                0x0c082c58                environ
+                0x0c082c5c                stack_ptr
+                0x0c082c60                funcmain
+ .data          0x0c082c64        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
+ .data          0x0c082c64        0x8 E:/WF/develop_windows/sffhandpos/Release/Card.o
+                0x0c082c64                dummy_key
+ .data          0x0c082c6c        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
+ .data          0x0c082c6c        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
+ .data          0x0c082c6c        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
+ .data          0x0c082c6c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
+ .data          0x0c082c6c      0x404 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
+                0x0c082c6c                _impure_ptr
+ .data          0x0c083070       0x10 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
+                0x0c083070                __mb_cur_max
+                0x0c083074                __lc_ctype
+ .data          0x0c083080        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
+ .data          0x0c083080      0x410 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
+                0x0c08348c                __malloc_sbrk_base
+                0x0c083080                __malloc_av_
+                0x0c083488                __malloc_trim_threshold
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
+ .data          0x0c083490        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
+ .data          0x0c083490     0x5ce8 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
+                0x0c086f70                PY_mb_tu
+                0x0c085200                PY_mb_ka
+                0x0c083d10                PY_mb_chui
+                0x0c086788                PY_mb_san
+                0x0c084a24                PY_mb_hou
+                0x0c08396c                PY_mb_cao
+                0x0c0840c0                PY_mb_die
+                0x0c087340                PY_mb_xia
+                0x0c088408                PY_mb_zuo
+                0x0c086f14                PY_mb_tong
+                0x0c085588                PY_mb_leng
+                0x0c084760                PY_mb_gua
+                0x0c087e4c                PY_mb_zei
+                0x0c083cf8                PY_mb_chuang
+                0x0c083988                PY_mb_ce
+                0x0c0867ac                PY_mb_sao
+                0x0c087fd4                PY_mb_zhen
+                0x0c087ec0                PY_mb_zhai
+                0x0c086208                PY_mb_pu
+                0x0c087cb8                PY_mb_yuan
+                0x0c086bd4                PY_mb_song
+                0x0c0849cc                PY_mb_hei
+                0x0c083e88                PY_mb_da
+                0x0c0859f0                PY_mb_mang
+                0x0c0888ac                PY_index_k
+                0x0c085e90                PY_mb_nuo
+                0x0c084d5c                PY_mb_jia
+                0x0c085d70                PY_mb_ng
+                0x0c0842fc                PY_mb_fa
+                0x0c088134                PY_mb_zhong
+                0x0c0883a0                PY_mb_zu
+                0x0c08705c                PY_mb_wai
+                0x0c085e20                PY_mb_ning
+                0x0c088c04                PY_index_q
+                0x0c087914                PY_mb_yen
+                0x0c0875bc                PY_mb_xiu
+                0x0c086fac                PY_mb_tui
+                0x0c085054                PY_mb_jiong
+                0x0c086320                PY_mb_qia
+                0x0c0881b8                PY_mb_zhu
+                0x0c088388                PY_mb_zou
+                0x0c086ed8                PY_mb_tie
+                0x0c083aa4                PY_mb_chao
+                0x0c0859c4                PY_mb_man
+                0x0c0856a0                PY_mb_liang
+                0x0c084dc4                PY_mb_jian
+                0x0c088b64                PY_index_o
+                0x0c083fa0                PY_mb_de
+                0x0c0853ec                PY_mb_kui
+                0x0c084f14                PY_mb_jie
+                0x0c0865f8                PY_mb_que
+                0x0c084560                PY_mb_gan
+                0x0c0854ac                PY_mb_lan
+                0x0c084f9c                PY_mb_jin
+                0x0c085cb4                PY_mb_na
+                0x0c085358                PY_mb_ku
+                0x0c086e20                PY_mb_ti
+                0x0c084184                PY_mb_du
+                0x0c085814                PY_mb_lou
+                0x0c0858a4                PY_mb_luan
+                0x0c087548                PY_mb_xin
+                0x0c0847dc                PY_mb_gui
+                0x0c086c60                PY_mb_sui
+                0x0c08806c                PY_mb_zhi
+                0x0c0883e0                PY_mb_zui
+                0x0c088370                PY_mb_zong
+                0x0c086784                PY_mb_sal
+                0x0c087d10                PY_mb_yue
+                0x0c084044                PY_mb_dian
+                0x0c084780                PY_mb_guai
+                0x0c0837cc                PY_mb_biao
+                0x0c083d44                PY_mb_chuo
+                0x0c086ea8                PY_mb_tiao
+                0x0c083490                PY_mb_a
+                0x0c084408                PY_mb_feng
+                0x0c086198                PY_mb_ping
+                0x0c08879c                PY_index_h
+                0x0c085978                PY_mb_ma
+                0x0c084538                PY_mb_gai
+                0x0c083c70                PY_mb_chu
+                0x0c087038                PY_mb_uu
+                0x0c085dd0                PY_mb_niang
+                0x0c085458                PY_mb_kuo
+                0x0c086250                PY_mb_q
+                0x0c085554                PY_mb_lei
+                0x0c08523c                PY_mb_kan
+                0x0c086144                PY_mb_piao
+                0x0c0842cc                PY_mb_ei
+                0x0c088ef4                PY_index_x
+                0x0c084448                PY_mb_fou
+                0x0c085eb0                PY_mb_nv
+                0x0c087e70                PY_mb_zha
+                0x0c084124                PY_mb_diu
+                0x0c085a0c                PY_mb_mao
+                0x0c083cc0                PY_mb_chua
+                0x0c087ee8                PY_mb_zhan
+                0x0c087dc4                PY_mb_zan
+                0x0c08675c                PY_mb_sa
+                0x0c0875e8                PY_mb_xu
+                0x0c086254                PY_mb_qi
+                0x0c087a58                PY_mb_yin
+                0x0c088a0c                PY_index_m
+                0x0c086178                PY_mb_pin
+                0x0c085fc4                PY_mb_pei
+                0x0c085d6c                PY_mb_neus
+                0x0c084ea0                PY_mb_jiao
+                0x0c0870dc                PY_mb_wei
+                0x0c0849fc                PY_mb_hong
+                0x0c0857a0                PY_mb_liu
+                0x0c0870b4                PY_mb_wang
+                0x0c08488c                PY_mb_ha
+                0x0c08828c                PY_mb_zhui
+                0x0c0863f0                PY_mb_qiao
+                0x0c085f18                PY_mb_pai
+                0x0c08412c                PY_mb_dong
+                0x0c085594                PY_mb_li
+                0x0c084224                PY_mb_duo
+                0x0c085f34                PY_mb_pan
+                0x0c08843c                PY_index_a
+                0x0c087ab8                PY_mb_ying
+                0x0c0857e8                PY_mb_long
+                0x0c0846f4                PY_mb_gu
+                0x0c086b50                PY_mb_shuo
+                0x0c0849d4                PY_mb_hen
+                0x0c085ae8                PY_mb_mi
+                0x0c0852f4                PY_mb_kei
+                0x0c08703c                PY_mb_wa
+                0x0c085838                PY_mb_lu
+                0x0c084084                PY_mb_diao
+                0x0c085dd8                PY_mb_niao
+                0x0c0871f0                PY_mb_wu
+                0x0c0871c0                PY_mb_wo
+                0x0c085654                PY_mb_lian
+                0x0c085470                PY_mb_la
+                0x0c0842dc                PY_mb_er
+                0x0c084440                PY_mb_fiao
+                0x0c086744                PY_mb_run
+                0x0c086890                PY_mb_shang
+                0x0c083f64                PY_mb_dao
+                0x0c085144                PY_mb_juan
+                0x0c087e20                PY_mb_ze
+                0x0c08550c                PY_mb_lao
+                0x0c087918                PY_mb_yi
+                0x0c084aec                PY_mb_huai
+                0x0c086920                PY_mb_shen
+                0x0c085d5c                PY_mb_nen
+                0x0c0845c4                PY_mb_gao
+                0x0c084c48                PY_mb_ji
+                0x0c0868b0                PY_mb_shao
+                0x0c0835f0                PY_mb_bang
+                0x0c088eac                PY_index_w
+                0x0c0839b8                PY_mb_cha
+                0x0c086b74                PY_mb_si
+                0x0c083dec                PY_mb_cu
+                0x0c0860f0                PY_mb_pianpang
+                0x0c0858c8                PY_mb_lun
+                0x0c087d94                PY_mb_za
+                0x0c0874cc                PY_mb_xie
+                0x0c088248                PY_mb_zhuai
+                0x0c086c90                PY_mb_sun
+                0x0c085264                PY_mb_kang
+                0x0c083594                PY_mb_bai
+                0x0c08663c                PY_mb_rang
+                0x0c086cdc                PY_mb_ta
+                0x0c0839f8                PY_mb_chai
+                0x0c0848bc                PY_mb_han
+                0x0c0884e4                PY_index_c
+                0x0c086994                PY_mb_shi
+                0x0c087718                PY_mb_ya
+                0x0c085ff8                PY_mb_pen
+                0x0c086fec                PY_mb_tuo
+                0x0c08802c                PY_mb_zheng
+                0x0c08451c                PY_mb_ga
+                0x0c0861f0                PY_mb_pou
+                0x0c084abc                PY_mb_hua
+                0x0c08399c                PY_mb_cen
+                0x0c08883c                PY_index_j
+                0x0c0883cc                PY_mb_zuan
+                0x0c0836c0                PY_mb_beng
+                0x0c0883f8                PY_mb_zun
+                0x0c08826c                PY_mb_zhuang
+                0x0c085d78                PY_mb_ni
+                0x0c083a64                PY_mb_chang
+                0x0c085720                PY_mb_lin
+                0x0c088aa4                PY_index_n
+                0x0c088704                PY_index_g
+                0x0c085ec8                PY_mb_o
+                0x0c086a6c                PY_mb_shu
+                0x0c085974                PY_mb_m
+                0x0c085284                PY_mb_kao
+                0x0c08351c                PY_mb_ao
+                0x0c087f8c                PY_mb_zhe
+                0x0c083b38                PY_mb_cheng
+                0x0c08769c                PY_mb_xue
+                0x0c087d4c                PY_mb_yun
+                0x0c085bf0                PY_mb_mo
+                0x0c0876c0                PY_mb_xun
+                0x0c0866ac                PY_mb_ri
+                0x0c0838e8                PY_mb_bu
+                0x0c0857e4                PY_mb_lo
+                0x0c087f24                PY_mb_zhang
+                0x0c085324                PY_mb_keop
+                0x0c0836a8                PY_mb_ben
+                0x0c08671c                PY_mb_ruan
+                0x0c087460                PY_mb_xiao
+                0x0c085ec0                PY_mb_nve
+                0x0c0841fc                PY_mb_dun
+                0x0c0839b4                PY_mb_ceok
+                0x0c086b1c                PY_mb_shuang
+                0x0c085dac                PY_mb_nian
+                0x0c08869c                PY_index_e
+                0x0c086b0c                PY_mb_shuan
+                0x0c088dfc                PY_index_t
+                0x0c087418                PY_mb_xiang
+                0x0c086d10                PY_mb_tai
+                0x0c085584                PY_mb_len
+                0x0c0864c4                PY_mb_qing
+                0x0c0866b0                PY_mb_rong
+                0x0c084fec                PY_mb_jing
+                0x0c085e18                PY_mb_nin
+                0x0c085d50                PY_mb_nei
+                0x0c0875a8                PY_mb_xiong
+                0x0c0843c8                PY_mb_fen
+                0x0c0851d4                PY_mb_jun
+                0x0c083868                PY_mb_bo
+                0x0c08669c                PY_mb_reng
+                0x0c086670                PY_mb_ren
+                0x0c08533c                PY_mb_kou
+                0x0c0871bc                PY_mb_wie
+                0x0c0853b0                PY_mb_kuan
+                0x0c083d24                PY_mb_chun
+                0x0c085ba0                PY_mb_min
+                0x0c0852f8                PY_mb_kem
+                0x0c0834a0                PY_mb_ai
+                0x0c0834dc                PY_mb_an
+                0x0c084b50                PY_mb_huang
+                0x0c086008                PY_mb_peng
+                0x0c087e54                PY_mb_zen
+                0x0c088834                PY_index_i
+                0x0c084040                PY_mb_dia
+                0x0c083814                PY_mb_bin
+                0x0c086518                PY_mb_qiu
+                0x0c084668                PY_mb_geng
+                0x0c083af0                PY_mb_chen
+                0x0c0867f4                PY_mb_sha
+                0x0c088240                PY_mb_zhua
+                0x0c08674c                PY_mb_ruo
+                0x0c085cf4                PY_mb_nan
+                0x0c083f44                PY_mb_dang
+                0x0c0846c0                PY_mb_gou
+                0x0c086964                PY_mb_sheng
+                0x0c0868e4                PY_mb_she
+                0x0c087868                PY_mb_yao
+                0x0c086bf8                PY_mb_sou
+                0x0c0849e4                PY_mb_heng
+                0x0c08365c                PY_mb_bei
+                0x0c0835b8                PY_mb_ban
+                0x0c085e40                PY_mb_niu
+                0x0c083e50                PY_mb_cun
+                0x0c085cd8                PY_mb_nai
+                0x0c087fd0                PY_mb_zhei
+                0x0c085cac                PY_mb_n
+                0x0c08431c                PY_mb_fan
+                0x0c0856cc                PY_mb_liao
+                0x0c088fdc                PY_index_z
+                0x0c083e60                PY_mb_cuo
+                0x0c083fd8                PY_mb_di
+                0x0c084658                PY_mb_gen
+                0x0c0882b0                PY_mb_zhun
+                0x0c08459c                PY_mb_gang
+                0x0c083fb4                PY_mb_dei
+                0x0c088ce4                PY_index_s
+                0x0c08910c                PY_index_headletter
+                0x0c08633c                PY_mb_qian
+                0x0c085650                PY_mb_lia
+                0x0c0867f0                PY_mb_seng
+                0x0c086eec                PY_mb_ting
+                0x0c086c50                PY_mb_suan
+                0x0c08437c                PY_mb_fei
+                0x0c0863b8                PY_mb_qiang
+                0x0c085bc8                PY_mb_ming
+                0x0c088438                PY_mb_space
+                0x0c087df4                PY_mb_zao
+                0x0c088310                PY_mb_zi
+                0x0c086480                PY_mb_qin
+                0x0c0860cc                PY_mb_pian
+                0x0c085d74                PY_mb_ngag
+                0x0c087178                PY_mb_wen
+                0x0c084a48                PY_mb_hu
+                0x0c087e5c                PY_mb_zeng
+                0x0c083928                PY_mb_cai
+                0x0c0854e8                PY_mb_lang
+                0x0c087b1c                PY_mb_yong
+                0x0c0852a0                PY_mb_ke
+                0x0c087068                PY_mb_wan
+                0x0c084834                PY_mb_gun
+                0x0c084e6c                PY_mb_jiang
+                0x0c08489c                PY_mb_hai
+                0x0c0837fc                PY_mb_bie
+                0x0c08537c                PY_mb_kua
+                0x0c085b34                PY_mb_mian
+                0x0c083618                PY_mb_bao
+                0x0c089104                PY_index_end
+                0x0c086dfc                PY_mb_te
+                0x0c083fb8                PY_mb_deng
+                0x0c083d70                PY_mb_ci
+                0x0c086b2c                PY_mb_shui
+                0x0c088b74                PY_index_p
+                0x0c085be8                PY_mb_miu
+                0x0c085dec                PY_mb_nie
+                0x0c086b70                PY_mb_shw
+                0x0c084450                PY_mb_fu
+                0x0c088164                PY_mb_zhou
+                0x0c084268                PY_mb_e
+                0x0c08383c                PY_mb_bing
+                0x0c0841e0                PY_mb_dui
+                0x0c085c74                PY_mb_mu
+                0x0c086aec                PY_mb_shua
+                0x0c083eb4                PY_mb_dai
+                0x0c0867c8                PY_mb_se
+                0x0c086620                PY_mb_qun
+                0x0c085e54                PY_mb_nong
+                0x0c085f9c                PY_mb_pao
+                0x0c085e64                PY_mb_nou
+                0x0c084850                PY_mb_guo
+                0x0c086c1c                PY_mb_su
+                0x0c0845f4                PY_mb_ge
+                0x0c086168                PY_mb_pie
+                0x0c085434                PY_mb_kun
+                0x0c085d10                PY_mb_nang
+                0x0c087b58                PY_mb_you
+                0x0c085390                PY_mb_kuai
+                0x0c085b60                PY_mb_miao
+                0x0c085540                PY_mb_le
+                0x0c087280                PY_mb_xi
+                0x0c086dcc                PY_mb_tao
+                0x0c084b04                PY_mb_huan
+                0x0c085d20                PY_mb_nao
+                0x0c083ef0                PY_mb_dan
+                0x0c0866d8                PY_mb_rou
+                0x0c085064                PY_mb_jiu
+                0x0c0886bc                PY_index_f
+                0x0c085490                PY_mb_lai
+                0x0c0858bc                PY_mb_lue
+                0x0c0842d0                PY_mb_en
+                0x0c083b90                PY_mb_chi
+                0x0c087770                PY_mb_yan
+                0x0c083a14                PY_mb_chan
+                0x0c084934                PY_mb_hao
+                0x0c083db0                PY_mb_cong
+                0x0c087654                PY_mb_xuan
+                0x0c08691c                PY_mb_shei
+                0x0c08662c                PY_mb_ran
+                0x0c086650                PY_mb_rao
+                0x0c084688                PY_mb_gong
+                0x0c08391c                PY_mb_ca
+                0x0c0839a4                PY_mb_ceng
+                0x0c087de0                PY_mb_zang
+                0x0c083940                PY_mb_can
+                0x0c085ed0                PY_mb_ou
+                0x0c0878c8                PY_mb_ye
+                0x0c085e88                PY_mb_nue
+                0x0c086f54                PY_mb_tou
+                0x0c087b14                PY_mb_yo
+                0x0c085c54                PY_mb_mou
+                0x0c086e14                PY_mb_teng
+                0x0c08378c                PY_mb_bian
+                0x0c083cc4                PY_mb_chuai
+                0x0c08575c                PY_mb_ling
+                0x0c085328                PY_mb_kong
+                0x0c0885ec                PY_index_d
+                0x0c083dd0                PY_mb_cou
+                0x0c087388                PY_mb_xian
+                0x0c086e6c                PY_mb_tian
+                0x0c0841c8                PY_mb_duan
+                0x0c085a50                PY_mb_me
+                0x0c08415c                PY_mb_dou
+                0x0c0836e4                PY_mb_bi
+                0x0c08893c                PY_index_l
+                0x0c085e80                PY_mb_nuan
+                0x0c083c3c                PY_mb_chou
+                0x0c087574                PY_mb_xing
+                0x0c084bec                PY_mb_hun
+                0x0c084b88                PY_mb_hui
+                0x0c085ab4                PY_mb_meng
+                0x0c0861bc                PY_mb_po
+                0x0c084968                PY_mb_he
+                0x0c086a48                PY_mb_shou
+                0x0c085a9c                PY_mb_men
+                0x0c0859a8                PY_mb_mai
+                0x0c0853c0                PY_mb_kuang
+                0x0c086ca8                PY_mb_suo
+                0x0c088f64                PY_index_y
+                0x0c088e9c                PY_index_u
+                0x0c0866e8                PY_mb_ru
+                0x0c08782c                PY_mb_yang
+                0x0c086f98                PY_mb_tuan
+                0x0c086728                PY_mb_rui
+                0x0c086564                PY_mb_qu
+                0x0c08478c                PY_mb_guan
+                0x0c0867e8                PY_mb_sen
+                0x0c086774                PY_mb_sai
+                0x0c086500                PY_mb_qiong
+                0x0c0847c4                PY_mb_guang
+                0x0c0858dc                PY_mb_luo
+                0x0c086d8c                PY_mb_tang
+                0x0c085934                PY_mb_lv
+                0x0c08395c                PY_mb_cang
+                0x0c083cd4                PY_mb_chuan
+                0x0c0852fc                PY_mb_ken
+                0x0c085214                PY_mb_kai
+                0x0c086040                PY_mb_pi
+                0x0c083510                PY_mb_ang
+                0x0c083e14                PY_mb_cuan
+                0x0c0871ac                PY_mb_weng
+                0x0c086e10                PY_mb_tei
+                0x0c085d40                PY_mb_ne
+                0x0c084354                PY_mb_fang
+                0x0c087f58                PY_mb_zhao
+                0x0c085178                PY_mb_jue
+                0x0c086afc                PY_mb_shuai
+                0x0c0865bc                PY_mb_quan
+                0x0c088250                PY_mb_zhuan
+                0x0c087dac                PY_mb_zai
+                0x0c085d64                PY_mb_neng
+                0x0c084654                PY_mb_gei
+                0x0c0856fc                PY_mb_lie
+                0x0c085a58                PY_mb_mei
+                0x0c083554                PY_mb_ba
+                0x0c088c74                PY_index_r
+                0x0c088ea4                PY_index_v
+                0x0c085e68                PY_mb_nu
+                0x0c084444                PY_mb_fo
+                0x0c0850a8                PY_mb_ju
+                0x0c084c10                PY_mb_huo
+                0x0c08644c                PY_mb_qie
+                0x0c086664                PY_mb_re
+                0x0c083c10                PY_mb_chong
+                0x0c084914                PY_mb_hang
+                0x0c0840f4                PY_mb_ding
+                0x0c086828                PY_mb_shai
+                0x0c086fc8                PY_mb_tun
+                0x0c085f74                PY_mb_pang
+                0x0c086d3c                PY_mb_tan
+                0x0c085b8c                PY_mb_mie
+                0x0c085310                PY_mb_keng
+                0x0c083ad0                PY_mb_che
+                0x0c085ef4                PY_mb_pa
+                0x0c0882c8                PY_mb_zhuo
+                0x0c083e28                PY_mb_cui
+                0x0c088464                PY_index_b
+                0x0c087bc0                PY_mb_yu
+                0x0c086834                PY_mb_shan
+                0x0c08679c                PY_mb_sang
+                0x0c085320                PY_mb_keo
+                0x0c086b3c                PY_mb_shun
+ .data          0x0c089178       0x10 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
+                0x0c089178                STATUS_REG_READ_WM
+                0x0c08917a                IIC_CLK_WIDTH
+ .data          0x0c089188       0x7c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
+                0x0c0891ce                arr_FD_32
+                0x0c089188                arr_FD_31
+ .data          0x0c089204        0x1 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
+ .data          0x0c089205        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
+ .data          0x0c089205        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
+ .data          0x0c089205        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
+ .data          0x0c089205        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
+ *fill*         0x0c089205        0x3 00
+ .data          0x0c089208        0x8 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
+ .data          0x0c089210        0xc E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
+ .data          0x0c08921c    0x103a0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
+                0x0c0913ec                UCS2_GB
+                0x0c08921c                GB_UCS2
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
+ .data          0x0c0995bc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
+ .data          0x0c0995bc        0x4 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
+                0x0c0995bc                __ctype_ptr
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
+ .data          0x0c0995c0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
+ .data          0x0c0995c0        0x4 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
+                0x0c0995c0                __fdlib_version
+ .data          0x0c0995c4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
+ .data          0x0c0995c4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
+ .data          0x0c0995c4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
+ .data          0x0c0995c4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
+ .data          0x0c0995c4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
+                0x0c0995c4                . = ALIGN (0x4)
+                0x0c0995c4                _edata = .
 
-.bss            0x0c0995c0     0x1488
-                0x0c0995c0                . = ALIGN (0x4)
-                0x0c0995c0                _start_bss = .
+.bss            0x0c0995c8     0x1488
+                0x0c0995c8                . = ALIGN (0x4)
+                0x0c0995c8                _start_bss = .
  *(.bss)
- .bss           0x0c0995c0        0xc E:/WF/develop_windows/sffhandpos/Release/crt0.o
-                0x0c0995c0                __env
- .bss           0x0c0995cc        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
- .bss           0x0c0995cc        0x0 E:/WF/develop_windows/sffhandpos/Release/Card.o
- .bss           0x0c0995cc        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
- .bss           0x0c0995cc        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
- .bss           0x0c0995cc        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
- .bss           0x0c0995cc        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
- .bss           0x0c0995cc        0xc E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
-                0x0c0995cc                __nlocale_changed
-                0x0c0995d0                __mlocale_changed
-                0x0c0995d4                _PathLocale
- .bss           0x0c0995d8        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
- .bss           0x0c0995d8       0x34 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
-                0x0c0995d8                __malloc_top_pad
-                0x0c0995dc                __malloc_max_sbrked_mem
-                0x0c0995e4                __malloc_current_mallinfo
-                0x0c0995e0                __malloc_max_total_mem
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
- .bss           0x0c09960c        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
- .bss           0x0c09960c        0x4 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
- .bss           0x0c099610        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
- .bss           0x0c099610       0x10 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
- .bss           0x0c099620       0xc4 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
- .bss           0x0c0996e4       0x60 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
- .bss           0x0c099744        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
- .bss           0x0c099744        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
- .bss           0x0c099744        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
- .bss           0x0c099744        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
- .bss           0x0c099744      0x14c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
- .bss           0x0c099890        0x2 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
- .bss           0x0c099892        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
+ .bss           0x0c0995c8        0xc E:/WF/develop_windows/sffhandpos/Release/crt0.o
+                0x0c0995c8                __env
+ .bss           0x0c0995d4        0x0 E:/WF/develop_windows/sffhandpos/Release/SF.o
+ .bss           0x0c0995d4        0x0 E:/WF/develop_windows/sffhandpos/Release/Card.o
+ .bss           0x0c0995d4        0x0 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
+ .bss           0x0c0995d4        0x0 E:/WF/develop_windows/sffhandpos/Release/Common.o
+ .bss           0x0c0995d4        0x0 E:/WF/develop_windows/sffhandpos/Release/Gprs.o
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcpy.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memset.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-sprintf.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcat.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcmp.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strcpy.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strlen.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strncpy.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtok_r.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-vfprintf.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcrtomb.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wcsrtombs.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wctomb_r.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-wsetup.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-dtoa.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fflush.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-findfp.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-freer.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fvwrite.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fwalk.o)
+ .bss           0x0c0995d4        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-impure.o)
+ .bss           0x0c0995d4        0xc E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-locale.o)
+                0x0c0995d4                __nlocale_changed
+                0x0c0995d8                __mlocale_changed
+                0x0c0995dc                _PathLocale
+ .bss           0x0c0995e0        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-makebuf.o)
+ .bss           0x0c0995e0       0x34 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mallocr.o)
+                0x0c0995e0                __malloc_top_pad
+                0x0c0995e4                __malloc_max_sbrked_mem
+                0x0c0995ec                __malloc_current_mallinfo
+                0x0c0995e8                __malloc_max_total_mem
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memchr.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memmove.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mlock.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-mprec.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-reallocr.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isinfd.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-s_isnand.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-stdio.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-callocr.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-fclose.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(libARMPos.o)
+ .bss           0x0c099614        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libARMPos.a(call_api.o)
+ .bss           0x0c099614        0x4 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
+ .bss           0x0c099618        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib_pinyin.o)
+ .bss           0x0c099618       0x10 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(libcard.o)
+ .bss           0x0c099628       0xc4 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcard.a(cpucard.o)
+ .bss           0x0c0996ec       0x60 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(iso14443.o)
+ .bss           0x0c09974c        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(mifare.o)
+ .bss           0x0c09974c        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(port.o)
+ .bss           0x0c09974c        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxcomm.o)
+ .bss           0x0c09974c        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libcontactless.a(rcxreg.o)
+ .bss           0x0c09974c      0x14c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libdb.a(database.o)
+ .bss           0x0c099898        0x2 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(sim.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libsim.a(trans.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_udivsi3.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_divsi3.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_umodsi3.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_modsi3.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_dvmd_tls.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_addsubdf3.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_muldivdf3.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_cmpdf2.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixdfsi.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libgcc.a(_fixunsdfsi.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atoi.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-atol.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-bsearch.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-ctype_.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-memcmp.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strstr.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strtol.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-strupr.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-w_pow.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_pow.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-e_sqrt.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_fabs.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_finite.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_lib_ver.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_matherr.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_rint.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_scalbn.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libm.a(lib_a-s_copysign.o)
+ .bss           0x0c09989a        0x0 E:/WF/ARM7-SDK-2011-07-20/GNU/arm-elf/lib//libc.a(lib_a-errno.o)
  *(COMMON)
- *fill*         0x0c099892        0x2 00
- COMMON         0x0c099894        0x4 E:/WF/develop_windows/sffhandpos/Release/crt0.o
-                0x0c099894                errno
- COMMON         0x0c099898     0x111b E:/WF/develop_windows/sffhandpos/Release/SF.o
-                0x0c099898                password
-                0x0c0998a9                submitpassword
-                0x0c0998ba                username
-                0x0c0998cc                g_simerr
-                0x0c0998ce                submitname
-                0x0c0998df                sno
-                0x0c0998e3                ATQ
-                0x0c0998e6                systime
-                0x0c0998fc                datainfo
-                0x0c099938                Menu
-                0x0c09a9a2                anticode
- *fill*         0x0c09a9b3        0x1 00
- COMMON         0x0c09a9b4       0x78 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
-                0x0c09a9b4                flagarr
- COMMON         0x0c09aa2c       0x1c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
-                0x0c09aa2c                G_sys_param
-                0x0c09aa48                . = ALIGN (0x4)
-                0x0c09aa48                _end_bss = .
-                0x0c09aa48                . = ALIGN (0x4)
-                0x0c09aa48                end = .
-                0x0c09aa48                _end = .
+ *fill*         0x0c09989a        0x2 00
+ COMMON         0x0c09989c        0x4 E:/WF/develop_windows/sffhandpos/Release/crt0.o
+                0x0c09989c                errno
+ COMMON         0x0c0998a0     0x111b E:/WF/develop_windows/sffhandpos/Release/SF.o
+                0x0c0998a0                password
+                0x0c0998b1                submitpassword
+                0x0c0998c2                username
+                0x0c0998d4                g_simerr
+                0x0c0998d6                submitname
+                0x0c0998e7                sno
+                0x0c0998eb                ATQ
+                0x0c0998ee                systime
+                0x0c099904                datainfo
+                0x0c099940                Menu
+                0x0c09a9aa                anticode
+ *fill*         0x0c09a9bb        0x1 00
+ COMMON         0x0c09a9bc       0x78 E:/WF/develop_windows/sffhandpos/Release/DataBase.o
+                0x0c09a9bc                flagarr
+ COMMON         0x0c09aa34       0x1c E:/WF/ARM7-SDK-2011-07-20/HHFiles/lib//libext.a(exlib.o)
+                0x0c09aa34                G_sys_param
+                0x0c09aa50                . = ALIGN (0x4)
+                0x0c09aa50                _end_bss = .
+                0x0c09aa50                . = ALIGN (0x4)
+                0x0c09aa50                end = .
+                0x0c09aa50                _end = .
 OUTPUT(E:/WF/develop_windows/sffhandpos/Release/SF.cof elf32-littlearm)
 
 .comment        0x00000000      0x522
