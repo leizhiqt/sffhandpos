@@ -415,7 +415,7 @@ void SubmitData(){
 			}
 
 			//打开GPRS模块
-			if(flag == 0){ 
+			if(flag == 0){
 				for(i=0;i<3;i++){
 					if(OpenGPRS()==0){
 						flag = 1;
@@ -423,12 +423,14 @@ void SubmitData(){
 					}
 				}
 
-				//GPRS不能连接
-				DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
-				DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
-				delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+				if(flag == 0){ 
+					//GPRS不能连接
+					DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
+					DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
+					delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
-				return;
+					return;
+				}
 			}
 
 			//上传数据
@@ -501,11 +503,11 @@ void SubmitData(){
 				}else if(err ==3){//退出 
 					DisConnectServer();
 					return;
-				}else{
+				}/*else{
 					WarningBeep(0); 
 					DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
 					delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-				}
+				}*/
 			}
 		}//loop while
 	}
