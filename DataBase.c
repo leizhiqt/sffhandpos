@@ -182,7 +182,7 @@ short EncodeSendData(char* name ,char* passwd,char* senddata){  //分批封装记录
 		int norecord=0;
 
 		int i=0;
-		memset(Menu,'\0',150*28+2);
+		memset(Menu,'\0',150*PAGENUM+2);
 
 		while(temp<recordnum){
 			pdi=DB_jump_to_record(0,temp,&flag);
@@ -231,16 +231,9 @@ short EncodeSendData(char* name ,char* passwd,char* senddata){  //分批封装记录
 		senddata[strlen(senddata)]='\n';
 
 		if(norecord == recordnum){ //没有记录 
-			return 1; 
-		}else{
-			return 0;
+			return -1; 
 		}
 	}
-	/*DispStr_CE(0,0,"本次提交数据如下：",DISP_CENTER|DISP_CLRSCR);
-	DispStr_CE(0,2,"按任意键提交",DISP_CENTER);
-	EXT_Display_Multi_Lines(senddata,4,34);
-	delay_and_wait_key(0,EXIT_KEY_ALL,0);   
-	*/
 	return 0; 
 }
 

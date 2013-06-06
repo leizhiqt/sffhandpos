@@ -42,7 +42,7 @@ typedef struct {
 
 DataInfo datainfo;
 
-char Menu[150*28+2];
+char Menu[150*PAGENUM+2];
 
 short FindDatabase();
 

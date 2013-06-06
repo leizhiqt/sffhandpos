@@ -28,15 +28,7 @@
 #include "DataBase.h"
 #include "Gprs.h"
 
-/*
-extern char username[USERNAME_LEN];
-extern char password[USERNAME_LEN];
-extern unsigned char  anticode[ANTIFAKECODE_LEN];
-extern char systime[QUERYTIME_LEN];
-
-extern char submitname[USERNAME_LEN];
-extern char submitpassword[USERNAME_LEN];
-*/
+extern  short  ConnectServer();
 
 short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag ){
 	BROWINFO	bi;
@@ -89,14 +81,14 @@ short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag 
 	}
 }
 
-void PackUpMenuData(char Menu[], int MenuCount, int LineLen)
+void PackUpMenuData(char menu[], int MenuCount, int LineLen)
 {
 	int i = 0;
-	Menu[MenuCount * LineLen + 2] = '\0';
+	menu[MenuCount * LineLen + 2] = '\0';
 	for(i = 0; i < (MenuCount * LineLen + 1); ++i)
 	{
-		if(Menu[i] == '\0')
-		{Menu[i] = 0x20;}
+		if(menu[i] == '\0')
+		{menu[i] = 0x20;}
 	}
 }
 
@@ -104,7 +96,7 @@ short Display(short flag)
  {
  	int lPtr = 0;
          int cPtr=0;	
-	int RCount = 0;
+	//int RCount = 0;
        //int i=0;
        int IntRet;
        
@@ -342,7 +334,10 @@ void SubmitData(){
 
 	long choose ;
 	short failedtimes =0;
-	short opengprstimes=0;
+	//short opengprstimes=0;
+
+	int i=0;
+	
 	choose = Alert(); 
 	switch(choose){
 		case EXIT_KEY_F1:
@@ -388,141 +383,131 @@ void SubmitData(){
 	if(ret == 0){//刷卡登陆成功   获取了登陆用户名和密码
 		int flag=0;//标记是否打开gprs模块 
 
-		char senddata[3000];
-		memset(senddata,0,3000);
-		char recvdata[3000];
-		memset(recvdata,0,3000);
-		int index =0;
+		int maxs=60*PAGENUM+5;
+		int maxr=6*PAGENUM+5;
+
+		char senddata[maxs];
+		char recvdata[maxr];
+
+		int upCount =0;
 		while(1){
-			/* DispStr_CE(0,0,"while 开始循环",DISP_CENTER|DISP_CLRSCR);  
-			delay_and_wait_key(0,EXIT_KEY_ALL,0);  ;
-			*/
+			memset(senddata,0,maxs);
+			memset(recvdata,0,maxr);
 
-			memset(senddata,0,3000);
-			memset(recvdata,0,3000);
-
-			if(EncodeSendData(submitname,submitpassword,senddata)==1){
+			//暂存没有数据
+			if(EncodeSendData(submitname,submitpassword,senddata)<0){
 				WarningBeep(0); 
 
-				DispStr_CE(0,0,"记录全部提交，按任意键退出",DISP_CENTER|DISP_CLRSCR);
+				DispStr_CE(0,0,"没有数据提交，按任意键退出",DISP_CENTER|DISP_CLRSCR);
 
 				delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
-				if(index ==0){
+				if(upCount ==0){
 					sim300_close();
 				}else{
-					index =0;
+					upCount =0;
 					DisConnectServer();
 				}
 
 				CreateDatabase();
 
 				return; 
-			}else{
-				index++;
-				if(flag == 0){ //没有打开gprs模块   打开gprsmok 
-					ret=OpenGPRS();
-					if(ret ==0){
+			}
+
+			//打开GPRS模块
+			if(flag == 0){ 
+				for(i=0;i<3;i++){
+					if(OpenGPRS()==0){
 						flag = 1;
-					}else{//失败 
-						opengprstimes++;
-
-						if(opengprstimes ==3){
-							//WarningBeep(2);
-							// sim300_close(); 
-							DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
-							DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
-							delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-							return;
-						}
-
-						continue;
-						flag = 0;
-					}
-				}else{	//已经打开服务器 
-					//显示要发送的数据
-					// DispStr_CE(0,0,"本次提交数据如下：",DISP_CENTER|DISP_CLRSCR);
-					//DispStr_CE(0,2,"按任意键提交",DISP_CENTER);
-
-					WarningBeep(0);
-
-					// EXT_Display_Multi_Lines(senddata,4,34);
-
-					short err = Display(0);
-					if(err == -1){//退出 
-						DisConnectServer();
-						return;
-					}else if(err == 0){//确认提交 
-
-					}
-					//发送数据
-					if(SendData(senddata)==-1){
-						//发送失败
-						WarningBeep(2);
-						failedtimes++;
-						if(failedtimes<3){
-							DispStr_CE(0,0,"网络断开，请重新连接",DISP_CENTER|DISP_CLRSCR);
-
-							Disp_Goto_XY(0,36);
-							DispStr_CE(0,36,"【F1退出重连】",DISP_CURRENT);
-							// DispStr_CE(0,36,"【F3再次尝试】",DISP_RIGHT);
-							long temp_value; 
-							temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
-							if(EXIT_KEY_F1 == temp_value){//退出 
-								sim300_close();
-								return; 
-							}
-						}else{
-							failedtimes =0;
-							DispStr_CE(0,0,"尝试次数过多，请核对后再重试！",DISP_CENTER|DISP_CLRSCR);
-						}
-						delay_and_wait_key(0,EXIT_KEY_ALL,0);
-					}else{//发送成功 
-						//接收返回值
-						ret =  GetRecvData(recvdata);
-						if(ret ==0){ //接收成功 
-							//处理消息
-							int err =HandleRecvData(recvdata);
-							if(err ==0){//完全正确 退出
-								//继续下一批
-								// EXT_ClearLine(36,0);
-								//Disp_Goto_XY(0,36);
-								// DispStr_CE(0,36,"【F3下一批上传】",DISP_RIGHT);
-								continue; 
-							}else if(err == 4){//继续
-								// DispStr_CE(0,0,"正在上传下一批 请稍等",DISP_CENTER|DISP_CLRSCR);
-								//  delay_and_wait_key(0,EXIT_KEY_F2,0); 
-								continue; 
-							}else if(err ==3){    //退出 
-								DisConnectServer();
-								return; 
-							}else if(err == 1){   //用户名错误 
-								WarningBeep(2); 
-								DispStr_CE(0,4,"用户名错误",DISP_CENTER|DISP_CLRSCR);
-								DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
-								Disp_Goto_XY(0,36);
-								DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-								delay_and_wait_key(0,EXIT_KEY_F1,0);
-								DisConnectServer();
-								return; 
-							}else if(err ==2){//用户密码错误 
-								WarningBeep(2);
-								DispStr_CE(0,4,"用户密码错误",DISP_CENTER|DISP_CLRSCR);
-								DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
-								Disp_Goto_XY(0,36);
-								DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-								delay_and_wait_key(0,EXIT_KEY_F1,0);
-								DisConnectServer();
-								return;
-							}
-						}else{//接收失败
-							flag =0;
-							sim300_close();
-						}
+						break;
 					}
 				}
+
+				//GPRS不能连接
+				DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
+				DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
+				delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+
+				return;
 			}
-		}
+
+			//上传数据
+			//已经打开服务器 
+
+			WarningBeep(0);
+
+			short err = Display(0);
+			if(err == -1){//退出 
+				DisConnectServer();
+				return;
+			}
+
+			upCount++;
+			//发送数据
+			if(SendData(senddata)==-1){
+				//发送失败
+				WarningBeep(2);
+				failedtimes++;
+				if(failedtimes<3){
+					DispStr_CE(0,0,"网络断开，请重新连接",DISP_CENTER|DISP_CLRSCR);
+
+					Disp_Goto_XY(0,36);
+					DispStr_CE(0,36,"【F1退出重连】",DISP_CURRENT);
+					// DispStr_CE(0,36,"【F3再次尝试】",DISP_RIGHT);
+					long temp_value; 
+					temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
+					if(EXIT_KEY_F1 == temp_value){//退出 
+						sim300_close();
+						return; 
+					}
+				}else{
+					failedtimes =0;
+					DispStr_CE(0,0,"尝试次数过多，请核对后再重试！",DISP_CENTER|DISP_CLRSCR);
+				}
+				delay_and_wait_key(0,EXIT_KEY_ALL,0);
+			}else{//发送成功 
+				//接收返回值
+				ret =  GetRecvData(recvdata);
+				if(ret !=0){ //接收失败
+					WarningBeep(2); 
+					DispStr_CE(0,4,"网络异常 稍后再试!",DISP_CENTER|DISP_CLRSCR);
+					Disp_Goto_XY(0,36);
+					DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+					delay_and_wait_key(0,EXIT_KEY_F1,0);
+					DisConnectServer();
+					return;
+				}
+
+				//处理接收消息
+				int err =HandleRecvData(recvdata);
+				if(err == 1){//用户名错误 
+					WarningBeep(2); 
+					DispStr_CE(0,4,"用户名错误",DISP_CENTER|DISP_CLRSCR);
+					DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
+					Disp_Goto_XY(0,36);
+					DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+					delay_and_wait_key(0,EXIT_KEY_F1,0);
+					DisConnectServer();
+					return;
+				}else if(err ==2){//用户密码错误 
+					WarningBeep(2);
+					DispStr_CE(0,4,"用户密码错误",DISP_CENTER|DISP_CLRSCR);
+					DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
+					Disp_Goto_XY(0,36);
+					DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+					delay_and_wait_key(0,EXIT_KEY_F1,0);
+					DisConnectServer();
+					return;
+				}else if(err ==3){//退出 
+					DisConnectServer();
+					return;
+				}else{
+					WarningBeep(0); 
+					DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
+					delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+				}
+			}
+		}//loop while
 	}
 }
 
@@ -638,7 +623,7 @@ void GetInfo(){ //标签校验
 
 	long key_value;
 	int flag = 1;
-	int index=0; 
+	//int index=0; 
 
 	while(flag){
 		memset(anticode,0,ANTIFAKECODE_LEN);//清空防伪码 
@@ -685,7 +670,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret;
 	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. Ver1.2"; 
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. Ver1.3"; 
 	char welcome[20];
 	char choose[20];
 	memset(welcome,0,20);
