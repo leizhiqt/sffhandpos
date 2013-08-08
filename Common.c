@@ -20,15 +20,15 @@
 | V1.00  2012-7-16 8:35:46            
 ----------------------------------------------------------------------------
 ****************************************************************************/
-#include"Common.h"
+#include "Common.h"
+
 //======================================================================
 //函数名：WaringBeep 
 //功能  ：提示音 
 //参数  ：int 
 //返回值：无 
 //======================================================================
-void	WarningBeep(int type)
-{
+void	WarningBeep(int type){
 	int	count;
 	int	j;
 	
@@ -52,227 +52,16 @@ void	WarningBeep(int type)
 		{
 			Beep_Sound(BEEP_ON,6,50);
 		}
-		Sys_Delay_MS(200);		
+		Sys_Delay_MS(200);
 		Beep_Sound(BEEP_OFF,6,50);
 	}
 }
-void GetSysTime(unsigned char* time)
-{
-    typ_DATE_TIME systime;
-     RTC_Get_DateTime(&systime);
-     sprintf(time,"%d-%d-%d %d:%d:%d",systime.year,systime.month,systime.day,systime.hour,systime.min,systime.sec);
-   /*  DispStr_CE(0,0,"时间",DISP_CLRSCR); 
-     DispStr_CE(0,4,time,DISP_CENTER|DISP_CLRSCR);
-     delay_and_wait_key(0,EXIT_KEY_F2,0);
-     */
-     
+
+void GetSysTime(char* time){
+	typ_DATE_TIME sysnow;
+	RTC_Get_DateTime(&sysnow);
+	sprintf(time,"%d-%d-%d %d:%d:%d",sysnow.year,sysnow.month,sysnow.day,sysnow.hour,sysnow.min,sysnow.sec);
 }
- /*
-int input_info(int index,char* indata,char* returndata)
-{
-        GETCSTR_PARAM	gsc;
-	gsc.qx =0;
-	gsc.qy = 24;
-	gsc.defaultMode = 0;
-	gsc.eDisable = 0;								// 0:允许英文输入
-	gsc.nullEnable = 0;
-	gsc.pStr = indata;
-	gsc.csChar ='_';
-	switch(index)
-	{
-             case 1:
-             {
-              gsc.minNum =4;
-              gsc.maxNum = 4; 
-                 break;
-             }
-             case 2:
-             case 3:
-             case 4:
-             case 5:
-             case 6:
-             {
-                 gsc.minNum =1;
-                 gsc.maxNum = 2; 
-                 break;
-             }
-	}
-	gsc.retNum = strlen(indata);    	
-	gsc.autoexit = 0;
-	
-        int err = GetStr_CEX(&gsc);
-        
-        if(err ==0)
-        {
-         strcpy(returndata,gsc.pStr);
-         return 0;
-        }
-        else
-        {
-           return -1;
-        }
-} 
-
-short SetSysTime()
-{
-       typ_DATE_TIME systime;
-        typ_DATE_TIME settime;
-       
-     RTC_Get_DateTime(&systime);
-     char time[35];
-     memset(time,0,35);
-     sprintf(time,"%d-%d-%d %d:%d:%d",systime.year,systime.month,systime.day,systime.hour,systime.min,systime.sec);
-     DispStr_CE(0,0,"当前时间为:",DISP_CENTER|DISP_CLRSCR);
-     DispStr_CE(0,2,time,DISP_CENTER);
-
-     //年 
-     char year[5];
-     memset(year,0,5);
-     sprintf(year,"%d",systime.year);
-     //月
-     char month[5];
-     memset(month,0,5);
-     sprintf(month,"%d",systime.month);
-     //日 
-     char day[5];
-     memset(day,0,5);
-     sprintf(day,"%d",systime.day);
-         //小时
-         char hour[5];
-         memset(hour,0,5);
-         sprintf(hour,"%d",systime.hour);
-         //分
-         char minute[5];
-         memset(minute,0,5);
-         sprintf(minute,"%d",systime.min);
-         //秒
-         char second[5];
-         memset(second,0,5);
-         sprintf(second,"%d",systime.sec);
-         
-          char returndata[5];
-          
-         int index =1;
-         int err;
-         while(index <=6)
-         {
-           memset(returndata,0,5);
-           err =1;
-           switch(index)
-           {
-             case 1:
-             {
-                 
-                 err= input_info(index,year,returndata);
-                 if(err == 0)
-                 {    
-                     systime.year= (unsigned short)atoi(returndata);
-                     memset(year,0,5);
-                     sprintf(year,"%d",systime.year);
-                     Disp_Goto_XY(0,6);
-                     DispStr_CE(0,6,"年：",DISP_CURRENT);
-                     DispStr_CE(6,6,year,DISP_CURRENT);
-                     
-                    // delay_and_wait_key(0,EXIT_KEY_F2,0) ;
-                 }
-                break;
-                
-             }
-              case 2:
-             {
-                err= input_info(index,month,returndata);
-                 if(err == 0)
-                 {
-                    
-                    systime.month= (unsigned char)atoi(returndata);
-                     memset(month,0,5);
-                     sprintf(month,"%d",systime.month);
-                     Disp_Goto_XY(0,8);
-                     DispStr_CE(0,8,"月：",DISP_CURRENT);
-                     DispStr_CE(8,6,month,DISP_CURRENT);
-                    // delay_and_wait_key(0,EXIT_KEY_F2,0) ;
-                 }
-                break;
-                
-             }
-              case 3:
-             {
-                 err= input_info(index,day,returndata);
-                 if(err == 0)
-                 {
-                       systime.day= (unsigned char)atoi(returndata);
-                     memset(day,0,5);
-                     sprintf(day,"%d",systime.day);
-                     Disp_Goto_XY(0,10);
-                     DispStr_CE(0,10,"日：",DISP_CURRENT);
-                     DispStr_CE(10,6,day,DISP_CURRENT);
-                    // delay_and_wait_key(0,EXIT_KEY_F2,0)   ;
-                    }
-                break;
-               
-             }
-              case 4:
-             {
-                 err= input_info(index,hour,returndata);
-                 if(err == 0)
-                 {
-                       systime.hour= (unsigned char)atoi(returndata);
-                     memset(hour,0,5);
-                     sprintf(hour,"%d",systime.hour);
-                     Disp_Goto_XY(0,12);
-                     DispStr_CE(0,12,"时：",DISP_CURRENT);
-                     DispStr_CE(12,6,hour,DISP_CURRENT);
-                    // delay_and_wait_key(0,EXIT_KEY_F2,0) ;
-                    }
-                break;
-                
-             }
-              case 5:
-             {
-                 err= input_info(index,minute,returndata);
-                 if(err == 0)
-                 {
-                    systime.min=(unsigned char)atoi(returndata);
-                     memset(minute,0,5);
-                     sprintf(minute,"%d",systime.min);
-                     Disp_Goto_XY(0,14);
-                     DispStr_CE(0,14,"分：",DISP_CURRENT);
-                     DispStr_CE(14,6,minute,DISP_CURRENT);
-                    //delay_and_wait_key(0,EXIT_KEY_F2,0)  ;
-                     
-                    }
-                   break;
-                
-             }
-              case 6:
-             {
-                  err= input_info(index,second,returndata);
-                 if(err == 0)
-                 {
-                    systime.sec= (unsigned char)atoi(returndata);
-                     memset(second,0,5);
-                     sprintf(second,"%d",systime.sec);
-                     Disp_Goto_XY(0,16);
-                     DispStr_CE(0,16,"分：",DISP_CURRENT);
-                     DispStr_CE(16,6,second,DISP_CURRENT);
-                     
-                          DispStr_CE(0,24,"",DISP_CURRENT|DISP_CLRLINE);
-                     //delay_and_wait_key(0,EXIT_KEY_F2,0);
-                    }
-                    // break;
-              }
-             }
-           index++; 
-         } 
-    
-      settime = systime;
-      
-      RTC_Set_DateTime(&settime);
-      
-     return 0;
-     
-} 
-*/
 
 //======================================================================
 // Name：Modify_Date
@@ -493,8 +282,29 @@ int	input_date_time(int line,int maxNum,int minNum,int minValue,int maxValue,
 	return ret;
 }
 
+char* filter(char *c1,char c2){
 
+	int i,a,s=0;
+	char c[1024];
 
+	a=strlen(c1);
+	
+	if(!(a<1024))
+		a=1023;
+
+	for(i=0;i<a;i++)
+	if(c2!=c1[i])	{
+		c[s]=c1[i];
+		s++;
+	}
+
+	c[s]='\0'; 
+
+	for(i=0;i<=s;i++)
+		c1[i]=c[i];
+
+	return c1;
+}
 
 
 

@@ -1,32 +1,7 @@
-/****************************************************************************
-*
-*文件(File):         DataBase.h
-*
-*修改(Modify):       2012-7-13 14:23:46
-*
-*作者(Author):       sa
-*
-*编绎(Compile):      智能平台(Smart Platform)
-*
-*描述(Description):
-*
-*
-*
-----------------------------------------------------------------------------
-|
-| Version | Datetime             |   Author    | Description
-| --------+----------------------+-------------+----------------------------
-|
-| V1.00  2012-7-13 14:23:46           sa 
-----------------------------------------------------------------------------
-****************************************************************************/
-
-#include "api.h"
-#include "string.h"
-#include "common.h"
-
 #ifndef		DATABASE
 #define		DATABASE
+
+#include "common.h"
 
 #define BLOCKNUM 10 //数据库表占块数
 
@@ -44,14 +19,18 @@ DataInfo datainfo;
 
 char Menu[150*PAGENUM+2];
 
-short FindDatabase();
+int FindDatabase();
 
 short CreateDatabase();
 
 short InitDatabase(); 
 
-short AddOneRecord(char* name,char* time,char* code,char* record);
+short AddOneRecord(unsigned char* name,char* time,char* code,char* record);
 
-short EncodeSendData(char* name ,char* passwd,char* senddata);
+short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* senddata);
+
+short HandleRecvData(unsigned char* recvdata);
+
+void UpdateDatabase(unsigned char* recvdata,char* wronginfo);
 
 #endif

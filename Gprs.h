@@ -1,32 +1,19 @@
-/****************************************************************************
-*
-*文件(File):         Gprs.h
-*
-*修改(Modify):       2012-7-17 8:17:38
-*
-*作者(Author):       
-*
-*编绎(Compile):      智能平台(Smart Platform)
-*
-*描述(Description):
-*
-*
-*
-----------------------------------------------------------------------------
-|
-| Version | Datetime             |   Author    | Description
-| --------+----------------------+-------------+----------------------------
-|
-| V1.00  2012-7-17 8:17:38            
-----------------------------------------------------------------------------
-****************************************************************************/
-
-
 #ifndef   Gprs_h_2012_07_17_11_17_38_INCLUDED
+
 #define   Gprs_h_2012_07_17_11_17_38_INCLUDED
 
-#endif   /*Gprs_h_2012_07_17_11_17_38_INCLUDED*/
-#include<api.h>
 short sim300_init(void);
+
 void sim300_close(void);
+
+short ConnectServer();
+
 void DisConnectServer();
+
+short SendData(unsigned char* data);
+
+short GetRecvData(unsigned char* recvdata);
+
+#endif   /*Gprs_h_2012_07_17_11_17_38_INCLUDED*/
+
+

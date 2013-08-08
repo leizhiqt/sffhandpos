@@ -24,11 +24,14 @@
 /*在此增加代码(TODO: add  code here)*/
 
 #include "API.h"
+
 #include "Card.h"
 #include "DataBase.h"
 #include "Gprs.h"
 
-extern  short  ConnectServer();
+/*
+*Display API
+*/
 
 short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag ){
 	BROWINFO	bi;
@@ -79,70 +82,48 @@ short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag 
 		if(bi.qEvent==EXIT_KEY_F3)
 			return KEY_F3;
 	}
+	return 0;
 }
 
-void PackUpMenuData(char menu[], int MenuCount, int LineLen)
-{
+void PackUpMenuData(char menu[], int MenuCount, int LineLen){
 	int i = 0;
 	menu[MenuCount * LineLen + 2] = '\0';
-	for(i = 0; i < (MenuCount * LineLen + 1); ++i)
-	{
-		if(menu[i] == '\0')
-		{menu[i] = 0x20;}
+	for(i = 0; i < (MenuCount * LineLen + 1); ++i){
+		if(menu[i] == '\0'){
+			menu[i] = 0x20;
+		}
 	}
 }
 
-short Display(short flag)
- {
- 	int lPtr = 0;
-         int cPtr=0;	
-	//int RCount = 0;
-       //int i=0;
-       int IntRet;
-       
-        PackUpMenuData(Menu, 150, 28);
-	while(1)
-	{ 	
-	
-	IntRet = browse_info(2,Menu,&cPtr,&lPtr,flag);
-	if(IntRet == KEY_F1) //退出 
-	{
-	    return -1;
+short Display(short flag){
+	int lPtr = 0;
+	int cPtr=0;	
+	int IntRet;
+
+	PackUpMenuData(Menu, 150, 28);
+	while(1){ 	
+		IntRet = browse_info(2,Menu,&cPtr,&lPtr,flag);
+		if(IntRet == KEY_F1){ //退出 
+			return -1;
+		}else if(IntRet == KEY_F3){//确认提交 
+			return 0;
+		}
 	}
-	else if(IntRet == KEY_F3)      //确认提交 
-	{
-	  return 0;
-	}
-      }
- }
- long Alert()
-{
-     WarningBeep(2);
-     DispStr_CE(0,2,"特别提醒",DISP_CLRSCR|DISP_CENTER);
-     EXT_Display_Multi_Lines("此功能要通过GPRS通信，可能会有危险，请确定环境是否安全！",6,10);
-     EXT_ClearLine(36,0);
-     Disp_Goto_XY(0,36);
-     DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-     DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-     long key_value; 
-     key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
-     return key_value;
-      /*switch(key_value)
-       {
-         case EXIT_KEY_F1:
-          case EXIT_AUTO_QUIT:
-          {
-               return ; 
-          }
-          case EXIT_KEY_F3:
-          case EXIT_KEY_ENTER: 
-          {
-               DispStr_CE(0,0,"gprs通信",DISP_CENTER|DISP_CLRSCR);
-               delay_and_wait_key(0,EXIT_KEY_F2,0); 
-             break;
-          } 
-       } */
 }
+
+long Alert(){
+	WarningBeep(2);
+	DispStr_CE(0,2,"特别提醒",DISP_CLRSCR|DISP_CENTER);
+	EXT_Display_Multi_Lines("此功能要通过GPRS通信，可能会有危险，请确定环境是否安全！",6,10);
+	EXT_ClearLine(36,0);
+	Disp_Goto_XY(0,36);
+	DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+	DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
+	long key_value; 
+	key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
+	return key_value;
+}
+
 //======================================================================
 //函数名：InitSystem 
 //功能  ：系统初始化设置 
@@ -215,17 +196,12 @@ void Query(){
 		case EXIT_KEY_F3:
 
 		case EXIT_KEY_ENTER:{
-			//DispStr_CE(0,0,"LOGIN",DISP_CENTER|DISP_CLRSCR);
-			//delay_and_wait_key(0,EXIT_KEY_F2,0); 
 			break;
 		}
 	}
 
 	ret = LoginByCard();
 	if(ret != 0){//登陆失败
-		//DispStr_CE(0,0,"登陆失败",DISP_CLRSCR|DISP_CENTER);
-		// WarningBeep(2); 
-		// delay_and_wait_key(0,EXIT_KEY_F2,0);
 		return ; 
 	}
 
@@ -234,7 +210,7 @@ void Query(){
 
 	DispStr_CE(0,2,"登陆成功!",DISP_CENTER|DISP_CLRSCR);
 	DispStr_CE(0,4,"巡 检 人:",DISP_POSITION);
-	DispStr_CE(0,4,username,DISP_CURRENT);
+	DispStr_CE(0,4,(char *)&username,DISP_CURRENT);
 
 	DispStr_CE(0,8,"按任意键进行巡检",DISP_CENTER);
 	EXT_Display_Multi_Lines("请将巡检芯片放在感应区下方，按任意键进行巡检。",10,16);
@@ -262,7 +238,7 @@ void Query(){
 				DispStr_CE(0,0,"巡检成功",DISP_CENTER|DISP_CLRSCR);
 				DispStr_CE(0,2,"巡检结果如下",DISP_CENTER);
 				DispStr_CE(0,6,"巡 检 人：",DISP_POSITION);
-				DispStr_CE(0,6,username,DISP_CURRENT);
+				DispStr_CE(0,6,(char *)username,DISP_CURRENT);
 				DispStr_CE(0,8,"防 伪 码：",DISP_POSITION);
 				DispStr_CE(0,8,anticode,DISP_CURRENT);
 				DispStr_CE(0,10,"巡检时间：",DISP_POSITION);
@@ -294,35 +270,23 @@ void Query(){
 	}//end while
 }
 
-short OpenGPRS()
-{
-      short ret;
-  
-     ret = sim300_init();  //连接网络
-     if(ret ==1)//连接网络成功
-     {
-            ret = ConnectServer();  //连接服务器 
-            if(ret == 0)  //连接服务器成功
-           {
-              return 0; 
-           }
-           else
-           {
-              goto err;
-           } 
-     } 
-     else
-     {
-       goto err;
-     }
-     
-     err:
-     	DispStr_CE(0,4,"连接服务器失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
-     	//WarningBeep(2);
-	 sim300_close();
-       // delay_and_wait_key(0,EXIT_KEY_ALL,0);
-        return -1;   
-} 
+short OpenGPRS(){
+	short RET=-1;
+
+	RET = sim300_init();//连接网络
+	if(RET ==0){//连接网络成功
+		RET = ConnectServer();//连接服务器 
+		if(RET == 0){//连接服务器成功
+			return 0; 
+		}
+	}
+
+	DispStr_CE(0,4,"连接服务器失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
+	//WarningBeep(2);
+	sim300_close();
+	// delay_and_wait_key(0,EXIT_KEY_ALL,0);
+	return -1;
+}
 
 //======================================================================
 //函数名：SubmitData 
@@ -333,8 +297,7 @@ short OpenGPRS()
 void SubmitData(){
 
 	long choose ;
-	short failedtimes =0;
-	//short opengprstimes=0;
+	int cLoop =0;
 
 	int i=0;
 	
@@ -342,14 +305,10 @@ void SubmitData(){
 	switch(choose){
 		case EXIT_KEY_F1:
 		case EXIT_AUTO_QUIT:{
-			//DispStr_CE(0,0,"选择了退出",DISP_CENTER|DISP_CLRSCR);
-			// delay_and_wait_key(0,EXIT_KEY_F2,0); 
 			return;
 		}
 		case EXIT_KEY_F3:
 		case EXIT_KEY_ENTER: {
-			// DispStr_CE(0,0,"gprs通信",DISP_CENTER|DISP_CLRSCR);
-			//delay_and_wait_key(0,EXIT_KEY_F2,0); 
 			break;
 		}
 	}
@@ -378,139 +337,146 @@ void SubmitData(){
 		}
 	}
 
-	int ret ;
-	ret = LoginToSubmit();
-	if(ret == 0){//刷卡登陆成功   获取了登陆用户名和密码
-		int flag=0;//标记是否打开gprs模块 
+	int RET = LoginToSubmit();
+/*	DispStr_CE(0,0,"ReadNameAndPassword",DISP_CENTER|DISP_CLRSCR);
 
-		int maxs=60*PAGENUM+5;
-		int maxr=6*PAGENUM+5;
-
-		char senddata[maxs];
-		char recvdata[maxr];
-
-		int upCount =0;
-		while(1){
-			memset(senddata,0,maxs);
-			memset(recvdata,0,maxr);
-
-			//暂存没有数据
-			if(EncodeSendData(submitname,submitpassword,senddata)<0){
-				WarningBeep(0); 
-
-				DispStr_CE(0,0,"没有数据提交，按任意键退出",DISP_CENTER|DISP_CLRSCR);
-
-				delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-
-				if(upCount ==0){
-					sim300_close();
-				}else{
-					upCount =0;
-					DisConnectServer();
-				}
-
-				CreateDatabase();
-
-				return; 
-			}
-
-			//打开GPRS模块
-			if(flag == 0){
-				for(i=0;i<3;i++){
-					if(OpenGPRS()==0){
-						flag = 1;
-						break;
-					}
-				}
-
-				if(flag == 0){ 
-					//GPRS不能连接
-					DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
-					DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
-					delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-
-					return;
-				}
-			}
-
-			//上传数据
-			//已经打开服务器 
-
-			WarningBeep(0);
-
-			short err = Display(0);
-			if(err == -1){//退出 
-				DisConnectServer();
-				return;
-			}
-
-			upCount++;
-			//发送数据
-			if(SendData(senddata)==-1){
-				//发送失败
-				WarningBeep(2);
-				failedtimes++;
-				if(failedtimes<3){
-					DispStr_CE(0,0,"网络断开，请重新连接",DISP_CENTER|DISP_CLRSCR);
-
-					Disp_Goto_XY(0,36);
-					DispStr_CE(0,36,"【F1退出重连】",DISP_CURRENT);
-					// DispStr_CE(0,36,"【F3再次尝试】",DISP_RIGHT);
-					long temp_value; 
-					temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
-					if(EXIT_KEY_F1 == temp_value){//退出 
-						sim300_close();
-						return; 
-					}
-				}else{
-					failedtimes =0;
-					DispStr_CE(0,0,"尝试次数过多，请核对后再重试！",DISP_CENTER|DISP_CLRSCR);
-				}
-				delay_and_wait_key(0,EXIT_KEY_ALL,0);
-			}else{//发送成功 
-				//接收返回值
-				ret =  GetRecvData(recvdata);
-				if(ret !=0){ //接收失败
-					WarningBeep(2); 
-					DispStr_CE(0,4,"网络异常 稍后再试!",DISP_CENTER|DISP_CLRSCR);
-					Disp_Goto_XY(0,36);
-					DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-					delay_and_wait_key(0,EXIT_KEY_F1,0);
-					DisConnectServer();
-					return;
-				}
-
-				//处理接收消息
-				int err =HandleRecvData(recvdata);
-				if(err == 1){//用户名错误 
-					WarningBeep(2); 
-					DispStr_CE(0,4,"用户名错误",DISP_CENTER|DISP_CLRSCR);
-					DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
-					Disp_Goto_XY(0,36);
-					DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-					delay_and_wait_key(0,EXIT_KEY_F1,0);
-					DisConnectServer();
-					return;
-				}else if(err ==2){//用户密码错误 
-					WarningBeep(2);
-					DispStr_CE(0,4,"用户密码错误",DISP_CENTER|DISP_CLRSCR);
-					DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
-					Disp_Goto_XY(0,36);
-					DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-					delay_and_wait_key(0,EXIT_KEY_F1,0);
-					DisConnectServer();
-					return;
-				}else if(err ==3){//退出 
-					DisConnectServer();
-					return;
-				}/*else{
-					WarningBeep(0); 
-					DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
-					delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-				}*/
-			}
-		}//loop while
+	char tmpbuf[100];
+	sprintf(tmpbuf,"RET: %d",RET);
+	DispStr_CE(0,0,tmpbuf,DISP_POSITION|DISP_5x7);
+*/
+	if(RET != 0){
+		DispStr_CE(0,0,"刷卡失败!",DISP_CENTER|DISP_CLRSCR);
+		return;
 	}
+
+	//刷卡登陆成功   获取了登陆用户名和密码
+	int maxs=60*PAGENUM+5;
+	int maxr=6*PAGENUM+5;
+
+	unsigned char senddata[maxs];
+	unsigned char recvdata[maxr];
+
+	memset(senddata,0,maxs);
+	memset(recvdata,0,maxr);
+
+	//首次检查数据
+	RET=EncodeSendData(sname,spass,senddata);
+	if(RET<0){
+		CreateDatabase();
+
+		WarningBeep(0); 
+		DispStr_CE(0,0,"没有数据提交，按任意键退出",DISP_CENTER|DISP_CLRSCR);
+		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+
+		return; 
+	}
+
+	//打开GPRS模块 && 服务器
+	for(i=0;i<3;i++){
+		if((RET=OpenGPRS())==0){
+			break;
+		}
+	}
+
+	//GPRS打开失败
+	if(RET != 0){ 
+		DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
+		DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
+		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+
+		return;
+	}
+
+	int upCount =0;
+	while(1){
+		memset(senddata,0,maxs);
+		memset(recvdata,0,maxr);
+
+		//暂存没有数据
+		RET=EncodeSendData(sname,spass,senddata);
+
+		if(RET<0){
+			CreateDatabase();
+
+			WarningBeep(0); 
+			DispStr_CE(0,0,"数据上传完毕，按任意键退出",DISP_CENTER|DISP_CLRSCR);
+			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+
+			break; 
+		}
+
+		//上传数据
+		WarningBeep(0);
+		RET = Display(0);
+		if(RET == -1){//退出 
+			break;
+		}
+
+		upCount++;
+		//发送数据
+		RET = SendData(senddata);
+		if(RET==-1){
+			//发送失败
+			WarningBeep(2);
+
+			DispStr_CE(0,0,"网络断开，请重新连接",DISP_CENTER|DISP_CLRSCR);
+
+			Disp_Goto_XY(0,36);
+			DispStr_CE(0,36,"【F1退出重连】",DISP_CURRENT);
+
+			long temp_value; 
+			temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
+			if(EXIT_KEY_F1 == temp_value || cLoop==3){//退出 
+				break;
+			}
+			continue;
+		}
+
+		//发送成功 && 接收返回值
+		RET =  GetRecvData(recvdata);
+		if(RET !=0){ //接收失败
+			WarningBeep(2); 
+			DispStr_CE(0,4,"网络异常 稍后再试!",DISP_CENTER|DISP_CLRSCR);
+			Disp_Goto_XY(0,36);
+			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			delay_and_wait_key(0,EXIT_KEY_F1,0);
+
+			break;
+		}
+
+		//处理接收消息
+		RET =HandleRecvData(recvdata);
+		if(RET == 1){//用户名错误 
+			WarningBeep(2); 
+			DispStr_CE(0,4,"用户名错误",DISP_CENTER|DISP_CLRSCR);
+			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
+			Disp_Goto_XY(0,36);
+			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			delay_and_wait_key(0,EXIT_KEY_F1,0);
+
+			break;
+		}else if(RET ==2){//用户密码错误 
+			WarningBeep(2);
+			DispStr_CE(0,4,"用户密码错误",DISP_CENTER|DISP_CLRSCR);
+			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
+			Disp_Goto_XY(0,36);
+			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			delay_and_wait_key(0,EXIT_KEY_F1,0);
+
+			break;
+		}else if(RET ==3){//退出 
+
+			break;
+		}else{
+			WarningBeep(0);
+			DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
+			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+		}
+	}//loop while
+
+	//free
+	sim300_close();
+	DisConnectServer();
 }
 
 void FormatDatabase(){
@@ -672,7 +638,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret;
 	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. Ver1.3"; 
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.6"; 
 	char welcome[20];
 	char choose[20];
 	memset(welcome,0,20);
