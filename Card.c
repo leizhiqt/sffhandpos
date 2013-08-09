@@ -31,10 +31,10 @@
 int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 
 	long key_value; 
-        
-        unsigned char dummy_key[6] = "\xFF\xFF\xFF\xFF\xFF\xFF";
-	
-        unsigned char 	MATQ[3];	//ATQ(2 bytes)
+
+	unsigned char dummy_key[6] = "\xFF\xFF\xFF\xFF\xFF\xFF";
+
+	unsigned char 	MATQ[3];	//ATQ(2 bytes)
 	unsigned char 	MSNO[5];	//Serial number(4 bytes)
 	unsigned char 	MATS[2];	//mifare1:0x08(1 byte)
 	unsigned char databuf[30];
@@ -47,15 +47,14 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
 		DispStr_CE(0,36,"【F3重试】",DISP_RIGHT);
 
-		DispStr_CE(0,2,"正在初始化读卡模块M1...",DISP_CENTER);
+		DispStr_CE(2,2,"正在初始化读卡模块...",DISP_POSITION);
 
 		if(RCX_Init(CARD_TYPE_14443A)!=RCX_OK){//初始化失败
-			RCX_Close();
 
 			EXT_ClearLine(2,0); 
-			DispStr_CE(0,4,"模块初始化失败",DISP_CENTER);
-			RCX_Close();
-			DispStr_CE(0,6,"继续或退出",DISP_CENTER);
+			DispStr_CE(2,6,"模块初始化失败",DISP_POSITION);
+			DispStr_CE(2,10,"继续或退出",DISP_POSITION);
+
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :
@@ -70,8 +69,8 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		}
 
 		//初始化成功 
-		DispStr_CE(0,4,"初始化读卡模块成功",DISP_CENTER); 
-		DispStr_CE(0,8,"正在读卡...",DISP_CENTER); 
+		DispStr_CE(2,6,"初始化读卡模块成功",DISP_POSITION); 
+		DispStr_CE(2,10,"正在读卡...",DISP_POSITION); 
 
 		//读卡
 		char RET = CardTypeARequest(PICC_REQALL,MATQ); //may be Halt
@@ -87,15 +86,15 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		}
 
 		//读卡失败
-		if(RET!=MI_OK){
-			RCX_Close();
-
+		if(RET!=RCX_OK){
 			EXT_ClearLine(10,0); 
-			DispStr_CE(0,12,"读卡失败",DISP_CENTER);
+			DispStr_CE(2,12,"读卡失败",DISP_POSITION);
 			WarningBeep(2);
+
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :{
+					RCX_Close();
 					return -1;
 				}
 				case EXIT_AUTO_QUIT:
@@ -112,15 +111,15 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		if(RET==RCX_OK) RET = CardMFCRead16Bytes(5,nname);
 		
 		if(RET!=RCX_OK){
-			RCX_Close();
-
-			EXT_ClearLine(10,0); 
+			EXT_ClearLine(10,0);
 			WarningBeep(2);
-			DispStr_CE(0,10,"读用户名失败",DISP_CENTER);
+			DispStr_CE(2,12,"读用户名失败",DISP_POSITION);
+
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :
 				case EXIT_AUTO_QUIT:{
+					RCX_Close();
 					return -3;//退出循环 回到主菜单
 				}
 				case EXIT_KEY_F3:{
@@ -133,14 +132,14 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		//读取用户名成功 & 读密码失败
 		if((CardMFCAuthKey(PICC_AUTHENT1A,MSNO,dummy_key,6)!=RCX_OK)
 			||(CardMFCRead16Bytes(6,npass)!=RCX_OK)){
-			RCX_Close();
 
 			EXT_ClearLine(10,0); 
-			DispStr_CE(0,10,"读密码失败",DISP_CENTER);
+			DispStr_CE(2,12,"读密码失败",DISP_POSITION);
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :
 				case EXIT_AUTO_QUIT:{
+					RCX_Close();
 					return -2;
 				} 
 				case EXIT_KEY_F3:{
@@ -150,13 +149,12 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 			continue;
 		}
 
-		//验证成功
-		RCX_Close();
-		return 0;
+		//验证成功&&退出
+		break;
 	}//end while
 
 	RCX_Close();
-	return -4;
+	return 0;
 }
 
 short LoginByCard(){

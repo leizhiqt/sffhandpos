@@ -345,7 +345,7 @@ void SubmitData(){
 	DispStr_CE(0,0,tmpbuf,DISP_POSITION|DISP_5x7);
 */
 	if(RET != 0){
-		DispStr_CE(0,0,"刷卡失败!",DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,2,"刷卡失败!",DISP_POSITION|DISP_CLRSCR);
 		return;
 	}
 
@@ -365,7 +365,7 @@ void SubmitData(){
 		CreateDatabase();
 
 		WarningBeep(0); 
-		DispStr_CE(0,0,"没有数据提交，按任意键退出",DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,2,"没有数据提交，按任意键退出",DISP_POSITION|DISP_CLRSCR);
 		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
 		return; 
@@ -380,8 +380,8 @@ void SubmitData(){
 
 	//GPRS打开失败
 	if(RET != 0){ 
-		DispStr_CE(0,0,"请检查SIM卡或通信模块",DISP_CENTER|DISP_CLRSCR); 
-		DispStr_CE(0,2,"按任意键退出",DISP_CENTER); 
+		DispStr_CE(0,2,"请检查SIM卡或通信模块",DISP_POSITION|DISP_CLRSCR); 
+		DispStr_CE(0,4,"按任意键退出",DISP_POSITION); 
 		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
 		return;
@@ -399,10 +399,10 @@ void SubmitData(){
 			CreateDatabase();
 
 			WarningBeep(0); 
-			DispStr_CE(0,0,"数据上传完毕，按任意键退出",DISP_CENTER|DISP_CLRSCR);
+			DispStr_CE(0,2,"数据上传完毕，按任意键退出",DISP_POSITION|DISP_CLRSCR);
 			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
-			break; 
+			break;
 		}
 
 		//上传数据
@@ -417,18 +417,20 @@ void SubmitData(){
 		RET = SendData(senddata);
 		if(RET==-1){
 			//发送失败
+			cLoop++;
+			
 			WarningBeep(2);
-
-			DispStr_CE(0,0,"网络断开，请重新连接",DISP_CENTER|DISP_CLRSCR);
+			DispStr_CE(0,2,"网络断开，请重新连接",DISP_POSITION|DISP_CLRSCR);
 
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出重连】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出重连】",DISP_POSITION);
 
 			long temp_value; 
 			temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
 			if(EXIT_KEY_F1 == temp_value || cLoop==3){//退出 
 				break;
 			}
+
 			continue;
 		}
 
@@ -436,9 +438,9 @@ void SubmitData(){
 		RET =  GetRecvData(recvdata);
 		if(RET !=0){ //接收失败
 			WarningBeep(2); 
-			DispStr_CE(0,4,"网络异常 稍后再试!",DISP_CENTER|DISP_CLRSCR);
+			DispStr_CE(0,2,"网络异常 稍后再试!",DISP_POSITION|DISP_CLRSCR);
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
@@ -448,8 +450,8 @@ void SubmitData(){
 		RET =HandleRecvData(recvdata);
 		if(RET == 1){//用户名错误 
 			WarningBeep(2); 
-			DispStr_CE(0,4,"用户名错误",DISP_CENTER|DISP_CLRSCR);
-			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
+			DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
+			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
@@ -457,8 +459,8 @@ void SubmitData(){
 			break;
 		}else if(RET ==2){//用户密码错误 
 			WarningBeep(2);
-			DispStr_CE(0,4,"用户密码错误",DISP_CENTER|DISP_CLRSCR);
-			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_CENTER);
+			DispStr_CE(0,4,"用户密码错误",DISP_POSITION|DISP_CLRSCR);
+			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
@@ -467,11 +469,13 @@ void SubmitData(){
 		}else if(RET ==3){//退出 
 
 			break;
-		}else{
-			WarningBeep(0);
-			DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
-			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 		}
+
+		//提交下一批
+		/*WarningBeep(0);
+		DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
+		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+		*/
 	}//loop while
 
 	//free
