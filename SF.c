@@ -39,7 +39,7 @@ short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag 
 
 	if(flag ==0){
 		Disp_Clear();
-		DispStr_CE(0,0,"提交记录信息如下",DISP_CENTER);
+		DispStr_CE(0,0,"本批次提交记录信息如下:",DISP_CENTER);
 		Disp_Goto_XY(0,36);
 		DispStr_CE(0,36,"【F1退出提交】",DISP_CURRENT);
 		DispStr_CE(0,36,"【F3确认提交】",DISP_RIGHT);
@@ -396,11 +396,11 @@ void SubmitData(){
 		//暂存没有数据
 		RET=EncodeSendData(sname,spass,senddata);
 
-		if(RET<0){
+		if(RET<1){
 			CreateDatabase();
 
-			WarningBeep(0); 
-			DispStr_CE(0,2,"数据上传完毕，按任意键退出",DISP_POSITION|DISP_CLRSCR);
+			WarningBeep(0);
+			DispStr_CE(0,2,"所有数据上传完毕，按任意键退出",DISP_POSITION|DISP_CLRSCR);
 			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
 			break;
@@ -425,7 +425,7 @@ void SubmitData(){
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出重连】",DISP_POSITION);
 
-			long temp_value; 
+			long temp_value;
 			temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
 			if(EXIT_KEY_F1 == temp_value || cLoop==3){//退出 
 				break;
@@ -435,10 +435,10 @@ void SubmitData(){
 		}
 
 		//发送成功 && 接收返回值
-		RET =  GetRecvData(recvdata);
+		RET = GetRecvData(recvdata);
 		if(RET<0){ //接收失败
 			WarningBeep(2);
-			DispStr_CE(0,4,"数据返回失败!",DISP_POSITION|DISP_CLRSCR);
+			DispStr_CE(0,4,"服务器没有响应,请再试!",DISP_POSITION|DISP_CLRSCR);
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
@@ -452,12 +452,11 @@ void SubmitData(){
 			dbClean();
 
 			WarningBeep(2);
-			DispStr_CE(0,4,"恭喜！本次数据提交完毕",DISP_POSITION|DISP_CLRSCR);
+			DispStr_CE(0,4,"恭喜！本批次数据提交完毕",DISP_POSITION|DISP_CLRSCR);
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
-			break;
 		}else if(RET == 1){//用户名错误
 			WarningBeep(2);
 			DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
@@ -630,7 +629,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret;
 	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.7"; 
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.8"; 
 	char welcome[20];
 	char choose[20];
 	memset(welcome,0,20);

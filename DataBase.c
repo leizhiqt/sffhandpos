@@ -134,31 +134,26 @@ DataInfo* dbRetrieve(char id[5]){
 	//memset(myid,0,5);
 
 	int dbCount = DB_count_records(0);
-	sprintf(myid,"%d",dbCount);
-	DispStr_CE(0,20,myid,DISP_POSITION);
-	delay_and_wait_key(0,EXIT_KEY_ALL,0);
+	//sprintf(myid,"%d",dbCount);
+	//DispStr_CE(0,20,myid,DISP_POSITION);
+	//delay_and_wait_key(0,EXIT_KEY_ALL,0);
 
+	DataInfo di;
 	DataInfo* pdi=NULL;
+
 	char flag=0;
 
 	int i =0;
 	for(i=0; i<dbCount;i++){
-		sprintf(myid,"%d",i);
-		DispStr_CE(0,22,myid,DISP_POSITION);
-		delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
 		pdi=DB_jump_to_record(0,i,&flag);
-
-		DispStr_CE(0,24,"DB_jump_to_record",DISP_POSITION);
-		delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
-		if(pdi!=NULL && flag==0){//非空记录 && 存在记录
+		if(flag==0){//非空记录 && 存在记录
+			memcpy(&di,pdi,sizeof(DataInfo));
 
 			memset(myid,0,5);
-			sprintf(myid,"%d",pdi->id);
-			DispStr_CE(0,26,myid,DISP_POSITION);
-			DispStr_CE(0,28,id,DISP_POSITION);
-			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+			sprintf(myid,"%d",di.id);
+			//DispStr_CE(0,26,myid,DISP_POSITION);
+			//DispStr_CE(0,28,id,DISP_POSITION);
+			//delay_and_wait_key(0,EXIT_KEY_ALL,0);
 
 			if(strcmp(myid,id)==0){
 				return pdi;
@@ -191,15 +186,18 @@ int dbClean(){
 	int dbCount = DB_count_records(0);
 
 	DataInfo* pdi=NULL;
+	DataInfo di;
+
 	char flag;
 	int i =0;
 	for(i=0; i<dbCount;i++){
 		pdi=DB_jump_to_record(0,i,(char *)&flag);
 
 		if(flag==0){//非空记录 && 存在记录
+			memcpy(&di,pdi,sizeof(DataInfo));
 			int j=0;
 			for(j=0;j<PAGE_OFFSET;j++){
-				if(pdi->id==pids[j]) DB_delete_record(0,i);//删除该记录
+				if(di.id==pids[j]) DB_delete_record(0,i);//删除该记录
 			}
 		}
 	}
@@ -210,10 +208,9 @@ int dbClean(){
 short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* senddata){  //记录封装 协议数据格式 
 	int RET=-1 ;
 
-	char flag; 
-	DataInfo* pdi;
+	char flag;
 	DataInfo di;
-
+	DataInfo* pdi;
 
 	int dbCount=0; //数据表中记录条数
 
@@ -297,7 +294,7 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 	senddata[strlen((char *)senddata)-1]='#';
 	senddata[strlen((char *)senddata)]='\n';
 
-	return 0; 
+	return encodenum; 
 }
 
 short HandleRecvData(unsigned char* recvdata){
@@ -327,7 +324,7 @@ short HandleRecvData(unsigned char* recvdata){
 void UpdateDatabase(unsigned char* recvdata){
 	//sprintf(dis,"%d",rLen);
 	//DispStr_CE(0,0,dis,DISP_POSITION|DISP_CLRSCR);
-	char dis[20]={0};
+	//char dis[20]={0};
 	//char wronginfo[3000]={0};
 
 	//DataInfo di;
@@ -340,14 +337,6 @@ void UpdateDatabase(unsigned char* recvdata){
 	int i=0;
 	memset(Menu,'\0',150*28+2);
 
-	//sprintf(dis,"%d",rloop);
-	//DispStr_CE(0,6,dis,DISP_POSITION);
-
-	//sprintf(dis,"%d",recordnum);
-	//DispStr_CE(0,8,dis,DISP_POSITION);
-
-	//memcpy(&di,pdi,sizeof(DataInfo));
-
 	char* token = NULL;
 	token= strtok(temprecvdata,";");//1 spit
 	token = strtok(NULL,";");//2 spit
@@ -359,9 +348,6 @@ void UpdateDatabase(unsigned char* recvdata){
 		char * ep=errcodearr;
 
 		char *p = token;
-		//printf("%s\n", p);
-		DispStr_CE(0,12,"返回token",DISP_POSITION|DISP_CLRSCR);
-		delay_and_wait_key(0,EXIT_KEY_ALL,0);
 
 		int head=1;
 		while(*p!=0 && *p!='#' && strstr(p,"*")==NULL){
@@ -381,39 +367,32 @@ void UpdateDatabase(unsigned char* recvdata){
 			p++;
 		}
 
-		DispStr_CE(0,14,idarr,DISP_POSITION);
-		DispStr_CE(0,16,errcodearr,DISP_POSITION);
-		delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
-		if(head==0 /*&& *(int *)&idarr!=0*/){
-			DispStr_CE(0,18,"haed zero",DISP_POSITION);
-			delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
+		if(head==0){
 			DataInfo* pdi=dbRetrieve(idarr);
-
-			DispStr_CE(0,28,"dbRetrieve end",DISP_POSITION);
-			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+			DataInfo di;
 
 			//失败记录  记录失败原因
 			if(pdi!=NULL){
-				sprintf(&Menu[i*28],"%s%s","巡 检 人：",pdi->username); 
-				sprintf(&Menu[(i+1)*28],"%s%s","防 伪 码：",pdi->antifakecode);
-				sprintf(&Menu[(i+2)*28],"%s%s","巡检时间：",pdi->querytime);
+				memcpy(&di,pdi,sizeof(DataInfo));
+
+				sprintf(&Menu[i*28],"%s%s","巡 检 人：",di.username); 
+				sprintf(&Menu[(i+1)*28],"%s%s","防 伪 码：",di.antifakecode);
+				sprintf(&Menu[(i+2)*28],"%s%s","巡检时间：",di.querytime);
 
 				if(strcmp(errcodearr,"1")==0){    //卡不存在 
-					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"后台无该卡信息");
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"后台无该卡信息");
 					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
 					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"后台无该卡信息");
 				}else if(strcmp(errcodearr,"2")==0){//卡为被激活
-					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"该卡未被激活");
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"该卡未被激活");
 					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
 					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"该卡未被激活");
 				}else  if(strcmp(errcodearr,"3")==0){  //其他原因 
-					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"其他原因");
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"其他原因");
 					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
 					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"其他原因");
 				}else{  //其他原因 
-					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"其他原因");
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"其他原因");
 					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
 					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"其他原因");
 				} 

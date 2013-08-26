@@ -358,8 +358,10 @@ int TCP_Send_Data(unsigned char *data,int len)
 int TCP_Recv_Data(unsigned char *data,int *len,int T)
 {
 	UART_Recv_Data(data,len,T,QUARTER_SECOND);
-	if(*len)		return 0;
-	else			return -1;
+
+	if(*len)	return 0;
+
+	return -1;
 }
 
 void FTP_Set_Server(unsigned char *ip,int port)
