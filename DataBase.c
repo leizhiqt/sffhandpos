@@ -30,7 +30,9 @@
 
 extern  short Display(short flag);
 
-unsigned int flagarr[PAGENUM];
+unsigned int pids[PAGE_SIZE];
+
+int PAGE_OFFSET=0;
 
 //======================================================================
 //函数名：FindDatabase 
@@ -115,261 +117,312 @@ short  CheckDB(){//检查数据库是否完好 0 表示完好，-1 表示失败
 	int RET = -1;
 
 	RET=DB_init_sys_param(0);
-	if(RET!=1)
+	if(RET!=1){
 		return -1;
+	}
 
 	RET = DB_check_format(0,BLOCKNUM,sizeof(DataInfo));
 	if(RET ==0){
 		return 0;
 	}
 
+	return RET;
+}
+
+DataInfo* dbRetrieve(char id[5]){
+	char myid[5]={0};
+	//memset(myid,0,5);
+
+	int dbCount = DB_count_records(0);
+	sprintf(myid,"%d",dbCount);
+	DispStr_CE(0,20,myid,DISP_POSITION);
+	delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+	DataInfo* pdi=NULL;
+	char flag=0;
+
+	int i =0;
+	for(i=0; i<dbCount;i++){
+		sprintf(myid,"%d",i);
+		DispStr_CE(0,22,myid,DISP_POSITION);
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+		pdi=DB_jump_to_record(0,i,&flag);
+
+		DispStr_CE(0,24,"DB_jump_to_record",DISP_POSITION);
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+		if(pdi!=NULL && flag==0){//非空记录 && 存在记录
+
+			memset(myid,0,5);
+			sprintf(myid,"%d",pdi->id);
+			DispStr_CE(0,26,myid,DISP_POSITION);
+			DispStr_CE(0,28,id,DISP_POSITION);
+			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+			if(strcmp(myid,id)==0){
+				return pdi;
+			}
+		}
+	}
+	return NULL;
+}
+
+int dbDelete(unsigned int id){
+	int dbCount = DB_count_records(0);
+
+	DataInfo* pdi=NULL;
+	char flag;
+	int i =0;
+	for(i=0; i<dbCount;i++){
+		pdi=DB_jump_to_record(0,i,(char *)&flag);
+
+		if(flag==0){//非空记录 && 存在记录 
+			if(pdi->id == id){
+				DB_delete_record(0,i);//删除该记录
+				return 0;
+			}
+		}
+	}
 	return -1;
 }
 
-short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* senddata){  //分批封装记录 
-	short ret ;
+int dbClean(){
+	int dbCount = DB_count_records(0);
+
+	DataInfo* pdi=NULL;
+	char flag;
+	int i =0;
+	for(i=0; i<dbCount;i++){
+		pdi=DB_jump_to_record(0,i,(char *)&flag);
+
+		if(flag==0){//非空记录 && 存在记录
+			int j=0;
+			for(j=0;j<PAGE_OFFSET;j++){
+				if(pdi->id==pids[j]) DB_delete_record(0,i);//删除该记录
+			}
+		}
+	}
+	//memset(pids,'\0',sizeof(unsigned int)*PAGE_SIZE);
+	return 0;
+}
+
+short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* senddata){  //记录封装 协议数据格式 
+	int RET=-1 ;
+
 	char flag; 
 	DataInfo* pdi;
 	DataInfo di;
-	int recordnum; //数据表中记录条数 
-	int temp =0;
-	int encodenum=0; //封装记录条数 
+
+
+	int dbCount=0; //数据表中记录条数
+
 	//检查数据库 
-	ret = CheckDB();
-	if(ret == 0){  //数据库完好 
-		recordnum =0;
-		recordnum = DB_count_records(0);//表中已经使用的记录数
-		char tempsenddata[30];
-		memset(tempsenddata,0,30);
-
-		sprintf(tempsenddata,"*1;%s;%s;",name,passwd);
-		strcat((char *)senddata,tempsenddata);
-
-		int norecord=0;
-
-		int i=0;
-		memset(Menu,'\0',150*PAGENUM+2);
-
-		while(temp<recordnum){
-			pdi=DB_jump_to_record(0,temp,&flag);
-
-			if((flag ==1)||(flag == 2)){//空记录或被删除的记录 
-				temp++;
-				norecord++;
-			}else{
-				memcpy(&di,pdi,sizeof(DataInfo));
-
-				sprintf(&Menu[i*28],"%s%s","巡 检 人：",di.username); 
-				sprintf(&Menu[(i+1)*28],"%s%s","防 伪 码：",di.antifakecode);
-				sprintf(&Menu[(i+2)*28],"%s%s","巡检时间：",di.querytime);
-				sprintf(&Menu[(i+3)*28],"%s%d","记录条数：",di.id);
-				sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
-
-				i=i+5;
-
-				char tempid[10];
-				memset(tempid,0,10);
-				sprintf(tempid,"%d",di.id);
-
-				strcat((char *)senddata,tempid);
-				strcat((char *)senddata,",");
-
-				filter(di.antifakecode,';');
-				filter(di.antifakecode,',');
-				strcat((char *)senddata,di.antifakecode);
-				strcat((char *)senddata,",");
-
-				strcat((char *)senddata,di.username);
-				strcat((char *)senddata,",");
-
-				strcat((char *)senddata,di.querytime);
-				strcat((char *)senddata,"/");
-				temp++;
-
-				flagarr[encodenum]= di.id;
-
-				encodenum++;
-				if(encodenum == PAGENUM){//达到最大发送条数 
-					break;//跳出循环 
-				}
-			}
-		}
-
-		senddata[strlen((char *)senddata)-1]='#';
-		senddata[strlen((char *)senddata)]='\n';
-
-		if(norecord == recordnum){ //没有记录 
-			return -1; 
-		}
+	RET = CheckDB();
+	if(RET != 0){
+		return -1;
 	}
+	
+	//数据库完好 
+	dbCount = DB_count_records(0);//表中已经使用的记录数
+
+	if(dbCount<1){ //没有记录
+		return -1;
+	}
+
+	char tempsenddata[30];
+	memset(tempsenddata,0,30);
+
+	sprintf(tempsenddata,"*1;%s;%s;",name,passwd);
+	strcat((char *)senddata,tempsenddata);
+
+	int norecord=0;
+
+	int i=0;
+	memset(Menu,'\0',150*PAGE_SIZE+2);
+
+	int rloop =0;
+	int encodenum=0; //封装记录条数 
+	while(rloop<dbCount){
+		pdi=DB_jump_to_record(0,rloop,&flag);
+
+		if(flag==0){ 
+			memcpy(&di,pdi,sizeof(DataInfo));
+
+			sprintf(&Menu[i*28],"%s%s","巡 检 人：",di.username); 
+			sprintf(&Menu[(i+1)*28],"%s%s","防 伪 码：",di.antifakecode);
+			sprintf(&Menu[(i+2)*28],"%s%s","巡检时间：",di.querytime);
+			sprintf(&Menu[(i+3)*28],"%s%d","记录条数：",di.id);
+			sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
+
+			i=i+5;
+
+			char tempid[10];
+			memset(tempid,0,10);
+			sprintf(tempid,"%d",di.id);
+
+			strcat((char *)senddata,tempid);
+			strcat((char *)senddata,",");
+
+			filter(di.antifakecode,';');
+			filter(di.antifakecode,',');
+			strcat((char *)senddata,di.antifakecode);
+			strcat((char *)senddata,",");
+
+			strcat((char *)senddata,di.username);
+			strcat((char *)senddata,",");
+
+			strcat((char *)senddata,di.querytime);
+			strcat((char *)senddata,"/");
+
+			pids[encodenum]= di.id;
+
+			encodenum++;
+			if(encodenum == PAGE_SIZE){//达到最大发送条数 
+				break;//跳出循环
+			}
+		}else{//空记录或被删除的记录
+			norecord++;
+		}//end if
+
+		rloop++;
+	}
+
+	PAGE_OFFSET=encodenum;
+
+	if(norecord==dbCount){ //没有记录
+		return -1;
+	}
+
+	senddata[strlen((char *)senddata)-1]='#';
+	senddata[strlen((char *)senddata)]='\n';
+
 	return 0; 
 }
 
 short HandleRecvData(unsigned char* recvdata){
-	char wronginfo[3000];
-	char right[5];
-	char wrong[5];
-	memset(right,0,5);
-	memset(wrong,0,5);
-	strncpy(right,(char *)recvdata,2);
-	strncpy(wrong,(char *)recvdata,2);
 
-	if(strcmp(right,"*0")==0){
-		//重新创建数据库 
-		//更新数据
-		DataInfo di;
-		DataInfo* pdi;
-		int recordnum; 
-		recordnum = DB_count_records(0);
-		int rloop =0;
-		char flag; 
-		while(rloop<recordnum){
-			pdi=DB_jump_to_record(0,rloop,(char *)&flag);
-			if((flag ==1)||(flag == 2)){    //空记录或已删除记录 
-				rloop++;
-			}else{
-				memcpy(&di,pdi,sizeof(DataInfo));
-				int j;
-				for(j=0;j<PAGENUM;j++){   
-					if(di.id == flagarr[j]){
-						DB_delete_record(0,rloop);//删除该记录 
-						break; 
-					}
-				} 
-				rloop ++;
-			}
-		} 
-		return 0;//完全正确 
-	}else  if(strcmp(wrong,"*1")==0){   //用户名错误 无改用户 
-		return 1; 
-	}else if(strcmp(wrong,"*2") ==0) {  //密码错误 
-		return 2;
-	}else{	//上传记录有错误 
-		//更新数据库
-		UpdateDatabase(recvdata,wronginfo) ;
-		Disp_Clear();
-		WarningBeep(2); 
-		Display(1);
-		WarningBeep(0); 
-		DispStr_CE(0,4,"恭喜！本次数据提交完毕",DISP_CENTER|DISP_CLRSCR);
-		EXT_ClearLine(36,0);
-		Disp_Goto_XY(0,36);
-		DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
-		DispStr_CE(0,36,"【F3上传下一批】",DISP_RIGHT);
+	char rets[5]={0};
+	strncpy(rets,(char *)recvdata,2);
 
-		long key_value; 
-		key_value = delay_and_wait_key(0,EXIT_KEY_F1|EXIT_KEY_F3,0);
-
-		switch(key_value){
-			case EXIT_KEY_F1:{	//退出 
-				return 3;
-				break;
-			}case EXIT_KEY_F3:{
-				return 4;	//继续 
-				break;
-			}default:{
-				WarningBeep(1);
-				break;
-			}
-		}
+	if(strcmp(rets,"*0")==0){
+		return 0;//完全正确
 	}
-	return 0;
+
+	if(strcmp(rets,"*1")==0){	//用户名错误 无改用户 
+		return 1; 
+	}
+
+	if(strcmp(rets,"*2") ==0) {	//密码错误 
+		return 2;
+	}
+
+	if(strcmp(rets,"*3") ==0){	//上传记录有错误
+		return 3;
+	}
+
+	return -1;
 }
 
-void UpdateDatabase(unsigned char* recvdata,char* wronginfo){
-	int recordnum;
-	memset(wronginfo,0,3000); 
-	int rloop =0;
-	DataInfo di;
-	DataInfo* pdi;
-	char flag; 
-	char temprecvdata[200];
-	recordnum = DB_count_records(0);//表中已经使用的记录数
+void UpdateDatabase(unsigned char* recvdata){
+	//sprintf(dis,"%d",rLen);
+	//DispStr_CE(0,0,dis,DISP_POSITION|DISP_CLRSCR);
+	char dis[20]={0};
+	//char wronginfo[3000]={0};
 
-	memset(temprecvdata,0,200);  
+	//DataInfo di;
+	//DataInfo* pdi;
+
+	char temprecvdata[256]={0};
+
 	strncpy(temprecvdata,(char *)recvdata,strlen((char *)recvdata));
 
 	int i=0;
 	memset(Menu,'\0',150*28+2);
 
-	while(rloop<recordnum) {
-		strncpy(temprecvdata,(char *)recvdata,strlen((char *)recvdata));
-		pdi=DB_jump_to_record(0,rloop,&flag);
-		if((flag ==1)||(flag == 2)){//空记录或已删除记录 
-			rloop++;
-		}else{
-			memcpy(&di,pdi,sizeof(DataInfo));
-			char* token = NULL;
-			token= strtok(temprecvdata,";");
-			token = strtok(NULL,";");
+	//sprintf(dis,"%d",rloop);
+	//DispStr_CE(0,6,dis,DISP_POSITION);
 
-			while(strcmp(token,"#")){
-				int len = strlen(token);
-				int j=0;
-				char idarr[5];
-				char errcodearr[5];
-				memset(idarr,0,5);
-				memset(errcodearr,0,5);
-				int sign=0;
-				rloop=0;
-				for(;j<len;j++)	{
-					if((token[j]!=',')&&(sign ==0)){
-						rloop++;
-						idarr[j] = token[j];
-					}else  if((token[j] == ',')&&(sign ==0)){
-						sign =1;
-						rloop++;
-						continue;
-					}else   if((token[j] != ',')&&(sign ==1)){
-						errcodearr[j-rloop]=token[j];
-					}
+	//sprintf(dis,"%d",recordnum);
+	//DispStr_CE(0,8,dis,DISP_POSITION);
+
+	//memcpy(&di,pdi,sizeof(DataInfo));
+
+	char* token = NULL;
+	token= strtok(temprecvdata,";");//1 spit
+	token = strtok(NULL,";");//2 spit
+
+	while(token){
+		char idarr[5]={0};
+		char errcodearr[5]={0};
+		char * ip=idarr;
+		char * ep=errcodearr;
+
+		char *p = token;
+		//printf("%s\n", p);
+		DispStr_CE(0,12,"返回token",DISP_POSITION|DISP_CLRSCR);
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+		int head=1;
+		while(*p!=0 && *p!='#' && strstr(p,"*")==NULL){
+			if(head){
+				if(*p!=',') {
+					//printf("->%c\n",*p);
+					*ip=*p;
+					ip++;
+				}else{
+					head=0;
 				}
-
-				char myid[5];
-				memset(myid,0,5);
-				sprintf(myid,"%d",di.id); 
-
-				if(strcmp(myid,idarr)==0){  //失败记录  记录失败原因  
-					char temp_wronginfo[100];
-					memset(temp_wronginfo,0,100);
-
-					sprintf(&Menu[i*28],"%s%s","巡 检 人：",di.username); 
-					sprintf(&Menu[(i+1)*28],"%s%s","防 伪 码：",di.antifakecode);
-					sprintf(&Menu[(i+2)*28],"%s%s","巡检时间：",di.querytime);
-
-					if(strcmp(errcodearr,"1")==0){    //卡不存在 
-						sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"后台无该卡信息");
-						sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
-						// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"后台无该卡信息");
-					}else if(strcmp(errcodearr,"2")==0){//卡为被激活
-						sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"该卡未被激活");
-						sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
-						// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"该卡未被激活");
-					}else  if(strcmp(errcodearr,"3")==0){  //其他原因 
-						sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",di.id,"其他原因");
-						sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
-						// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"其他原因");
-					} 
-					i=i+5; 
-
-					strcat(wronginfo,temp_wronginfo);
-					DB_delete_record(0,di.id-1);//删除该记录 
-					break; 
-				}else {  //继续下一个处理 
-					token = strtok(NULL,";") ;
-					continue;
-				}
+			}else{
+				//printf("<-%c\n",*p);
+				*ep=*p;
+				ep++;
 			}
-			if(strcmp(token,"#")==0){  //recvdata中没有该记录 则记录上传成功 
-				int kk =0;
-				for(;kk<PAGENUM;kk++){
-					if(di.id == flagarr[kk]){ 
-						DB_delete_record(0,rloop);//删除该记录 
-					}
-				}
-			}
-			memset(temprecvdata,0,200);
-			rloop++;
+			p++;
 		}
+
+		DispStr_CE(0,14,idarr,DISP_POSITION);
+		DispStr_CE(0,16,errcodearr,DISP_POSITION);
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+		if(head==0 /*&& *(int *)&idarr!=0*/){
+			DispStr_CE(0,18,"haed zero",DISP_POSITION);
+			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+			DataInfo* pdi=dbRetrieve(idarr);
+
+			DispStr_CE(0,28,"dbRetrieve end",DISP_POSITION);
+			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
+			//失败记录  记录失败原因
+			if(pdi!=NULL){
+				sprintf(&Menu[i*28],"%s%s","巡 检 人：",pdi->username); 
+				sprintf(&Menu[(i+1)*28],"%s%s","防 伪 码：",pdi->antifakecode);
+				sprintf(&Menu[(i+2)*28],"%s%s","巡检时间：",pdi->querytime);
+
+				if(strcmp(errcodearr,"1")==0){    //卡不存在 
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"后台无该卡信息");
+					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
+					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"后台无该卡信息");
+				}else if(strcmp(errcodearr,"2")==0){//卡为被激活
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"该卡未被激活");
+					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
+					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"该卡未被激活");
+				}else  if(strcmp(errcodearr,"3")==0){  //其他原因 
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"其他原因");
+					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
+					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"其他原因");
+				}else{  //其他原因 
+					sprintf(&Menu[(i+3)*28],"%s%d%s","错误原因：",pdi->id,"其他原因");
+					sprintf(&Menu[(i+4)*28],"%s","<------------------------->");
+					// sprintf(temp_wronginfo,"%d%s%s%s%s", di.id,di.username,di.antifakecode,di.querytime,"其他原因");
+				} 
+				i=i+5;
+			}
+		}
+		//继续下一个处理
+		token = strtok(NULL,";");
 	}
+	//清理数据库
+	dbClean();
 }

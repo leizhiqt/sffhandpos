@@ -36,6 +36,7 @@
 short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag ){
 	BROWINFO	bi;
 	short	ret;
+
 	if(flag ==0){
 		Disp_Clear();
 		DispStr_CE(0,0,"提交记录信息如下",DISP_CENTER);
@@ -97,7 +98,7 @@ void PackUpMenuData(char menu[], int MenuCount, int LineLen){
 
 short Display(short flag){
 	int lPtr = 0;
-	int cPtr=0;	
+	int cPtr=0;
 	int IntRet;
 
 	PackUpMenuData(Menu, 150, 28);
@@ -350,8 +351,8 @@ void SubmitData(){
 	}
 
 	//刷卡登陆成功   获取了登陆用户名和密码
-	int maxs=60*PAGENUM+5;
-	int maxr=6*PAGENUM+5;
+	int maxs=60*PAGE_SIZE+5;
+	int maxr=6*PAGE_SIZE+5;
 
 	unsigned char senddata[maxs];
 	unsigned char recvdata[maxr];
@@ -368,7 +369,7 @@ void SubmitData(){
 		DispStr_CE(0,2,"没有数据提交，按任意键退出",DISP_POSITION|DISP_CLRSCR);
 		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
-		return; 
+		return;
 	}
 
 	//打开GPRS模块 && 服务器
@@ -420,8 +421,7 @@ void SubmitData(){
 			cLoop++;
 			
 			WarningBeep(2);
-			DispStr_CE(0,2,"网络断开，请重新连接",DISP_POSITION|DISP_CLRSCR);
-
+			DispStr_CE(0,4,"数据发送失败!",DISP_POSITION|DISP_CLRSCR);
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出重连】",DISP_POSITION);
 
@@ -436,9 +436,9 @@ void SubmitData(){
 
 		//发送成功 && 接收返回值
 		RET =  GetRecvData(recvdata);
-		if(RET !=0){ //接收失败
-			WarningBeep(2); 
-			DispStr_CE(0,2,"网络异常 稍后再试!",DISP_POSITION|DISP_CLRSCR);
+		if(RET<0){ //接收失败
+			WarningBeep(2);
+			DispStr_CE(0,4,"数据返回失败!",DISP_POSITION|DISP_CLRSCR);
 			Disp_Goto_XY(0,36);
 			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
@@ -448,8 +448,18 @@ void SubmitData(){
 
 		//处理接收消息
 		RET =HandleRecvData(recvdata);
-		if(RET == 1){//用户名错误 
-			WarningBeep(2); 
+		if(RET == 0){
+			dbClean();
+
+			WarningBeep(2);
+			DispStr_CE(0,4,"恭喜！本次数据提交完毕",DISP_POSITION|DISP_CLRSCR);
+			Disp_Goto_XY(0,36);
+			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			delay_and_wait_key(0,EXIT_KEY_F1,0);
+
+			break;
+		}else if(RET == 1){//用户名错误
+			WarningBeep(2);
 			DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
 			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			Disp_Goto_XY(0,36);
@@ -466,16 +476,10 @@ void SubmitData(){
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
-		}else if(RET ==3){//退出 
-
-			break;
+		}else if(RET ==3){//退出
+			//更新数据库
+			UpdateDatabase(recvdata);
 		}
-
-		//提交下一批
-		/*WarningBeep(0);
-		DispStr_CE(0,0,"按任意键提交下一批",DISP_CENTER|DISP_CLRSCR);
-		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-		*/
 	}//loop while
 
 	//free
@@ -484,111 +488,95 @@ void SubmitData(){
 }
 
 void FormatDatabase(){
-     WarningBeep(2);
-     DispStr_CE(0,4,"温馨提醒",DISP_CENTER|DISP_CLRSCR);
-     
-     EXT_Display_Multi_Lines("该操作将完全覆盖现有数据，并不能恢复现有数据，请谨慎操作!",8,16);
-     EXT_ClearLine(36,0);
-     Disp_Goto_XY(0,36);
-     DispStr_CE(0,36,"【F1取消】",DISP_CURRENT);
-     DispStr_CE(0,36,"【F3确定】",DISP_RIGHT);  
-     long key_value ;
-     key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
-     if((key_value == EXIT_KEY_F1)||(key_value == EXIT_AUTO_QUIT))
-     {
-          return ;                             
-     }
-     else if(key_value == EXIT_KEY_F3)
-     {
-         int i =0;
-         while(i<3)
-         {
-           if(CreateDatabase()==0)
-           {
-               WarningBeep(0);
-               DispStr_CE(0,4,"格式化成功，任意键退出",DISP_CENTER|DISP_CLRSCR);
-               delay_and_wait_key(30,EXIT_KEY_ALL|EXIT_AUTO_QUIT,30);
-              break;
-           }
-           else
-           {
-             i++;
-           }
-         }
-         if(i ==3)
-         {
-                WarningBeep(2);
-               DispStr_CE(0,4,"格式化失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
-               delay_and_wait_key(30,EXIT_KEY_ALL|EXIT_AUTO_QUIT,30);
-              return ;
-         }
-         
-     }
-     
+	WarningBeep(2);
+	DispStr_CE(0,4,"温馨提醒",DISP_CENTER|DISP_CLRSCR);
 
+	EXT_Display_Multi_Lines("该操作将完全覆盖现有数据，并不能恢复现有数据，请谨慎操作!",8,16);
+	EXT_ClearLine(36,0);
+	Disp_Goto_XY(0,36);
+	DispStr_CE(0,36,"【F1取消】",DISP_CURRENT);
+	DispStr_CE(0,36,"【F3确定】",DISP_RIGHT);
+	long key_value ;
+	key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
+	if((key_value == EXIT_KEY_F1)||(key_value == EXIT_AUTO_QUIT))	{
+		return ;
+	}else if(key_value == EXIT_KEY_F3){
+		int i =0;
+		while(i<3){
+			if(CreateDatabase()==0){
+				WarningBeep(0);
+				DispStr_CE(0,4,"格式化成功，任意键退出",DISP_CENTER|DISP_CLRSCR);
+				delay_and_wait_key(30,EXIT_KEY_ALL|EXIT_AUTO_QUIT,30);
+				break;
+			}else{
+				i++;
+			}
+		}
+
+		if(i ==3){
+			WarningBeep(2);
+			DispStr_CE(0,4,"格式化失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
+			delay_and_wait_key(30,EXIT_KEY_ALL|EXIT_AUTO_QUIT,30);
+			return ;
+		}
+	}
 }
 
-void  SysSetMenu()
-{
-    int ret;
-    int flag =1;
-         BROWINFO  sys_set_menu;
-        char MAIN_MENU[] = "1. 设置时间  2. 格式数据表3. 退出设置  "; 
-        char welcome[20];
-        char choose[20];
-        memset(welcome,0,20);
-        memset(choose,0,20);
-        strcpy(welcome ,"欢迎使用");
-        strcpy(choose,"请选择功能模块");
-        
-       
-        sys_set_menu.iStr = MAIN_MENU;
-        sys_set_menu.lPtr = 0;
-        sys_set_menu.cPtr = 0;
-        sys_set_menu.startLine = 10;
-        while(flag)
-        {
-           Disp_Clear();
-           
-           DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
-           DispStr_CE(0,6,choose,DISP_CENTER);
-           
-           
-           sys_set_menu.dispLines = 3;
-           sys_set_menu.mInt = 3;
-           sys_set_menu.lineMax = 13;
-           sys_set_menu.sFont = 0;
-           sys_set_menu.numEnable = 1;
-           sys_set_menu.qEvent = EXIT_KEY_F1 ; 
-            Disp_Set_Magnification(2);
-           ret = EXT_Brow_Select(&sys_set_menu);
-            Disp_Set_Magnification(1);
-         
-            
-           switch(ret)
-           {
-              case 0:
-              {
-                 Modify_Date();
-                 Modify_Time();
-                break;
-              }
-              case 1:
-              {
-                  FormatDatabase(); 
-                 break;
-              }
-              case 2:
-              {
-                flag =0;
-                break;
-              }
-              default:
-              {
-                break;
-              }
-           }
-        }
+void  SysSetMenu(){
+	int ret;
+	int flag =1;
+	BROWINFO  sys_set_menu;
+	char MAIN_MENU[] = "1. 设置时间  2. 格式数据表3. 退出设置  "; 
+	char welcome[20];
+	char choose[20];
+	memset(welcome,0,20);
+	memset(choose,0,20);
+	strcpy(welcome ,"欢迎使用");
+	strcpy(choose,"请选择功能模块");
+
+
+	sys_set_menu.iStr = MAIN_MENU;
+	sys_set_menu.lPtr = 0;
+	sys_set_menu.cPtr = 0;
+	sys_set_menu.startLine = 10;
+
+	while(flag){
+		Disp_Clear();
+
+		DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,6,choose,DISP_CENTER);
+
+
+		sys_set_menu.dispLines = 3;
+		sys_set_menu.mInt = 3;
+		sys_set_menu.lineMax = 13;
+		sys_set_menu.sFont = 0;
+		sys_set_menu.numEnable = 1;
+		sys_set_menu.qEvent = EXIT_KEY_F1 ; 
+		Disp_Set_Magnification(2);
+		ret = EXT_Brow_Select(&sys_set_menu);
+		Disp_Set_Magnification(1);
+
+
+		switch(ret){
+			case 0:{
+				Modify_Date();
+				Modify_Time();
+				break;
+			}
+			case 1:{
+				FormatDatabase(); 
+				break;
+			}
+			case 2:{
+				flag =0;
+				break;
+			}
+			default:{
+				break;
+			}
+		}
+	}
 } 
 
 void GetInfo(){ //标签校验 
@@ -642,7 +630,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret;
 	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.6"; 
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.7"; 
 	char welcome[20];
 	char choose[20];
 	memset(welcome,0,20);
@@ -676,20 +664,23 @@ void MainMenu(){
 				Query(); 
 				break;
 			}
+
 			case 1:{
 				//提交数据 
 				SubmitData();
 				break;
 			}
+
 			case 2:{
 				GetInfo();
 				break; 
-			} 
+			}
+
 			case 3:{  
 				SysSetMenu();
 			} 
-                       
-                        default :{
+
+			default :{
 				break;
 			}
 		}

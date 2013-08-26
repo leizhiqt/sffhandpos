@@ -3,13 +3,15 @@
 
 #include "common.h"
 
-#define BLOCKNUM 10 //数据库表占块数
+//数据库表占块数
+#define BLOCKNUM 10
 
-#define PAGENUM 30
+//每次上传条数
+#define PAGE_SIZE 30
 
 //定义数据表结构 
-typedef struct { 
-	unsigned int id;//id号方便查找 
+typedef struct {
+	unsigned int id;//id号方便查找
 	char username[USERNAME_LEN];//用户名
 	char antifakecode[ANTIFAKECODE_LEN];//防伪码
 	char querytime[QUERYTIME_LEN];//巡检时间
@@ -17,7 +19,7 @@ typedef struct {
 
 DataInfo datainfo;
 
-char Menu[150*PAGENUM+2];
+char Menu[150*PAGE_SIZE+2];
 
 int FindDatabase();
 
@@ -31,6 +33,8 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 
 short HandleRecvData(unsigned char* recvdata);
 
-void UpdateDatabase(unsigned char* recvdata,char* wronginfo);
+void UpdateDatabase(unsigned char* recvdata);
+
+int dbClean();
 
 #endif
