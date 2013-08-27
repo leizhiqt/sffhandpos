@@ -17,9 +17,7 @@ typedef struct {
 	char querytime[QUERYTIME_LEN];//—≤ºÏ ±º‰
 }DataInfo;
 
-DataInfo datainfo;
-
-char Menu[150*PAGE_SIZE+2];
+extern char Menu[150*PAGE_SIZE+2];
 
 int FindDatabase();
 

@@ -30,9 +30,11 @@
 
 extern  short Display(short flag);
 
-unsigned int pids[PAGE_SIZE];
+char Menu[150*PAGE_SIZE+2];
 
-int PAGE_OFFSET=0;
+static unsigned int pids[PAGE_SIZE];
+static DataInfo datainfo;
+static int PAGE_OFFSET=0;
 
 //======================================================================
 //函数名：FindDatabase 
@@ -130,7 +132,12 @@ short  CheckDB(){//检查数据库是否完好 0 表示完好，-1 表示失败
 }
 
 DataInfo* dbRetrieve(char id[5]){
+	char flag=0;
 	char myid[5]={0};
+	DataInfo di;
+	DataInfo* pdi=NULL;	
+	int i =0;	
+	
 	//memset(myid,0,5);
 
 	int dbCount = DB_count_records(0);
@@ -138,12 +145,6 @@ DataInfo* dbRetrieve(char id[5]){
 	//DispStr_CE(0,20,myid,DISP_POSITION);
 	//delay_and_wait_key(0,EXIT_KEY_ALL,0);
 
-	DataInfo di;
-	DataInfo* pdi=NULL;
-
-	char flag=0;
-
-	int i =0;
 	for(i=0; i<dbCount;i++){
 		pdi=DB_jump_to_record(0,i,&flag);
 		if(flag==0){//非空记录 && 存在记录
@@ -164,11 +165,11 @@ DataInfo* dbRetrieve(char id[5]){
 }
 
 int dbDelete(unsigned int id){
-	int dbCount = DB_count_records(0);
-
 	DataInfo* pdi=NULL;
-	char flag;
-	int i =0;
+	char flag = 0;
+	int i =0;	
+	int dbCount = DB_count_records(0);
+	
 	for(i=0; i<dbCount;i++){
 		pdi=DB_jump_to_record(0,i,(char *)&flag);
 
@@ -183,13 +184,12 @@ int dbDelete(unsigned int id){
 }
 
 int dbClean(){
-	int dbCount = DB_count_records(0);
-
 	DataInfo* pdi=NULL;
 	DataInfo di;
-
-	char flag;
-	int i =0;
+	char flag = 0;
+	int i =0;	
+	int dbCount = DB_count_records(0);
+	
 	for(i=0; i<dbCount;i++){
 		pdi=DB_jump_to_record(0,i,(char *)&flag);
 
@@ -206,14 +206,18 @@ int dbClean(){
 }
 
 short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* senddata){  //记录封装 协议数据格式 
+	int norecord=0;
+	int i=0;
 	int RET=-1 ;
-
-	char flag;
-	DataInfo di;
-	DataInfo* pdi;
-
 	int dbCount=0; //数据表中记录条数
-
+	int rloop =0;
+	int encodenum=0; //封装记录条数 
+	
+	DataInfo di;
+	DataInfo* pdi = NULL;
+	char flag = 0;	
+	char tempsenddata[30];
+	
 	//检查数据库 
 	RET = CheckDB();
 	if(RET != 0){
@@ -227,19 +231,11 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 		return -1;
 	}
 
-	char tempsenddata[30];
 	memset(tempsenddata,0,30);
-
 	sprintf(tempsenddata,"*1;%s;%s;",name,passwd);
 	strcat((char *)senddata,tempsenddata);
 
-	int norecord=0;
-
-	int i=0;
 	memset(Menu,'\0',150*PAGE_SIZE+2);
-
-	int rloop =0;
-	int encodenum=0; //封装记录条数 
 	while(rloop<dbCount){
 		pdi=DB_jump_to_record(0,rloop,&flag);
 
@@ -298,8 +294,8 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 }
 
 short HandleRecvData(unsigned char* recvdata){
-
 	char rets[5]={0};
+	
 	strncpy(rets,(char *)recvdata,2);
 
 	if(strcmp(rets,"*0")==0){
@@ -329,15 +325,13 @@ void UpdateDatabase(unsigned char* recvdata){
 
 	//DataInfo di;
 	//DataInfo* pdi;
-
+	int i=0;
 	char temprecvdata[256]={0};
+	char* token = NULL;
 
 	strncpy(temprecvdata,(char *)recvdata,strlen((char *)recvdata));
 
-	int i=0;
 	memset(Menu,'\0',150*28+2);
-
-	char* token = NULL;
 	token= strtok(temprecvdata,";");//1 spit
 	token = strtok(NULL,";");//2 spit
 
@@ -346,7 +340,6 @@ void UpdateDatabase(unsigned char* recvdata){
 		char errcodearr[5]={0};
 		char * ip=idarr;
 		char * ep=errcodearr;
-
 		char *p = token;
 
 		int head=1;

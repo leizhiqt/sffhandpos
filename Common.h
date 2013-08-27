@@ -10,7 +10,7 @@
 
 #define QUERYTIME_LEN 21
 
-char systime[20];
+extern char systime[20];
 
 void WarningBeep(int type);
 
