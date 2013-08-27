@@ -32,7 +32,7 @@
 //extern void WarningBeep();
 
 //关闭gprs模块
-void sim300_close(void){
+void sim900_close(void){
 	DispStr_CE(0,4,"正在关闭gprs模块，请稍等",DISP_CENTER|DISP_CLRSCR);
 	SIM900_Module_Close();
 }
@@ -44,11 +44,11 @@ void DisConnectServer(){
 
 	TCP_Send_Data(cshut,strlen((char *)&cshut));
 
-	sim300_close();
+	sim900_close();
 }
 
 //连接网络，返回0表示成功，其余失败 
-short sim300_init(void){
+short sim900_init(void){
 	int RET=0;
 	
 	DispStr_CE(0,0,"模块初始化...",DISP_POSITION|DISP_CLRSCR);
@@ -127,8 +127,10 @@ short ConnectServer(){//连接服务器   0表示连接成功，-1 表示连接失败
 }
 
 short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败 
+	int RET = 0;
+	
 	DispStr_CE(0,12,"正在上传，请稍等...",DISP_CENTER|DISP_CLRSCR);
-	int RET=TCP_Send_Data(data,strlen((char *)data));
+	RET=TCP_Send_Data(data,strlen((char *)data));
 	if(RET==0){//发送成功 
 		return 0;
 	}
@@ -137,7 +139,7 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 }
 
 short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功，-1 表示返回失败 
-	int len;
+	int len=0;
 	int RET=0;
 
 	RET = TCP_Recv_Data(recvdata,&len,FIVE_SECOND);

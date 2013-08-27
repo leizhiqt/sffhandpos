@@ -274,7 +274,7 @@ void Query(){
 short OpenGPRS(){
 	short RET=-1;
 
-	RET = sim300_init();//连接网络
+	RET = sim900_init();//连接网络
 	if(RET ==0){//连接网络成功
 		RET = ConnectServer();//连接服务器 
 		if(RET == 0){//连接服务器成功
@@ -284,7 +284,7 @@ short OpenGPRS(){
 
 	DispStr_CE(0,4,"连接服务器失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
 	//WarningBeep(2);
-	sim300_close();
+	sim900_close();
 	// delay_and_wait_key(0,EXIT_KEY_ALL,0);
 	return -1;
 }
@@ -296,11 +296,10 @@ short OpenGPRS(){
 //返回值：无 
 //======================================================================
 void SubmitData(){
-
-	long choose ;
 	int cLoop =0;
-
 	int i=0;
+	long choose = 0;
+	long key_value = 0; 
 	
 	choose = Alert(); 
 	switch(choose){
@@ -308,6 +307,7 @@ void SubmitData(){
 		case EXIT_AUTO_QUIT:{
 			return;
 		}
+		
 		case EXIT_KEY_F3:
 		case EXIT_KEY_ENTER: {
 			break;
@@ -321,9 +321,8 @@ void SubmitData(){
 	Disp_Goto_XY(0,36);
 	DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
 	DispStr_CE(0,36,"【F3登陆】",DISP_RIGHT);
-	long key_value; 
+	
 	key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
-
 	switch(key_value){
 		case EXIT_KEY_F1:
 
@@ -482,11 +481,12 @@ void SubmitData(){
 	}//loop while
 
 	//free
-	sim300_close();
+	sim900_close();
 	DisConnectServer();
 }
 
 void FormatDatabase(){
+	long key_value = 0;
 	WarningBeep(2);
 	DispStr_CE(0,4,"温馨提醒",DISP_CENTER|DISP_CLRSCR);
 
@@ -495,7 +495,7 @@ void FormatDatabase(){
 	Disp_Goto_XY(0,36);
 	DispStr_CE(0,36,"【F1取消】",DISP_CURRENT);
 	DispStr_CE(0,36,"【F3确定】",DISP_RIGHT);
-	long key_value ;
+	
 	key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 	if((key_value == EXIT_KEY_F1)||(key_value == EXIT_AUTO_QUIT))	{
 		return ;
@@ -522,17 +522,17 @@ void FormatDatabase(){
 }
 
 void  SysSetMenu(){
-	int ret;
+	int ret = 0;
 	int flag =1;
 	BROWINFO  sys_set_menu;
 	char MAIN_MENU[] = "1. 设置时间  2. 格式数据表3. 退出设置  "; 
 	char welcome[20];
 	char choose[20];
+	
 	memset(welcome,0,20);
 	memset(choose,0,20);
 	strcpy(welcome ,"欢迎使用");
 	strcpy(choose,"请选择功能模块");
-
 
 	sys_set_menu.iStr = MAIN_MENU;
 	sys_set_menu.lPtr = 0;
@@ -579,8 +579,7 @@ void  SysSetMenu(){
 } 
 
 void GetInfo(){ //标签校验 
-
-	long key_value;
+	long key_value = 0;
 	int flag = 1;
 	//int index=0; 
 
@@ -627,11 +626,12 @@ void GetInfo(){ //标签校验
 //======================================================================
 void MainMenu(){
 	//初始化菜单 
-	short ret;
+	short ret = 0;
 	BROWINFO  main_menu;
 	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.8"; 
 	char welcome[20];
 	char choose[20];
+	
 	memset(welcome,0,20);
 	memset(choose,0,20);
 	strcpy(welcome ,"欢迎使用");

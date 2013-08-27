@@ -5,16 +5,16 @@
 #include "Common.h"
 
 //ultralight 
-unsigned char	ULATQ[3];
-unsigned char	ULSNO[4];
+extern unsigned char	ULATQ[3];
+extern unsigned char	ULSNO[4];
 
-unsigned char username[USERNAME_LEN];//巡检用户名
-unsigned char password[USERNAME_LEN];//巡检密码
+extern unsigned char username[USERNAME_LEN];//巡检用户名
+extern unsigned char password[USERNAME_LEN];//巡检密码
 
-char anticode[ANTIFAKECODE_LEN];//防伪码 
+extern char anticode[ANTIFAKECODE_LEN];//防伪码 
 
-unsigned char sname[USERNAME_LEN];//登录用户名
-unsigned char spass[USERNAME_LEN];////登录密码
+extern unsigned char sname[USERNAME_LEN];//登录用户名
+extern unsigned char spass[USERNAME_LEN];////登录密码
 
 short ultralight_init();
 short ultralight_find_card();

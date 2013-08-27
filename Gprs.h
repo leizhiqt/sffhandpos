@@ -2,9 +2,9 @@
 
 #define   Gprs_h_2012_07_17_11_17_38_INCLUDED
 
-short sim300_init(void);
+short sim900_init(void);
 
-void sim300_close(void);
+void sim900_close(void);
 
 short ConnectServer();
 

@@ -125,6 +125,25 @@ void SIM900_Module_Close(void)
 	Sys_Gprs_Power_Control(0);												// ¹Ø±ÕµçÔ´
 }
 
+void SIM900_Module_Sleep(void)
+{
+	unsigned char rBuf[100];
+	int rLen;
+	
+	memset(rBuf,0x00,sizeof(rBuf));
+	UART_Send_CMD((unsigned char *)"AT+CSCLK=1");
+	UART_Recv_Data(rBuf,&rLen,HALF_SECOND,QUARTER_SECOND);
+	
+	UART_Modem_Ctrl(UART_MODEM_CTRL2,UART_MODEM_HIGH);			// ÐÝÃß×´Ì¬
+	Sys_Delay_MS(100);
+}
+
+void SIM900_Module_Wake(void)
+{
+	UART_Modem_Ctrl(UART_MODEM_CTRL2,UART_MODEM_LOW);
+	Sys_Delay_MS(100);
+}
+
 int SIM900_REG_GSM(void)
 {
 	unsigned char rBuf[100];
@@ -139,7 +158,7 @@ int SIM900_REG_GSM(void)
 		{
 			return 0;
 		}
-		Sys_Delay_MS(1000);
+		Sys_Delay_MS(2000);
 	}
 	return -1;
 }
@@ -364,6 +383,7 @@ int TCP_Recv_Data(unsigned char *data,int *len,int T)
 	return -1;
 }
 
+/*
 void FTP_Set_Server(unsigned char *ip,int port)
 {
 	unsigned char sBuf[100];
@@ -550,7 +570,7 @@ int FTP_Put_File(unsigned char *data,int len)
 	}
 	
 }
-
+*/
 
 //	{
 //		char str[20];

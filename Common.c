@@ -22,6 +22,8 @@
 ****************************************************************************/
 #include "Common.h"
 
+char systime[20];
+
 //======================================================================
 //函数名：WaringBeep 
 //功能  ：提示音 
@@ -29,8 +31,8 @@
 //返回值：无 
 //======================================================================
 void	WarningBeep(int type){
-	int	count;
-	int	j;
+	int	count = 0;
+	int	j = 0;
 	
 	if(type)
 	{		
@@ -73,15 +75,15 @@ void GetSysTime(char* time){
  int 	Modify_Date(void)
 {
 	typ_DATE	tdate;
-	char		dBuf[40];
-	int 		ret;
-	int 		year;
-	int		month;
-	int		day;
-	int		day_max;
-	char 		str1[20];
-	char		str2[20];
-	char		str3[20];
+	int ret = 0;
+	int year = 0;
+	int	month = 0;
+	int	day = 0;
+	int day_max = 0;
+	char dBuf[40];
+	char str1[20];
+	char	str2[20];
+	char	str3[20];
 	
 	RTC_Get_Date(&tdate);
 	year = tdate.year;
@@ -181,14 +183,14 @@ void GetSysTime(char* time){
  int Modify_Time(void)
 {
 	typ_TIME	ttime;
-	char		dBuf[40];
-    	int 		ret;
-	int 		hour;
-	int		minute;
-	int		second;
-	char 		str1[20];
-	char		str2[20];
-	char		str3[20];
+  int	ret = 0;
+	int hour = 0;
+	int	minute = 0;
+	int	second = 0;
+	char	dBuf[40];	
+	char str1[20];
+	char str2[20];
+	char str3[20];
 	
 	
 	RTC_Get_Time(&ttime);
@@ -250,8 +252,8 @@ int	input_date_time(int line,int maxNum,int minNum,int minValue,int maxValue,
 	                char *pPrompt,int *retValue)
 {
 	GETSTR_PARAM 	gs;
-	char		dBuf[40];
-	int 		ret;
+	char	dBuf[40];
+	int ret = 0;
 	
 	sprintf(dBuf,"%d",*retValue);
 	gs.qx = 0;
@@ -274,8 +276,8 @@ int	input_date_time(int line,int maxNum,int minNum,int minValue,int maxValue,
 	gs.qEvent = EXIT_KEY_F1|EXIT_KEY_CANCEL;
 	
 	ret = GetStr_E(&gs);
-    	if(ret==0)
-    	{
+	if(ret==0)
+	{
 		*retValue = gs.retValue;
 	}
 	
@@ -284,22 +286,20 @@ int	input_date_time(int line,int maxNum,int minNum,int minValue,int maxValue,
 
 char* filter(char *c1,char c2){
 
-	int i,a,s=0;
+	int i = 0, a = 0, s = 0;
 	char c[1024];
 
 	a=strlen(c1);
-	
 	if(!(a<1024))
 		a=1023;
 
 	for(i=0;i<a;i++)
-	if(c2!=c1[i])	{
-		c[s]=c1[i];
-		s++;
+		if(c2!=c1[i])	{
+			c[s]=c1[i];
+			s++;
 	}
 
 	c[s]='\0'; 
-
 	for(i=0;i<=s;i++)
 		c1[i]=c[i];
 
