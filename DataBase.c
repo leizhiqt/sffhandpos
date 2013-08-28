@@ -30,7 +30,7 @@
 
 extern  short Display(short flag);
 
-char Menu[150*PAGE_SIZE+2];
+char Menu[150*LINE_LEN+2];
 
 static unsigned int pids[PAGE_SIZE];
 static DataInfo datainfo;
@@ -187,7 +187,8 @@ int dbClean(){
 	DataInfo* pdi=NULL;
 	DataInfo di;
 	char flag = 0;
-	int i =0;	
+	int i = 0;	
+	int j = 0;
 	int dbCount = DB_count_records(0);
 	
 	for(i=0; i<dbCount;i++){
@@ -195,7 +196,6 @@ int dbClean(){
 
 		if(flag==0){//非空记录 && 存在记录
 			memcpy(&di,pdi,sizeof(DataInfo));
-			int j=0;
 			for(j=0;j<PAGE_OFFSET;j++){
 				if(di.id==pids[j]) DB_delete_record(0,i);//删除该记录
 			}
@@ -235,7 +235,7 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 	sprintf(tempsenddata,"*1;%s;%s;",name,passwd);
 	strcat((char *)senddata,tempsenddata);
 
-	memset(Menu,'\0',150*PAGE_SIZE+2);
+	memset(Menu,'\0',150*LINE_LEN+2);
 	while(rloop<dbCount){
 		pdi=DB_jump_to_record(0,rloop,&flag);
 

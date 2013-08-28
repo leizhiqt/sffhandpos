@@ -6,8 +6,14 @@
 //数据库表占块数
 #define BLOCKNUM 10
 
+//行长度
+#define LINE_LEN 30
+
 //每次上传条数
-#define PAGE_SIZE 30
+//GPRS一次最大能传输1024字节
+// 1024 / sizeof(DataInfo) + 10
+// 10为记录与记录这类的分隔符
+#define PAGE_SIZE 20
 
 //定义数据表结构 
 typedef struct {
@@ -17,7 +23,7 @@ typedef struct {
 	char querytime[QUERYTIME_LEN];//巡检时间
 }DataInfo;
 
-extern char Menu[150*PAGE_SIZE+2];
+extern char Menu[150*LINE_LEN+2];
 
 int FindDatabase();
 

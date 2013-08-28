@@ -97,11 +97,17 @@ short sim900_init(void){
 }
 
 
-
-short ConnectServer(){//连接服务器   0表示连接成功，-1 表示连接失败 
+//连接服务器   0表示连接成功，-1 表示连接失败 
+short ConnectServer(){
 	int RET=-1;
 
 	DispStr_CE(0,10,"连接服务器，请稍等...",DISP_POSITION|DISP_CLRSCR);
+	
+	//lzy 测试服务器	
+	//unsigned char host[] = "113.89.188.79";
+	//unsigned char port[] = "5300";
+
+	//lzy 实际的服务器
 	unsigned char host[] = "118.123.244.109";
 	unsigned char port[] = "8000";
 

@@ -1,0 +1,84 @@
+10
+
+dir
+0
+svn://192.168.2.25/2013/%E5%9B%9B%E5%B7%9D%E5%8E%9F%E9%85%92/sffhandpos/Ui
+svn://192.168.2.25
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c5fdec9d-8e7f-2145-877c-cbdc95ad6f0f
+
+Offline.c
+file
+
+
+
+add
+
+Upload.c
+file
+
+
+
+add
+
+ExitSet.c
+file
+
+
+
+add
+
+VerInfo.c
+file
+
+
+
+add
+
+FormDB.c
+file
+
+
+
+add
+
+SetTime.c
+file
+
+
+
+add
+
+SysSet.c
+file
+
+
+
+add
+
+Check.c
+file
+
+
+
+add
+

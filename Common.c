@@ -24,6 +24,16 @@
 
 char systime[20];
 
+/*
+//大字体
+int  g_LINESpacing = 2;
+int g_DisplyLine = 9;
+*/
+
+int g_LINESpacing = 1;
+int g_DisplyLine = 19;
+int AutoPowerOff = (60 * 2);
+
 //======================================================================
 //函数名：WaringBeep 
 //功能  ：提示音 

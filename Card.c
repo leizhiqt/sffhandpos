@@ -39,7 +39,7 @@ unsigned char spass[USERNAME_LEN];////登录密码
 *0
 *!=0 error
 */
-int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
+int ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 
 	long key_value = 0; 
 	int forever = 1;
@@ -120,7 +120,8 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		//读卡成功
 		//读用户名失败
 		RET=CardMFCAuthKey(PICC_AUTHENT1A,MSNO,dummy_key,5);
-		if(RET==RCX_OK) RET = CardMFCRead16Bytes(5,nname);
+		if(RET==RCX_OK) 
+			RET = CardMFCRead16Bytes(5,nname);
 		
 		if(RET!=RCX_OK){
 			EXT_ClearLine(10,0);
@@ -160,7 +161,7 @@ int  ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 			}
 			continue;
 		}
-
+	
 		//验证成功&&退出
 		break;
 	}//end while
@@ -176,7 +177,6 @@ short LoginByCard(){
 	memset(password,0,USERNAME_LEN);
 	
 	RET = ReadNameAndPassword(username, password);
-
 	//读取成功 验证 
 	if(RET==0) return 0; 
 
@@ -189,7 +189,7 @@ short LoginToSubmit(){
 	memset(sname,0,USERNAME_LEN);
 	memset(spass,0,USERNAME_LEN);
 
-	RET = ReadNameAndPassword(sname, spass);
+	RET = ReadNameAndPassword(sname, spass);	
 	//读取成功 验证 
 	if(RET==0) return 0; 
 
@@ -281,6 +281,7 @@ short ultralight_local_read_card(char* ac){
 	unsigned char databuf[30];
 	
 	memset(databuf,0,30);
+	//ultralight 卡数据所有位置
 	block_add = 4;
 
 	flag = 1;
@@ -350,7 +351,7 @@ short ultralight_local_read_card(char* ac){
 	        DispStr_CE(0,8,"寻卡成功",DISP_CENTER); 
 	        DispStr_CE(0,10,"正在读卡...",DISP_CENTER); 
 	        read_card_err = ultralight_read_card(block_add, databuf);
-	        if( 0 == read_card_err)     //读卡失败 
+	        if(0 == read_card_err)     //读卡失败 
 	        {
 						EXT_ClearLine(10,0); 
 						DispStr_CE(0,10,"读卡失败",DISP_CENTER);
@@ -372,7 +373,8 @@ short ultralight_local_read_card(char* ac){
           }
 					else 
 					{
-						/* EXT_ClearLine(12,0); 
+						/* 
+						EXT_ClearLine(12,0); 
 						DispStr_CE(0,12,"读卡成功",DISP_CENTER);
 						EXT_ClearLine(16,0);
 						DispStr_CE(0,16,"防伪码为：",DISP_CENTER);

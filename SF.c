@@ -133,14 +133,14 @@ long Alert(){
 //======================================================================
 void InitSystem()
 {
-        Disp_Init(DISP_INIT_ON);		//Open LCD
+  Disp_Init(DISP_INIT_ON);		//Open LCD
 	Disp_Clear();				
 	
 	KEY_Init(KEY_BEEP_KEY|KEY_AUTO_EL_ON);	//Open Keyborad
 	KEY_Beep_Mask_Set(0x00000000);			
 	KEY_EL_Mask_Set(0xffffffff);
 	EL_Set_Timeout(60);			//close EL in 10 second if not press any key
-	Sys_Auto_Poweroff_Set(60*2);		//Power off in 2 minutes if not do anything
+	Sys_Auto_Poweroff_Set(AutoPowerOff);		//Power off in 2 minutes if not do anything
 	
 	//Meanless for 0518
 	Disp_Icon_Battery_Time_Set(1,ICON_AT_TAIL);
@@ -151,6 +151,7 @@ void InitSystem()
 	Disp_set_color(SET_SELECT_COLOR,  0x07E0);	//Green
 	Disp_set_color(SET_CLEAR_COLOR, 0xffff);	//White
 }
+
 //======================================================================
 //函数名：Query 
 //功能  ：完成巡检功能 
@@ -234,6 +235,15 @@ void Query(){
 			//short AddOneRecord(char* name,char* time,char* code)
 			char record[200];
 			memset(record,0,200); 
+
+			/*
+			{//lzy 生成测试数据
+				int i = 0;
+				for(i = 0; i < 400; i++)
+					AddOneRecord(username,systime,anticode,record);
+			}
+			*/
+			
 			ret = AddOneRecord(username,systime,anticode,record);
 			if(ret == 0){   //插入成功 
 				DispStr_CE(0,0,"巡检成功",DISP_CENTER|DISP_CLRSCR);
@@ -338,26 +348,26 @@ void SubmitData(){
 	}
 
 	int RET = LoginToSubmit();
-/*	DispStr_CE(0,0,"ReadNameAndPassword",DISP_CENTER|DISP_CLRSCR);
-
+	/*	
+	DispStr_CE(0,0,"ReadNameAndPassword",DISP_CENTER|DISP_CLRSCR);
 	char tmpbuf[100];
 	sprintf(tmpbuf,"RET: %d",RET);
 	DispStr_CE(0,0,tmpbuf,DISP_POSITION|DISP_5x7);
-*/
+	*/
 	if(RET != 0){
 		DispStr_CE(0,2,"刷卡失败!",DISP_POSITION|DISP_CLRSCR);
 		return;
 	}
 
 	//刷卡登陆成功   获取了登陆用户名和密码
-	int maxs=60*PAGE_SIZE+5;
-	int maxr=6*PAGE_SIZE+5;
+	//int maxs=60*PAGE_SIZE+5;
+	//int maxr=6*PAGE_SIZE+5;
 
-	unsigned char senddata[maxs];
-	unsigned char recvdata[maxr];
+	unsigned char senddata[1024];
+	unsigned char recvdata[1024];
 
-	memset(senddata,0,maxs);
-	memset(recvdata,0,maxr);
+	memset(senddata,0,1024);
+	memset(recvdata,0,1024);
 
 	//首次检查数据
 	RET=EncodeSendData(sname,spass,senddata);
@@ -389,12 +399,11 @@ void SubmitData(){
 
 	int upCount =0;
 	while(1){
-		memset(senddata,0,maxs);
-		memset(recvdata,0,maxr);
+		memset(senddata,0,1024);
+		memset(recvdata,0,1024);
 
 		//暂存没有数据
 		RET=EncodeSendData(sname,spass,senddata);
-
 		if(RET<1){
 			CreateDatabase();
 
@@ -628,7 +637,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret = 0;
 	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV1.8"; 
+	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV2.0"; 
 	char welcome[20];
 	char choose[20];
 	
