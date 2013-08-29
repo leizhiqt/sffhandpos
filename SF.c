@@ -24,14 +24,24 @@
 /*在此增加代码(TODO: add  code here)*/
 
 #include "API.h"
-
 #include "Card.h"
 #include "DataBase.h"
 #include "Gprs.h"
+#include "UiProg.h"
+#include "SF.h"
 
-/*
-*Display API
-*/
+//======================================================================
+//函数名：main 
+//功能  ：主函数 程序入口 
+//参数  ：无 
+//返回值：int
+//======================================================================
+int main(void){
+	InitSystem();
+	MainMenu();
+	return 0;
+}
+
 
 short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag ){
 	BROWINFO	bi;
@@ -532,40 +542,33 @@ void FormatDatabase(){
 
 void  SysSetMenu(){
 	int ret = 0;
-	int flag =1;
-	BROWINFO  sys_set_menu;
-	char MAIN_MENU[] = "1. 设置时间  2. 格式数据表3. 退出设置  "; 
-	char welcome[20];
-	char choose[20];
-	
-	memset(welcome,0,20);
-	memset(choose,0,20);
-	strcpy(welcome ,"欢迎使用");
-	strcpy(choose,"请选择功能模块");
+	//int flag =1;
+	//BROWINFO  sys_set_menu;
 
-	sys_set_menu.iStr = MAIN_MENU;
-	sys_set_menu.lPtr = 0;
-	sys_set_menu.cPtr = 0;
-	sys_set_menu.startLine = 10;
+	int LineLen = 26;
+	SMemu SMemuObj =
+	{
+		1, 3, 1,
+		{		
+			{
+				{12, 64,	SetTime,	0}, {88, 64, FormDB, 0}, {164, 64, ExitSet, 0}, 
+			},	
+		},
+		{3, 0, 0},0, 0,
+	};		
 
-	while(flag){
+	char MAIN_MENU[7 * 26 + 2] = 
+		{
+			"1. 设置时间               "
+			"2. 格式数据表             "
+			"3. 退出设置               "
+		};
+
+
+	while(1){
 		Disp_Clear();
 
-		DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
-		DispStr_CE(0,6,choose,DISP_CENTER);
-
-
-		sys_set_menu.dispLines = 3;
-		sys_set_menu.mInt = 3;
-		sys_set_menu.lineMax = 13;
-		sys_set_menu.sFont = 0;
-		sys_set_menu.numEnable = 1;
-		sys_set_menu.qEvent = EXIT_KEY_F1 ; 
-		Disp_Set_Magnification(2);
-		ret = EXT_Brow_Select(&sys_set_menu);
-		Disp_Set_Magnification(1);
-
-
+		ret = Browse_Icon("请选择功能模块", MAIN_MENU, &SMemuObj, LineLen, 1, 0, 0);
 		switch(ret){
 			case 0:{
 				Modify_Date();
@@ -576,10 +579,15 @@ void  SysSetMenu(){
 				FormatDatabase(); 
 				break;
 			}
+			
 			case 2:{
-				flag =0;
+				return;
 				break;
 			}
+			case -1:{
+				return;
+				}break;
+			
 			default:{
 				break;
 			}
@@ -636,54 +644,53 @@ void GetInfo(){ //标签校验
 void MainMenu(){
 	//初始化菜单 
 	short ret = 0;
-	BROWINFO  main_menu;
-	char MAIN_MENU[] = "1. 离线巡检2. GPRS上传3. 标签校验4. 系统设置5. SFV2.0"; 
-	char welcome[20];
-	char choose[20];
+	int LineLen = 26;
+	SMemu SMemuObj =
+	{
+		1, 5, 1,
+		{		
+			{
+				{12, 64,	Offline,	0}, {88, 64, Upload, 0}, {164, 64, Check, 0}, 
+				{12, 140, SysSet, 0}, {88, 140, VerInfo, 0},
+			},	
+		},
+		{5, 0, 0},0, 0,
+	};		
 	
-	memset(welcome,0,20);
-	memset(choose,0,20);
-	strcpy(welcome ,"欢迎使用");
-	strcpy(choose,"请选择功能模块");
-	main_menu.iStr = MAIN_MENU;
-	main_menu.lPtr = 0;
-	main_menu.cPtr = 0;
-	main_menu.startLine = 10;
+	char MAIN_MENU[7 * 26 + 2] = 
+		{
+			"1. 离线巡检               "
+			"2. GPRS上传               "
+			"3. 标签校验               "
+			"4. 系统设置               "
+			"5. SFV2.01                "
+		};
 
+	Disp_Clear();
 	while(1){
 		Disp_Clear();
-		DispStr_CE(0,4,welcome,DISP_CENTER|DISP_CLRSCR);
-		DispStr_CE(0,6,choose,DISP_CENTER);
-
-		main_menu.dispLines = 5;
-		main_menu.mInt = 5;
-		main_menu.lineMax = 11;
-		main_menu.sFont = 0;
-		main_menu.numEnable = 1;
-		main_menu.qEvent = EXIT_KEY_F1 ;
-
-		Disp_Set_Magnification(2);
-		ret = EXT_Brow_Select(&main_menu);
-		Disp_Set_Magnification(1);
-
+		ret = Browse_Icon("请选择功能模块", MAIN_MENU, &SMemuObj, LineLen, 1, 0, 0);
 		switch(ret){
-			case 0:{
-				//巡检
+			
+			//巡检
+			case 0:{				
 				Query(); 
 				break;
 			}
 
-			case 1:{
-				//提交数据 
+			//提交数据 
+			case 1:{				
 				SubmitData();
 				break;
 			}
 
+			//标签校验
 			case 2:{
 				GetInfo();
 				break; 
 			}
 
+			//系统设置
 			case 3:{  
 				SysSetMenu();
 			} 
@@ -695,14 +702,3 @@ void MainMenu(){
 	} 
 }
 
-//======================================================================
-//函数名：main 
-//功能  ：主函数 程序入口 
-//参数  ：无 
-//返回值：int
-//======================================================================
-int main(void){
-	InitSystem();
-	MainMenu();
-	return 0;
-}
