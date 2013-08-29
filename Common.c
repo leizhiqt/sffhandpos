@@ -32,7 +32,7 @@ int g_DisplyLine = 9;
 
 int g_LINESpacing = 1;
 int g_DisplyLine = 19;
-int AutoPowerOff = (60 * 2);
+int AutoPowerOff = 0;
 
 //======================================================================
 //º¯ÊýÃû£ºWaringBeep 
