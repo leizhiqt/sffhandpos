@@ -35,7 +35,7 @@ static int Disp_IconEx(SMemu *pSMObj, int Prompt, int Font)
 	unsigned char buf[1024 * 1024];
 	unsigned long len;
 	char txt[200];
-	int i = 0,j = 0;
+	int i = 0/*,j = 0*/;
 	MenuInfo *pMIobj = NULL;
 	
 	if(pSMObj == NULL)
@@ -49,6 +49,7 @@ static int Disp_IconEx(SMemu *pSMObj, int Prompt, int Font)
 	}
 	
 	Disp_Clear();
+	/*
 	for(i = 0;i <= 240;i++)								// 画横线
 	{
 		Disp_Put_Pixel_Col(i,58,0x0000);
@@ -61,7 +62,7 @@ static int Disp_IconEx(SMemu *pSMObj, int Prompt, int Font)
 		Disp_Put_Pixel_Col(82,j,0x0000);
 		Disp_Put_Pixel_Col(158,j,0x0000);
 	}
-	
+	*/
 	//计算此页码有多少菜单
 	iPage = pSMObj->m_CPage;
 	MCount = (pSMObj->m_MCount - (iPage * 9));

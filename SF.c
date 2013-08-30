@@ -253,7 +253,6 @@ void Query(){
 					AddOneRecord(username,systime,anticode,record);
 			}
 			*/
-			
 			ret = AddOneRecord(username,systime,anticode,record);
 			if(ret == 0){   //插入成功 
 				DispStr_CE(0,0,"巡检成功",DISP_CENTER|DISP_CLRSCR);
@@ -318,8 +317,10 @@ short OpenGPRS(){
 void SubmitData(){
 	int cLoop =0;
 	int i=0;
+	int RET = 0;	
 	long choose = 0;
 	long key_value = 0; 
+	unsigned char data[1024];
 	
 	choose = Alert(); 
 	switch(choose){
@@ -357,30 +358,22 @@ void SubmitData(){
 		}
 	}
 
-	int RET = LoginToSubmit();
 	/*	
 	DispStr_CE(0,0,"ReadNameAndPassword",DISP_CENTER|DISP_CLRSCR);
 	char tmpbuf[100];
 	sprintf(tmpbuf,"RET: %d",RET);
 	DispStr_CE(0,0,tmpbuf,DISP_POSITION|DISP_5x7);
 	*/
+	RET = LoginToSubmit();
 	if(RET != 0){
 		DispStr_CE(0,2,"刷卡失败!",DISP_POSITION|DISP_CLRSCR);
 		return;
 	}
 
-	//刷卡登陆成功   获取了登陆用户名和密码
-	//int maxs=60*PAGE_SIZE+5;
-	//int maxr=6*PAGE_SIZE+5;
-
-	unsigned char senddata[1024];
-	unsigned char recvdata[1024];
-
-	memset(senddata,0,1024);
-	memset(recvdata,0,1024);
+	memset(data,'\0',sizeof(data));
 
 	//首次检查数据
-	RET=EncodeSendData(sname,spass,senddata);
+	RET=EncodeSendData(sname,spass,data);
 	if(RET<0){
 		CreateDatabase();
 
@@ -390,10 +383,19 @@ void SubmitData(){
 
 		return;
 	}
-
+	//初始化模块
+	RET = sim900_init();
+	if(RET != 0)
+	{
+		DispStr_CE(0,4,"连接服务器失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+		return;
+	}
+	
 	//打开GPRS模块 && 服务器
 	for(i=0;i<3;i++){
-		if((RET=OpenGPRS())==0){
+		RET = ConnectServer();
+		if(RET == 0){
 			break;
 		}
 	}
@@ -409,11 +411,10 @@ void SubmitData(){
 
 	int upCount =0;
 	while(1){
-		memset(senddata,0,1024);
-		memset(recvdata,0,1024);
+		memset(data,'\0',sizeof(data));
 
 		//暂存没有数据
-		RET=EncodeSendData(sname,spass,senddata);
+		RET=EncodeSendData(sname,spass,data);
 		if(RET<1){
 			CreateDatabase();
 
@@ -433,7 +434,7 @@ void SubmitData(){
 
 		upCount++;
 		//发送数据
-		RET = SendData(senddata);
+		RET = SendData(data);
 		if(RET==-1){
 			//发送失败
 			cLoop++;
@@ -452,8 +453,14 @@ void SubmitData(){
 			continue;
 		}
 
+		memset(data, '\0', sizeof(data));
 		//发送成功 && 接收返回值
-		RET = GetRecvData(recvdata);
+		RET = GetRecvData(data);
+		/*
+		{//lzy GPRS test
+			RET = 0;
+		}	
+		*/
 		if(RET<0){ //接收失败
 			WarningBeep(2);
 			DispStr_CE(0,4,"服务器没有响应,请再试!",DISP_POSITION|DISP_CLRSCR);
@@ -465,7 +472,13 @@ void SubmitData(){
 		}
 
 		//处理接收消息
-		RET =HandleRecvData(recvdata);
+		RET =HandleRecvData(data);
+
+		/*
+		{//lzy GPRS test
+			RET = 0;
+		}
+		*/
 		if(RET == 0){
 			dbClean();
 
@@ -495,13 +508,14 @@ void SubmitData(){
 			break;
 		}else if(RET ==3){//退出
 			//更新数据库
-			UpdateDatabase(recvdata);
+			UpdateDatabase(data);
 		}
 	}//loop while
 
 	//free
-	sim900_close();
 	DisConnectServer();
+	
+	//sim900_close();
 }
 
 void FormatDatabase(){
@@ -663,7 +677,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.01                "
+			"5. SFV2.02                "
 		};
 
 	Disp_Clear();

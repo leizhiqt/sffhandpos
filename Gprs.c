@@ -39,11 +39,19 @@ void sim900_close(void){
 
 //断开与服务器连接并关闭gprs模块
 void DisConnectServer(){
+	int Ret = 0;
 	DispStr_CE(0,4,"正在注销，请稍等",DISP_CENTER|DISP_CLRSCR);
 	unsigned char cshut[4]= "*3#\n";
 
-	TCP_Send_Data(cshut,strlen((char *)&cshut));
 
+	Ret = TCP_Check_Link();
+	if(Ret == 0)
+	{
+		TCP_Send_Data(cshut,strlen((char *)&cshut));
+
+		//断开与服务器联接
+		TCP_Shut_Link();
+	}
 	sim900_close();
 }
 
@@ -104,16 +112,15 @@ short ConnectServer(){
 	DispStr_CE(0,10,"连接服务器，请稍等...",DISP_POSITION|DISP_CLRSCR);
 	
 	//lzy 测试服务器	
-	//unsigned char host[] = "113.89.188.79";
+	//unsigned char host[] = "113.89.3.173";
 	//unsigned char port[] = "5300";
 
 	//lzy 实际的服务器
 	unsigned char host[] = "118.123.244.109";
-	unsigned char port[] = "8000";
-
-	RET = TCP_Create_Link(host,port);
+	unsigned char port[] = "8000";	
 
 	//连接成功
+	RET = TCP_Create_Link(host,port);
 	if(RET==0){
 		return 0;
 	}
@@ -125,10 +132,8 @@ short ConnectServer(){
 	else
 		DispStr_CE(0,8,"连接服务器未知错误",DISP_POSITION);
 
-	delay_and_wait_key(0,EXIT_KEY_F2,0);
 	WarningBeep(2);
-	SIM900_Module_Close();
-
+	delay_and_wait_key(30,EXIT_KEY_F2,30);	
 	return RET;
 }
 
@@ -146,7 +151,7 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 
 short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功，-1 表示返回失败 
 	int len=0;
-	int RET=0;
+	int RET=-1;
 
 	RET = TCP_Recv_Data(recvdata,&len,FIVE_SECOND);
 	if(RET==0){

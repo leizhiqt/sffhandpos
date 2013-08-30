@@ -235,7 +235,7 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 	sprintf(tempsenddata,"*1;%s;%s;",name,passwd);
 	strcat((char *)senddata,tempsenddata);
 
-	memset(Menu,'\0',150*LINE_LEN+2);
+	memset(Menu,'\0',sizeof(Menu));
 	while(rloop<dbCount){
 		pdi=DB_jump_to_record(0,rloop,&flag);
 
@@ -326,12 +326,13 @@ void UpdateDatabase(unsigned char* recvdata){
 	//DataInfo di;
 	//DataInfo* pdi;
 	int i=0;
-	char temprecvdata[256]={0};
+	char temprecvdata[1024];
 	char* token = NULL;
 
+	memset(temprecvdata, '\0', sizeof(temprecvdata));
 	strncpy(temprecvdata,(char *)recvdata,strlen((char *)recvdata));
 
-	memset(Menu,'\0',150*28+2);
+	memset(Menu,'\0',sizeof(Menu));
 	token= strtok(temprecvdata,";");//1 spit
 	token = strtok(NULL,";");//2 spit
 

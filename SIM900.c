@@ -119,9 +119,11 @@ void SIM900_Module_Close(void)
 {
 	UART_Init(UART_OFF);													// 关闭串口
 	UART_Modem_Ctrl(UART_MODEM_CTRL1,UART_MODEM_LOW);						// 关闭SIM300模块
-	Sys_Delay_MS(2000);
+	//Sys_Delay_MS(2000);
+	Sys_Delay_MS(1200);
 	UART_Modem_Ctrl(UART_MODEM_CTRL1,UART_MODEM_HIGH);
-	Sys_Delay_MS(2000);
+	//Sys_Delay_MS(2000);
+	Sys_Delay_MS(1200);
 	Sys_Gprs_Power_Control(0);												// 关闭电源
 }
 
