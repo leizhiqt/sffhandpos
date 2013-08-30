@@ -343,7 +343,7 @@ void UpdateDatabase(unsigned char* recvdata){
 		char *p = token;
 
 		int head=1;
-		while(*p!=0 && *p!='#' && strstr(p,"*")==NULL){
+		while(*p!=0 && *p!='#' && *p!='*'){
 			if(head){
 				if(*p!=',') {
 					//printf("->%c\n",*p);
