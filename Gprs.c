@@ -132,7 +132,7 @@ short ConnectServer(){
 	else
 		DispStr_CE(0,8,"连接服务器未知错误",DISP_POSITION);
 
-	DispStr_CE(0,36,"【F2退出】",DISP_POSITION); 	
+	DispStr_CE(0,36,"【F2退出】",DISP_POSITION|DISP_CLRLINE); 	
 
 	WarningBeep(2);
 	delay_and_wait_key(30,EXIT_KEY_F2,30);	

@@ -90,15 +90,15 @@ static int Disp_IconEx(SMemu *pSMObj, int Prompt, int Font)
 	}
 	Disp_Icon_Battery_Time_Refresh();
 	if(Prompt == 0)
-	{DispStr_CE(0, 36, "F1-退出      Enter-选择",DISP_CENTER);}	
+	{DispStr_CE(0, 36, "【F1-退出】   【Enter-选择】",DISP_CENTER);}	
 	else if(Prompt == 1)
-	{DispStr_CE(0, 36, "Enter-选择",DISP_CENTER);}
+	{DispStr_CE(0, 36, "【Enter-选择】",DISP_CENTER);}
 	else if(Prompt == 2)
-	{DispStr_CE(0, 36, "F1-返回      Enter-选择",DISP_CENTER);}
+	{DispStr_CE(0, 36, "【F1-返回】   【Enter-选择】",DISP_CENTER);}
 	else
 	{
-		DispStr_CE(0, 34, "F1-返回/Return", DISP_CENTER | DISP_CLRLINE);
-		DispStr_CE(0, 36, "Enter-选择/Choice", DISP_CENTER | DISP_CLRLINE);		
+		DispStr_CE(0, 34, "【F1-返回/Return】", DISP_CENTER | DISP_CLRLINE);
+		DispStr_CE(0, 36, "【Enter-选择/Choice】", DISP_CENTER | DISP_CLRLINE);		
 	}
 	return(0);
 }

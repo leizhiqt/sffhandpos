@@ -74,7 +74,7 @@ short CreateDatabase(){
 		return -1;
 	} 
 
-	RET = DB_format_db(0,BLOCKNUM,sizeof(DataInfo));   //0 成功 其他失败 
+	RET = DB_format_db(0,BLOCKNUM,sizeof(DataInfo));   // 0 成功 其他失败 
 	if(RET){
 		DispStr_CE(0,0,"DB_format_db",DISP_CENTER|DISP_CLRSCR);
 		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);				
@@ -82,7 +82,7 @@ short CreateDatabase(){
 		return -1;
 	}
 
-	RET = DB_init_sys_param(0);         //1 数据表数 
+	RET = DB_init_sys_param(0);         // 1     数据表数 
 	if(RET!= 1){
 		DispStr_CE(0,0,"DB_init_sys_param",DISP_CENTER|DISP_CLRSCR);
 		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);				
@@ -90,7 +90,7 @@ short CreateDatabase(){
 		return -1;
 	}
 
-	RET = DB_check_format(0,BLOCKNUM,sizeof(DataInfo));//0格式正确 其他错误 
+	RET = DB_check_format(0,BLOCKNUM,sizeof(DataInfo));// 0格式正确 其他错误 
 	if(RET){
 		return -1;
 	}
@@ -99,14 +99,15 @@ short CreateDatabase(){
 }
 
 short AddOneRecord(unsigned char* name,char* time,char* code,char* record){
+	unsigned long ret = 0;
+	
 	datainfo.id = DB_count_records(0)+1;
 	strcpy(datainfo.username,(char *)name);
 	strcpy(datainfo.antifakecode,code);
 	strcpy(datainfo.querytime,time);
 
 	sprintf(record,"%d",datainfo.id);
-
-	unsigned long ret;
+	
 	ret = DB_add_record(0,(void*)&datainfo);
 	if(ret == 0){
 		DispStr_CE(0,0,"插入记录失败",DISP_CENTER|DISP_CLRSCR);
