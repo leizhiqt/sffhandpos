@@ -112,7 +112,7 @@ short ConnectServer(){
 	DispStr_CE(0,10,"连接服务器，请稍等...",DISP_POSITION|DISP_CLRSCR);
 	
 	//lzy 测试服务器	
-	//unsigned char host[] = "113.89.3.173";
+	//unsigned char host[] = "113.89.1.149";
 	//unsigned char port[] = "5300";
 
 	//lzy 实际的服务器
@@ -131,6 +131,8 @@ short ConnectServer(){
 		DispStr_CE(0,8,"连接服务器失败",DISP_POSITION);
 	else
 		DispStr_CE(0,8,"连接服务器未知错误",DISP_POSITION);
+
+	DispStr_CE(0,36,"【F2退出】",DISP_POSITION); 	
 
 	WarningBeep(2);
 	delay_and_wait_key(30,EXIT_KEY_F2,30);	

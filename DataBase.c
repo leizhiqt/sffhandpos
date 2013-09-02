@@ -69,6 +69,7 @@ short CreateDatabase(){
 	RET = DB_erase_db_sys();   //0 成功 其他flash失败
 	if(RET){
 		DispStr_CE(0,0,"DB_erase_db_sys",DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);		
 		delay_and_wait_key(0,EXIT_KEY_F2,0);
 		return -1;
 	} 
@@ -76,6 +77,7 @@ short CreateDatabase(){
 	RET = DB_format_db(0,BLOCKNUM,sizeof(DataInfo));   //0 成功 其他失败 
 	if(RET){
 		DispStr_CE(0,0,"DB_format_db",DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);				
 		delay_and_wait_key(0,EXIT_KEY_F2,0);
 		return -1;
 	}
@@ -83,6 +85,7 @@ short CreateDatabase(){
 	RET = DB_init_sys_param(0);         //1 数据表数 
 	if(RET!= 1){
 		DispStr_CE(0,0,"DB_init_sys_param",DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);				
 		delay_and_wait_key(0,EXIT_KEY_F2,0);
 		return -1;
 	}
@@ -107,6 +110,7 @@ short AddOneRecord(unsigned char* name,char* time,char* code,char* record){
 	ret = DB_add_record(0,(void*)&datainfo);
 	if(ret == 0){
 		DispStr_CE(0,0,"插入记录失败",DISP_CENTER|DISP_CLRSCR);
+		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);				
 		delay_and_wait_key(0,EXIT_KEY_F2,0);
 		return -1;
 	}else{

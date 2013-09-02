@@ -51,7 +51,7 @@ short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag 
 		Disp_Clear();
 		DispStr_CE(0,0,"本批次提交记录信息如下:",DISP_CENTER);
 		Disp_Goto_XY(0,36);
-		DispStr_CE(0,36,"【F1退出提交】",DISP_CURRENT);
+		DispStr_CE(0,36,"【F1退出提交】",DISP_POSITION);
 		DispStr_CE(0,36,"【F3确认提交】",DISP_RIGHT);
 	}else if(flag ==1){
 		Disp_Clear();
@@ -123,14 +123,15 @@ short Display(short flag){
 }
 
 long Alert(){
+	long key_value = 0; 
+	
 	WarningBeep(2);
 	DispStr_CE(0,2,"特别提醒",DISP_CLRSCR|DISP_CENTER);
 	EXT_Display_Multi_Lines("此功能要通过GPRS通信，可能会有危险，请确定环境是否安全！",6,10);
 	EXT_ClearLine(36,0);
 	Disp_Goto_XY(0,36);
-	DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+	DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 	DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-	long key_value; 
 	key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 	return key_value;
 }
@@ -184,6 +185,7 @@ void Query(){
 
 	if(ret != 0){
 		DispStr_CE(0,0,"查找数据库失败",DISP_CLRSCR|DISP_CENTER);
+		DispStr_CE(0,36,"【F2退出】",DISP_POSITION);		
 		WarningBeep(2);
 		delay_and_wait_key(0,EXIT_KEY_F2,0);
 		return ; 
@@ -194,7 +196,7 @@ void Query(){
 	EXT_Display_Multi_Lines("请将您的身份卡放在感应区下方，然后按F3登陆键进行登陆操作，如果想退出可以按F1退出！",8,16);
 	EXT_ClearLine(36,0);
 	Disp_Goto_XY(0,36);
-	DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+	DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 	DispStr_CE(0,36,"【F3登陆】",DISP_RIGHT);
 
 	key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
@@ -271,7 +273,7 @@ void Query(){
 
 			EXT_ClearLine(36,0);
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
 			key_value = delay_and_wait_key(0,EXIT_KEY_F1|EXIT_KEY_F3,0);
 			switch(key_value){
@@ -340,19 +342,17 @@ void SubmitData(){
 	EXT_Display_Multi_Lines("请将您的身份卡放在感应区下方，然后按F3登陆键进行登陆操作，如果想退出可以按F1退出！",8,16);
 	EXT_ClearLine(36,0);
 	Disp_Goto_XY(0,36);
-	DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+	DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 	DispStr_CE(0,36,"【F3登陆】",DISP_RIGHT);
 	
 	key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 	switch(key_value){
 		case EXIT_KEY_F1:
-
 		case EXIT_AUTO_QUIT:{
 			return ;
 		}
 
 		case EXIT_KEY_F3:
-
 		case EXIT_KEY_ENTER:{
 			break;
 		}
@@ -485,7 +485,7 @@ void SubmitData(){
 			WarningBeep(2);
 			DispStr_CE(0,4,"恭喜！本批次数据提交完毕",DISP_POSITION|DISP_CLRSCR);
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 		}else if(RET == 1){//用户名错误
@@ -493,7 +493,7 @@ void SubmitData(){
 			DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
 			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
@@ -502,7 +502,7 @@ void SubmitData(){
 			DispStr_CE(0,4,"用户密码错误",DISP_POSITION|DISP_CLRSCR);
 			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
@@ -526,7 +526,7 @@ void FormatDatabase(){
 	EXT_Display_Multi_Lines("该操作将完全覆盖现有数据，并不能恢复现有数据，请谨慎操作!",8,16);
 	EXT_ClearLine(36,0);
 	Disp_Goto_XY(0,36);
-	DispStr_CE(0,36,"【F1取消】",DISP_CURRENT);
+	DispStr_CE(0,36,"【F1取消】",DISP_POSITION);
 	DispStr_CE(0,36,"【F3确定】",DISP_RIGHT);
 	
 	key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
@@ -629,7 +629,7 @@ void GetInfo(){ //标签校验
 
 			EXT_ClearLine(36,0);
 			Disp_Goto_XY(0,36);
-			DispStr_CE(0,36,"【F1退出】",DISP_CURRENT);
+			DispStr_CE(0,36,"【F1退出】",DISP_POSITION);
 			DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
 
 			key_value = delay_and_wait_key(0,EXIT_KEY_F1|EXIT_KEY_F3,0); 
@@ -659,6 +659,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret = 0;
 	int LineLen = 26;
+	
 	SMemu SMemuObj =
 	{
 		1, 5, 1,
@@ -677,7 +678,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.02                "
+			"5. SFV2.03                "
 		};
 
 	Disp_Clear();

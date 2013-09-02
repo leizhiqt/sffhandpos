@@ -117,10 +117,13 @@ int Browse_Icon(char *pTitle, char *menu, SMemu *pSMObj, int LineLen, int idx, i
 	{		
 		if(Font == 0)
 		{	
-			DispStr_CE(0, 2, pTitle, DISP_CENTER);			
+			//DispStr_CE(0, 2, pTitle, DISP_CENTER);			
+			DispStr_CEEX(0, 2, pTitle, WHITE, BLUE, DISP_CENTER);
 			memset(MenuT, '\0', sizeof(MenuT));
 			memcpy(MenuT, &menu[((pSMObj->m_CPage * 9) + (idx-1))* LineLen], LineLen);
+			
 			DispStr_CE(0, 5, MenuT, DISP_POSITION | DISP_CLRLINE);			
+			//DispStr_CEEX(0, 6, MenuT, WHITE, BLUE);
 		}
 		else
 		{
@@ -130,7 +133,8 @@ int Browse_Icon(char *pTitle, char *menu, SMemu *pSMObj, int LineLen, int idx, i
 
 			memset(MenuT, '\0', sizeof(MenuT));
 			memcpy(MenuT, &menu[((pSMObj->m_CPage * 9) + (idx-1))* LineLen], LineLen);
-			DispStr_CE(0, 6, MenuT, DISP_POSITION | DISP_CLRLINE);			
+			DispStr_CE(0, 6, MenuT, DISP_POSITION | DISP_CLRLINE);
+			//DispStr_CEEX(0, 6, MenuT, WHITE, BLUE);
 		}
 		//自动关机
 		if(AutoPowerOff == 0)

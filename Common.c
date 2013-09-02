@@ -316,10 +316,35 @@ char* filter(char *c1,char c2){
 	return c1;
 }
 
-
-
-
-
-
-
-
+//函数功能:
+//	显示函数
+//输入函数:
+//	unsigned int x, 
+//	unsigned int y
+//		信息显示开始信息
+//	char	*str,
+//		要显示的字符串  
+//	unsigned int  bgc,
+//		背景色
+//	unsigned int  fc
+//		前景色
+//	int xyFlag
+//		对齐方式
+//函数返回:
+//	void
+void DispStr_CEEX(unsigned int x, unsigned int y, 
+												char	*str, unsigned int  bgc, unsigned int  fc, int xyFlag)
+{
+	int x1 = 0;
+	int Len = 0;
+	
+	x = x;
+	if(xyFlag == DISP_CENTER)
+	{
+		Len = strlen(str);
+		x1 = ((30 - Len) / 2) * (240 / 30);
+	}
+	Disp_Goto_XY(x1, y);
+	Disp_Write_Str_Col((unsigned char *)str, bgc, fc);
+	return;
+}
