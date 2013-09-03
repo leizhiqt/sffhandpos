@@ -47,21 +47,4 @@ int TCP_Send_Data(unsigned char *data,int len);
 
 int TCP_Recv_Data(unsigned char *data,int *len,int T);
 
-/*
-void FTP_Set_Server(unsigned char *ip,int port);
-
-void FTP_Set_User(unsigned char *user,unsigned char *pwd);
-
-void FTP_Set_GetFile(unsigned char *path,unsigned char *file);
-
-void FTP_Set_PutFile(unsigned char *path,unsigned char *file);
-
-int FTP_Open_Bearer(void);
-
-void FTP_Close_Bearer(void);
-
-int FTP_Get_File(unsigned char *data,int *len);
-
-int FTP_Put_File(unsigned char *data,int len);
-*/
 #endif

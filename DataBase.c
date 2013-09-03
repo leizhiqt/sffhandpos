@@ -142,25 +142,14 @@ DataInfo* dbRetrieve(char id[5]){
 	DataInfo di;
 	DataInfo* pdi=NULL;	
 	int i =0;	
-	
-	//memset(myid,0,5);
-
-	int dbCount = DB_count_records(0);
-	//sprintf(myid,"%d",dbCount);
-	//DispStr_CE(0,20,myid,DISP_POSITION);
-	//delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
+	 
+	int dbCount = DB_count_records(0); 
 	for(i=0; i<dbCount;i++){
 		pdi=DB_jump_to_record(0,i,&flag);
 		if(flag==0){//非空记录 && 存在记录
 			memcpy(&di,pdi,sizeof(DataInfo));
-
 			memset(myid,0,5);
-			sprintf(myid,"%d",di.id);
-			//DispStr_CE(0,26,myid,DISP_POSITION);
-			//DispStr_CE(0,28,id,DISP_POSITION);
-			//delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
+			sprintf(myid,"%d",di.id); 
 			if(strcmp(myid,id)==0){
 				return pdi;
 			}
@@ -323,14 +312,7 @@ short HandleRecvData(unsigned char* recvdata){
 }
 
 void UpdateDatabase(unsigned char* recvdata){
-	//sprintf(dis,"%d",rLen);
-	//DispStr_CE(0,0,dis,DISP_POSITION|DISP_CLRSCR);
-	//char dis[20]={0};
-	//char wronginfo[3000]={0};
-
-	//DataInfo di;
-	//DataInfo* pdi;
-	int i=0;
+ 	int i = 0;
 	char temprecvdata[1024];
 	char* token = NULL;
 

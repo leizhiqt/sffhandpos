@@ -55,23 +55,14 @@ int ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 	
 	while(forever){
 		Disp_Clear();
-		//Disp_Goto_XY(0,36);
 		DispStr_CE(0,36,"【F1退出】     【F3重试】",DISP_CENTER | DISP_CLRLINE);
-		//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-		//DispStr_CE(0,36,"【F3重试】",DISP_RIGHT);
-
 		DispStr_CE(2,2,"正在初始化读卡模块...",DISP_POSITION);
 
 		if(RCX_Init(CARD_TYPE_14443A)!=RCX_OK){//初始化失败
 
-			//EXT_ClearLine(2,0); 
 			DispStr_CE(2,6,"模块初始化失败",DISP_CENTER);
 			DispStr_CE(2,10,"继续或退出",DISP_CENTER);
 			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-			
-			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :
@@ -104,14 +95,10 @@ int ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 
 		//读卡失败
 		if(RET!=RCX_OK){
-			//EXT_ClearLine(10,0); 
 			DispStr_CE(2,12,"读卡失败",DISP_CENTER);
 			WarningBeep(2);
 
 			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :{
@@ -132,15 +119,10 @@ int ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		if(RET==RCX_OK) 
 			RET = CardMFCRead16Bytes(5,nname);
 		
-		if(RET!=RCX_OK){
-			//EXT_ClearLine(10,0);
+		if(RET!=RCX_OK){ 
 			WarningBeep(2);
 			DispStr_CE(2,12,"读用户名失败",DISP_CENTER);
-
-			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-			
+			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 			
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :
@@ -159,13 +141,8 @@ int ReadNameAndPassword(unsigned char* nname,unsigned char* npass){
 		if((CardMFCAuthKey(PICC_AUTHENT1A,MSNO,dummy_key,6)!=RCX_OK)
 			||(CardMFCRead16Bytes(6,npass)!=RCX_OK)){
 
-			//EXT_ClearLine(10,0); 
 			DispStr_CE(2,12,"读密码失败",DISP_CENTER);
-
-			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-			//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-			
+			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 			
 			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 			switch(key_value){
 				case EXIT_KEY_F1 :
@@ -307,26 +284,17 @@ short ultralight_local_read_card(char* ac){
 	while(flag)
 	{
 		Disp_Clear();
-		//Disp_Goto_XY(0,36);
-		DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-		//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-		//DispStr_CE(0,36,"【F3重试】",DISP_RIGHT);
-         
+		DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);         
 		if(init_flag == 0)
 		{
 			DispStr_CE(0,2,"正在初始化读卡模块UL...",DISP_CENTER); 
 			init_err = ultralight_init();
 			if(0 == init_err )  //初始化失败 
 			{
-				//EXT_ClearLine(2,0); 
 				DispStr_CE(0,4,"模块初始化失败",DISP_CENTER);
 				ultralight_close();
 				DispStr_CE(0,6,"继续或退出",DISP_CENTER);       
-
-				DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-				//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-				//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-				
+				DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 				
 				key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
         switch(key_value)
         {
@@ -351,12 +319,9 @@ short ultralight_local_read_card(char* ac){
 				find_card_err = ultralight_find_card();
 				if(0 == find_card_err)//寻卡失败
 				{
-					//EXT_ClearLine(8,0); 
 					DispStr_CE(0,8,"无卡！请核对？",DISP_CENTER);
 					DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-					//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-					//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-					WarningBeep(2);
+ 					WarningBeep(2);
 					
 					key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 					switch(key_value)
@@ -375,18 +340,13 @@ short ultralight_local_read_card(char* ac){
 				}
 				else//寻卡成功 准备读取卡 
 				{
-	        //EXT_ClearLine(8,0); 
 	        DispStr_CE(0,8,"寻卡成功",DISP_CENTER); 
 	        DispStr_CE(0,10,"正在读卡...",DISP_CENTER); 
 	        read_card_err = ultralight_read_card(block_add, databuf);
 	        if(0 == read_card_err)     //读卡失败 
 	        {
-						//EXT_ClearLine(10,0); 
 						DispStr_CE(0,10,"读卡失败",DISP_CENTER);
-						DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-						//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-						//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-						
+						DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 						
 						WarningBeep(2);
 						key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 						switch(key_value)
@@ -405,24 +365,11 @@ short ultralight_local_read_card(char* ac){
           }
 					else 
 					{
-						/* 
-						EXT_ClearLine(12,0); 
-						DispStr_CE(0,12,"读卡成功",DISP_CENTER);
-						EXT_ClearLine(16,0);
-						DispStr_CE(0,16,"防伪码为：",DISP_CENTER);
-						DispStr_CE(0,18,databuf,DISP_CENTER);
-						*/
-            strcpy(ac,(char *)&databuf);
-            
+            strcpy(ac,(char *)&databuf);            
             WarningBeep(0);
             return  0; 
             
-						//EXT_ClearLine(36,0);
-						//Disp_Goto_XY(0,36);
-						DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
-						//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-						//DispStr_CE(0,36,"【F3继续】",DISP_RIGHT);
-						
+						DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);						
 						key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 						switch(key_value)
 						{
