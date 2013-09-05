@@ -141,6 +141,26 @@ short ConnectServer(){
 
 short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败 
 	int RET = 0;
+
+	//测试信号强度
+	RET = TestSignal();
+	if(RET != 0)
+	{
+		DispStr_CE(0,12,"信号太错,请稍后再上传...",DISP_CENTER|DISP_CLRSCR);
+		WarningBeep(2);
+		delay_and_wait_key(30,EXIT_KEY_ALL,30);			
+		return RET;
+	}
+
+	//测试是否联接上服务器
+	RET = TCP_Check_Link();
+	if(RET != 0)
+	{
+		DispStr_CE(0,12,"服务器断开,不能上传.",DISP_CENTER|DISP_CLRSCR);
+		WarningBeep(2);
+		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
+		return RET;
+	}
 	
 	DispStr_CE(0,12,"正在上传，请稍等...",DISP_CENTER|DISP_CLRSCR);
 	RET=TCP_Send_Data(data,strlen((char *)data));
@@ -155,10 +175,47 @@ short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功
 	int len=0;
 	int RET=-1;
 
-	RET = TCP_Recv_Data(recvdata,&len,FIVE_SECOND);
+	//测试是否联接上服务器
+	RET = TCP_Check_Link();
+	if(RET != 0)
+	{
+		DispStr_CE(0,12,"服务器断开,不能接收数据.",DISP_CENTER|DISP_CLRSCR);
+		WarningBeep(2);
+		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
+		return RET;
+	}
+
+	RET = TCP_Recv_Data(recvdata,&len,SEVEN_SECOND);
 	if(RET==0){
 		return 0;
 	}
 
 	return RET;
 }
+
+
+//测试GPRS信息号
+int TestSignal(void){    //发送数据    0 表示发送成功 -1 表示失败 
+	int i = 0;
+	int RET = 0;
+	char Temp[40];
+	
+	DispStr_CE(0,12,"信号测试，请稍等...",DISP_CENTER|DISP_CLRSCR);
+	for(i = 0; i < 10; i++)
+	{
+		DispStr_CE(0,14,"最低信号强度15",DISP_CENTER|DISP_CLRLINE);				
+		RET=SIM900_Get_Signal();				
+		
+		memset(Temp, '\0', sizeof(Temp));
+		sprintf(Temp, "信号强度(0-32):%d,尝试:%d次", RET, (i + 1)); 
+		DispStr_CE(0,16,Temp,DISP_CENTER|DISP_CLRLINE);		
+		if(RET>=15)
+		{
+			Sys_Delay_MS(100);
+			return(0);	
+		}
+		Sys_Delay_MS(500);
+	}
+	return(-1);
+}
+

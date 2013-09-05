@@ -267,7 +267,7 @@ void Query(){
 				DispStr_CE(0,0,"插入记录失败，请从新巡检",DISP_CENTER|DISP_CLRSCR); 
 			}
 
- 			DispStr_CE(0,36,"【F1退出】     【F3退出】",DISP_CENTER | DISP_CLRLINE); 
+ 			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 
 			key_value = delay_and_wait_key(0,EXIT_KEY_F1|EXIT_KEY_F3,0);
 			switch(key_value){
 				case EXIT_KEY_F1:{
@@ -424,7 +424,7 @@ void SubmitData(){
 
 			long temp_value;
 			temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
-			if(EXIT_KEY_F1 == temp_value || cLoop==3){//退出 
+			if((EXIT_KEY_F1 == temp_value) && (cLoop == 3)){//退出 
 				break;
 			}
 
@@ -629,7 +629,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.04                "
+			"5. SFV2.05                "
 		};
 
 	Disp_Clear();

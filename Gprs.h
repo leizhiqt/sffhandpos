@@ -14,6 +14,8 @@ short SendData(unsigned char* data);
 
 short GetRecvData(unsigned char* recvdata);
 
+int TestSignal(void);
+
 #endif   /*Gprs_h_2012_07_17_11_17_38_INCLUDED*/
 
 
