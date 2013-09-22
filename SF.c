@@ -360,6 +360,7 @@ void SubmitData(){
 
 		WarningBeep(0); 
 		DispStr_CE(0,2,"没有数据提交，按任意键退出",DISP_POSITION|DISP_CLRSCR);
+		KEY_Flush_FIFO();
 		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
 		return;
@@ -369,6 +370,7 @@ void SubmitData(){
 	if(RET != 0)
 	{
 		DispStr_CE(0,4,"连接服务器失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
+		KEY_Flush_FIFO();
 		delay_and_wait_key(0,EXIT_KEY_ALL,0);
 		return;
 	}
@@ -385,6 +387,7 @@ void SubmitData(){
 	if(RET != 0){ 
 		DispStr_CE(0,2,"请检查SIM卡或通信模块",DISP_POSITION|DISP_CLRSCR); 
 		DispStr_CE(0,4,"按任意键退出",DISP_POSITION); 
+		KEY_Flush_FIFO();
 		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
 		return;
@@ -400,6 +403,7 @@ void SubmitData(){
 
 			WarningBeep(0);
 			DispStr_CE(0,2,"所有数据上传完毕，按任意键退出",DISP_POSITION|DISP_CLRSCR);
+			KEY_Flush_FIFO();
 			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
 
 			break;
@@ -421,7 +425,8 @@ void SubmitData(){
 			WarningBeep(2);
 			DispStr_CE(0,4,"数据发送失败!",DISP_POSITION|DISP_CLRSCR);
 			DispStr_CE(0,36,"【F1退出重连】",DISP_POSITION | DISP_CLRLINE);
-
+			KEY_Flush_FIFO();
+			
 			long temp_value;
 			temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
 			if((EXIT_KEY_F1 == temp_value) && (cLoop == 3)){//退出 
@@ -443,6 +448,7 @@ void SubmitData(){
 			WarningBeep(2);
 			DispStr_CE(0,4,"服务器没有响应,请再试!",DISP_POSITION|DISP_CLRSCR); 
 			DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
+			KEY_Flush_FIFO();
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
@@ -463,6 +469,7 @@ void SubmitData(){
 			DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
 			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
+			KEY_Flush_FIFO();
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
@@ -471,6 +478,7 @@ void SubmitData(){
 			DispStr_CE(0,4,"用户密码错误",DISP_POSITION|DISP_CLRSCR);
 			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
 			DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
+			KEY_Flush_FIFO();
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
 
 			break;
@@ -629,7 +637,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.05                "
+			"5. SFV2.06                "
 		};
 
 	Disp_Clear();

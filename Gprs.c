@@ -135,6 +135,7 @@ short ConnectServer(){
 	DispStr_CE(0,36,"【F2退出】",DISP_POSITION|DISP_CLRLINE); 	
 
 	WarningBeep(2);
+	KEY_Flush_FIFO();
 	delay_and_wait_key(30,EXIT_KEY_F2,30);	
 	return RET;
 }
@@ -148,6 +149,7 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 	{
 		DispStr_CE(0,12,"信号太错,请稍后再上传...",DISP_CENTER|DISP_CLRSCR);
 		WarningBeep(2);
+		KEY_Flush_FIFO();
 		delay_and_wait_key(30,EXIT_KEY_ALL,30);			
 		return RET;
 	}
@@ -158,6 +160,7 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 	{
 		DispStr_CE(0,12,"服务器断开,不能上传.",DISP_CENTER|DISP_CLRSCR);
 		WarningBeep(2);
+		KEY_Flush_FIFO();
 		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
 		return RET;
 	}
@@ -197,24 +200,35 @@ short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功
 //测试GPRS信息号
 int TestSignal(void){    //发送数据    0 表示发送成功 -1 表示失败 
 	int i = 0;
+	int signal = 10;
+	//int signal = 30;
 	int RET = 0;
 	char Temp[40];
+	short Key = 0;
 	
 	DispStr_CE(0,12,"信号测试，请稍等...",DISP_CENTER|DISP_CLRSCR);
-	for(i = 0; i < 10; i++)
+	while(1)
 	{
-		DispStr_CE(0,14,"最低信号强度15",DISP_CENTER|DISP_CLRLINE);				
+		memset(Temp, '\0', sizeof(Temp));
+		sprintf(Temp, "最低信号强度%d", signal);
+		DispStr_CE(0,14,Temp,DISP_CENTER|DISP_CLRLINE);				
+		DispStr_CE(0,36,"【F1退出】",DISP_CENTER | DISP_CLRLINE);
 		RET=SIM900_Get_Signal();				
 		
 		memset(Temp, '\0', sizeof(Temp));
-		sprintf(Temp, "信号强度(0-32):%d,尝试:%d次", RET, (i + 1)); 
+		sprintf(Temp, "信号强度(0-32):%d,尝试:%d次", RET, ++i); 
 		DispStr_CE(0,16,Temp,DISP_CENTER|DISP_CLRLINE);		
-		if(RET>=15)
+		if(RET>=signal)
 		{
 			Sys_Delay_MS(100);
 			return(0);	
 		}
+		
 		Sys_Delay_MS(500);
+		Key = KEY_read();
+		KEY_Flush_FIFO();
+		if(Key == KEY_F1)
+		{break;}
 	}
 	return(-1);
 }
