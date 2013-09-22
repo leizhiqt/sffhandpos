@@ -107,6 +107,7 @@ short sim900_init(void){
 
 //连接服务器   0表示连接成功，-1 表示连接失败 
 short ConnectServer(){
+	int i = 0;
 	int RET=-1;
 
 	DispStr_CE(0,10,"连接服务器，请稍等...",DISP_POSITION|DISP_CLRSCR);
@@ -120,17 +121,24 @@ short ConnectServer(){
 	unsigned char port[] = "8000";	
 
 	//连接成功
-	RET = TCP_Create_Link(host,port);
-	if(RET==0){
-		return 0;
+	for(i = 0; i < 3; i++)
+	{
+		Sys_Delay_MS(100);
+		RET = TCP_Create_Link(host,port);
+		if(RET==0){
+			return 0;
+		}
+		else{
+			break;
+		}
 	}
 
 	if(RET==-1)
-		DispStr_CE(0,8,"命令错误",DISP_POSITION);
+		DispStr_CE(0,12,"命令错误",DISP_POSITION);
 	else if(RET==-2)
-		DispStr_CE(0,8,"连接服务器失败",DISP_POSITION);
+		DispStr_CE(0,12,"连接服务器失败",DISP_POSITION);
 	else
-		DispStr_CE(0,8,"连接服务器未知错误",DISP_POSITION);
+		DispStr_CE(0,12,"连接服务器未知错误",DISP_POSITION);
 
 	DispStr_CE(0,36,"【F2退出】",DISP_POSITION|DISP_CLRLINE); 	
 
