@@ -194,13 +194,11 @@ void Query(){
 	key_value = delay_and_wait_key(30,EXIT_KEY_ENTER|EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 	switch(key_value){
 		case EXIT_KEY_F1:
-
 		case EXIT_AUTO_QUIT:{
 			return ; 
 		}
 
 		case EXIT_KEY_F3:
-
 		case EXIT_KEY_ENTER:{
 			break;
 		}
@@ -399,7 +397,8 @@ void SubmitData(){
 		//暂存没有数据
 		RET=EncodeSendData(sname,spass,data);
 		if(RET<1){
-			CreateDatabase();
+			DB_erase_filesys(0);
+			//CreateDatabase();
 
 			WarningBeep(0);
 			DispStr_CE(0,2,"所有数据上传完毕，按任意键退出",DISP_POSITION|DISP_CLRSCR);
@@ -637,7 +636,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.06                "
+			"5. SFV2.07                "
 		};
 
 	Disp_Clear();

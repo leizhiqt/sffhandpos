@@ -265,11 +265,15 @@ short ultralight_read_card(unsigned char block_add,unsigned char* databuf)
   return err;
 }
 
+//返回值:
+//	0 读到卡
+//	-1 F1退出或者自动退出
+//	其它值 没有读到卡
+//注:
+//	此函数返回种情况:
 short ultralight_local_read_card(char* ac){
-	short flag = 0;
 	short init_err = 0;
 	short find_card_err = 0;
-	short init_flag = 0; 
 	short read_card_err = 0;
 	long  key_value = 0; 
 	unsigned char block_add= 0;
@@ -279,116 +283,84 @@ short ultralight_local_read_card(char* ac){
 	//ultralight 卡数据所有位置
 	block_add = 4;
 
-	flag = 1;
-	init_flag =0;
-	while(flag)
+	while(1)
 	{
 		Disp_Clear();
-		DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);         
-		if(init_flag == 0)
+		DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);       
+		
+		DispStr_CE(0,2,"正在初始化读卡模块UL...",DISP_CENTER); 
+		init_err = ultralight_init();
+		if(0 == init_err)  //初始化失败 
 		{
-			DispStr_CE(0,2,"正在初始化读卡模块UL...",DISP_CENTER); 
-			init_err = ultralight_init();
-			if(0 == init_err )  //初始化失败 
+			DispStr_CE(0,4,"模块初始化失败",DISP_CENTER);
+			ultralight_close();
+			DispStr_CE(0,6,"继续或退出",DISP_CENTER);       
+			DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 				
+			key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
+      switch(key_value)
+      {
+				case EXIT_KEY_F1 :               
+				case EXIT_AUTO_QUIT:
+				{return -1; }break;
+				
+				//F3继续
+				case EXIT_KEY_F3:
+				{break;}  
+      } 
+		}
+		else//初始化成功 
+		{
+			DispStr_CE(0,4,"初始化读卡模块成功",DISP_CENTER); 
+			DispStr_CE(0,6,"正在寻卡...",DISP_CENTER); 
+			find_card_err = ultralight_find_card();
+			if(0 == find_card_err)//寻卡失败
 			{
-				DispStr_CE(0,4,"模块初始化失败",DISP_CENTER);
-				ultralight_close();
-				DispStr_CE(0,6,"继续或退出",DISP_CENTER);       
-				DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 				
+				DispStr_CE(0,8,"无卡！请核对？",DISP_CENTER);
+				DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
+					WarningBeep(2);
+				
 				key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
-        switch(key_value)
-        {
-					case EXIT_KEY_F1 :               
-					case EXIT_AUTO_QUIT:
-					{
-						init_flag =0;
-						flag = 0;     //退出循环 回到主菜单 
-						break;
-					}
-					case EXIT_KEY_F3:
-					{
-						init_flag =1;
-						break; 
-					}  
-        } 
-			}
-			else//初始化成功 
-			{
-				DispStr_CE(0,4,"初始化读卡模块成功",DISP_CENTER); 
-				DispStr_CE(0,6,"正在寻卡...",DISP_CENTER); 
-				find_card_err = ultralight_find_card();
-				if(0 == find_card_err)//寻卡失败
+				switch(key_value)
 				{
-					DispStr_CE(0,8,"无卡！请核对？",DISP_CENTER);
-					DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);
- 					WarningBeep(2);
+					case EXIT_KEY_F1 :
+					case EXIT_AUTO_QUIT:
+					{return -1;}break; 
 					
+					//F3继续
+					case EXIT_KEY_F3:
+					{break;}
+				}       
+			}
+			else//寻卡成功 准备读取卡 
+			{
+        DispStr_CE(0,8,"寻卡成功",DISP_CENTER); 
+        DispStr_CE(0,10,"正在读卡...",DISP_CENTER); 
+        read_card_err = ultralight_read_card(block_add, databuf);
+        if(0 == read_card_err)     //读卡失败 
+        {
+					DispStr_CE(0,10,"读卡失败",DISP_CENTER);
+					DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 						
+					WarningBeep(2);
 					key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
 					switch(key_value)
 					{
 						case EXIT_KEY_F1 :
 						case EXIT_AUTO_QUIT:
-						{
-							flag =0;     //退出循环 回到主菜单 
-							break;
-						} 
+						{return -1;}break; 
+						
+						//F3继续
 						case EXIT_KEY_F3:
-						{
-							break;
-						}
-					}       
-				}
-				else//寻卡成功 准备读取卡 
+						{break;}
+					} 
+        }
+				else 
 				{
-	        DispStr_CE(0,8,"寻卡成功",DISP_CENTER); 
-	        DispStr_CE(0,10,"正在读卡...",DISP_CENTER); 
-	        read_card_err = ultralight_read_card(block_add, databuf);
-	        if(0 == read_card_err)     //读卡失败 
-	        {
-						DispStr_CE(0,10,"读卡失败",DISP_CENTER);
-						DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE); 						
-						WarningBeep(2);
-						key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
-						switch(key_value)
-						{
-							case EXIT_KEY_F1 :
-							case EXIT_AUTO_QUIT:
-							{
-								flag =0;     //退出循环 回到主菜单 
-								break;
-							} 
-							case EXIT_KEY_F3:
-							{
-								break;
-							}
-						} 
-          }
-					else 
-					{
-            strcpy(ac,(char *)&databuf);            
-            WarningBeep(0);
-            return  0; 
-            
-						DispStr_CE(0,36,"【F1退出】     【F3继续】",DISP_CENTER | DISP_CLRLINE);						
-						key_value = delay_and_wait_key(30,EXIT_KEY_F1|EXIT_KEY_F3|EXIT_AUTO_QUIT,30);
-						switch(key_value)
-						{
-							case EXIT_KEY_F1:
-							case EXIT_AUTO_QUIT:
-							{
-								flag = 0;//退出循环 
-								return -1; 
-								break;
-							}
-							case EXIT_KEY_F3:
-							{
-								break; 
-							} 
-						} 
-					}
-				} 
-			}
+          strcpy(ac,(char *)&databuf);            
+          WarningBeep(0);
+          return(0); 						
+				}
+			} 
 		}
 	} 
-	return 0;
+	//return 0;
 }
