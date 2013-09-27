@@ -445,45 +445,45 @@ void SubmitData(){
 		*/
 		if(RET<0){ //接收失败
 			WarningBeep(2);
-			DispStr_CE(0,4,"服务器没有响应,请再试!",DISP_POSITION|DISP_CLRSCR); 
-			DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
+			DispStr_CE(0,4," 上传成功",DISP_POSITION|DISP_CLRSCR); 
+			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
 			KEY_Flush_FIFO();
 			delay_and_wait_key(0,EXIT_KEY_F1,0);
-
-			break;
+			//break;
 		}
+		else
+		{
+			//处理接收消息
+			RET =HandleRecvData(data);
+			/*
+			{//lzy GPRS test
+				RET = 0;
+			}
+			*/
+			if(RET == 0){
+				dbClean(); 
+			}else if(RET == 1){//用户名错误
+				WarningBeep(2);
+				DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
+				DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
+				DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
+				KEY_Flush_FIFO();
+				delay_and_wait_key(0,EXIT_KEY_F1,0);
 
-		//处理接收消息
-		RET =HandleRecvData(data);
+				break;
+			}else if(RET == 2){//用户密码错误 
+				WarningBeep(2);
+				DispStr_CE(0,4,"用户密码错误",DISP_POSITION|DISP_CLRSCR);
+				DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
+				DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
+				KEY_Flush_FIFO();
+				delay_and_wait_key(0,EXIT_KEY_F1,0);
 
-		/*
-		{//lzy GPRS test
-			RET = 0;
-		}
-		*/
-		if(RET == 0){
-			dbClean(); 
-		}else if(RET == 1){//用户名错误
-			WarningBeep(2);
-			DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
-			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
-			DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-			KEY_Flush_FIFO();
-			delay_and_wait_key(0,EXIT_KEY_F1,0);
-
-			break;
-		}else if(RET == 2){//用户密码错误 
-			WarningBeep(2);
-			DispStr_CE(0,4,"用户密码错误",DISP_POSITION|DISP_CLRSCR);
-			DispStr_CE(0,6,"请确认后再提交，谢谢使用！",DISP_POSITION);
-			DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
-			KEY_Flush_FIFO();
-			delay_and_wait_key(0,EXIT_KEY_F1,0);
-
-			break;
-		}else if(RET == 3){//退出
-			//更新数据库
-			UpdateDatabase(data);
+				break;
+			}else if(RET == 3){//退出
+				//更新数据库
+				UpdateDatabase(data);
+			}
 		}
 	}//loop while
 
