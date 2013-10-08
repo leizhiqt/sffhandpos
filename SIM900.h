@@ -45,6 +45,6 @@ int TCP_Shut_Link(void);
 
 int TCP_Send_Data(unsigned char *data,int len);
 
-int TCP_Recv_Data(unsigned char *data,int *len,int T);
+int TCP_Recv_Data(unsigned char *data,int *len,int t1,int t2);
 
 #endif
