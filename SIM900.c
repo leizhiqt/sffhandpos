@@ -376,9 +376,9 @@ int TCP_Send_Data(unsigned char *data,int len)
 	}
 }
 
-int TCP_Recv_Data(unsigned char *data,int *len,int T)
+int TCP_Recv_Data(unsigned char *data,int *len,int t1,int t2)
 {
-	UART_Recv_Data(data,len,T,QUARTER_SECOND);
+	UART_Recv_Data(data,len,t1,t2);
 
 	if(*len)	return 0;
 

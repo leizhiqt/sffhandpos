@@ -290,9 +290,14 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 short HandleRecvData(unsigned char* recvdata){
 	char rets[5]={0};
 	
+	DispStr_CE(0,8,"recvdata",DISP_CENTER|DISP_CLRSCR);
+	DispStr_CE(0,10,(char *)recvdata,DISP_CENTER);
+	DispStr_CE(0,12,*recvdata,DISP_CENTER);
+	delay_and_wait_key(30,EXIT_KEY_ALL,30);
+
 	strncpy(rets,(char *)recvdata,2);
 
-	if(strcmp(rets,"*0")==0){
+	if(strcmp(rets,"*0")==0 || !strcmp(rets,"0")){
 		return 0;//完全正确
 	}
 

@@ -417,6 +417,7 @@ void SubmitData(){
 
 		//发送数据
 		RET = SendData(data);
+
 		if(RET==-1){
 			//发送失败
 			cLoop++;
@@ -435,6 +436,10 @@ void SubmitData(){
 			continue;
 		}
 
+		DispStr_CE(0,4,"GetRecvData",DISP_POSITION|DISP_CLRSCR);
+		KEY_Flush_FIFO();
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+
 		memset(data, '\0', sizeof(data));
 		//发送成功 && 接收返回值
 		RET = GetRecvData(data);
@@ -445,11 +450,11 @@ void SubmitData(){
 		*/
 		if(RET<0){ //接收失败
 			WarningBeep(2);
-			DispStr_CE(0,4," 上传成功",DISP_POSITION|DISP_CLRSCR); 
+			DispStr_CE(0,4,"接收失败",DISP_POSITION|DISP_CLRSCR); 
 			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
 			KEY_Flush_FIFO();
-			delay_and_wait_key(0,EXIT_KEY_F1,0);
-			//break;
+			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+			break;
 		}
 		else
 		{
@@ -460,8 +465,19 @@ void SubmitData(){
 				RET = 0;
 			}
 			*/
-			if(RET == 0){
-				dbClean(); 
+			if(RET<0){
+				//dbClean();
+				WarningBeep(2);
+				DispStr_CE(0,4,"no data",DISP_POSITION|DISP_CLRSCR);
+				KEY_Flush_FIFO();
+				delay_and_wait_key(0,EXIT_KEY_F1,0);
+			}else if(RET == 0){
+				dbClean();
+				WarningBeep(2);
+				DispStr_CE(0,4,"dbClean",DISP_POSITION|DISP_CLRSCR);
+				KEY_Flush_FIFO();
+				delay_and_wait_key(0,EXIT_KEY_F1,0);
+ 
 			}else if(RET == 1){//用户名错误
 				WarningBeep(2);
 				DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
@@ -483,8 +499,16 @@ void SubmitData(){
 			}else if(RET == 3){//退出
 				//更新数据库
 				UpdateDatabase(data);
+
+				WarningBeep(2);
+				DispStr_CE(0,4,"UpdateDatabase",DISP_POSITION|DISP_CLRSCR);
+				KEY_Flush_FIFO();
+				delay_and_wait_key(0,EXIT_KEY_F1,0);
 			}
 		}
+		DispStr_CE(0,4,"Loop",DISP_POSITION|DISP_CLRSCR);
+		KEY_Flush_FIFO();
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
 	}//loop while
 
 	//free
@@ -636,7 +660,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.07                "
+			"5. SFV2.08                "
 		};
 
 	Disp_Clear();

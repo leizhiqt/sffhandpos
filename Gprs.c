@@ -192,11 +192,19 @@ short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功
 	{
 		DispStr_CE(0,12,"服务器断开,不能接收数据.",DISP_CENTER|DISP_CLRSCR);
 		WarningBeep(2);
-		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
+		delay_and_wait_key(30,EXIT_KEY_ALL,30);
 		return RET;
 	}
 
-	RET = TCP_Recv_Data(recvdata,&len,SEVEN_SECOND);
+	RET = TCP_Recv_Data(recvdata,&len,3000,QUARTER_SECOND);
+
+	char Temp[40];
+
+	memset(Temp, '\0', sizeof(Temp));
+	sprintf(Temp, "%d", len);
+	DispStr_CE(0,4, Temp,DISP_POSITION|DISP_CLRSCR); 
+	delay_and_wait_key(0,EXIT_KEY_F1,0);
+
 	if(RET==0){
 		return 0;
 	}
