@@ -186,30 +186,16 @@ short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功
 	int len=0;
 	int RET=-1;
 	
-	//测试是否联接上服务器
-	/*
-	RET = TCP_Check_Link();
-	if(RET != 0)
-	{
-		DispStr_CE(0,12,"服务器断开,不能接收数据.",DISP_CENTER|DISP_CLRSCR);
-		WarningBeep(2);
-		delay_and_wait_key(30,EXIT_KEY_ALL,30);
-		return RET;
-	}
+	RET = TCP_Recv_Data(recvdata,&len,SEVEN_SECOND);
+	//lzy tset
+	/*char TempA[40];
+	memset(TempA, '\0', sizeof(TempA));
+
+	sprintf(TempA, "%d, %d, %s, %02X, %02X", len, RET, recvdata, recvdata[0], recvdata[1]);
+
+	DispStr_CE(0,12,TempA,DISP_CENTER|DISP_CLRSCR);
+	delay_and_wait_key(30,EXIT_KEY_ALL,30);
 	*/
-	
-	RET = TCP_Recv_Data(recvdata,&len,3000,QUARTER_SECOND);
-
-	{//lzy tset
-		char TempA[40];
-		memset(TempA, '\0', sizeof(TempA));
-	
-		sprintf(TempA, "%d, %d, %s, %02X, %02X", len, RET, recvdata, recvdata[0], recvdata[1]);
-
-		DispStr_CE(0,12,TempA,DISP_CENTER|DISP_CLRSCR);
-		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
-	}
-	
 
 	if(RET==0){
 		return 0;

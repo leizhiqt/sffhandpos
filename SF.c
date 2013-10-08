@@ -436,48 +436,30 @@ void SubmitData(){
 			continue;
 		}
 
-		DispStr_CE(0,4,"GetRecvData",DISP_POSITION|DISP_CLRSCR);
-		KEY_Flush_FIFO();
-		delay_and_wait_key(0,EXIT_KEY_ALL,0);
-
 		memset(data, '\0', sizeof(data));
 		//发送成功 && 接收返回值
 		RET = GetRecvData(data);
-		/*
-		{//lzy GPRS test
-			RET = 0;
-		}	
-		*/
 		if(RET<0){ //接收失败
 			WarningBeep(2);
-			DispStr_CE(0,4,"接收失败",DISP_POSITION|DISP_CLRSCR); 
+			DispStr_CE(0,4,"上传成功",DISP_POSITION|DISP_CLRSCR); 
 			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
 			KEY_Flush_FIFO();
 			delay_and_wait_key(0,EXIT_KEY_ALL,0);
-			break;
+			//break;
 		}
 		else
 		{
 			//处理接收消息
 			RET =HandleRecvData(data);
-			/*
-			{//lzy GPRS test
-				RET = 0;
-			}
-			*/
 			if(RET<0){
 				//dbClean();
-				WarningBeep(2);
+				/*WarningBeep(2);
 				DispStr_CE(0,4,"no data",DISP_POSITION|DISP_CLRSCR);
 				KEY_Flush_FIFO();
 				delay_and_wait_key(0,EXIT_KEY_F1,0);
+				*/
 			}else if(RET == 0){
 				dbClean();
-				WarningBeep(2);
-				DispStr_CE(0,4,"dbClean",DISP_POSITION|DISP_CLRSCR);
-				KEY_Flush_FIFO();
-				delay_and_wait_key(0,EXIT_KEY_F1,0);
- 
 			}else if(RET == 1){//用户名错误
 				WarningBeep(2);
 				DispStr_CE(0,4,"用户名错误",DISP_POSITION|DISP_CLRSCR);
@@ -499,16 +481,8 @@ void SubmitData(){
 			}else if(RET == 3){//退出
 				//更新数据库
 				UpdateDatabase(data);
-
-				WarningBeep(2);
-				DispStr_CE(0,4,"UpdateDatabase",DISP_POSITION|DISP_CLRSCR);
-				KEY_Flush_FIFO();
-				delay_and_wait_key(0,EXIT_KEY_F1,0);
 			}
 		}
-		DispStr_CE(0,4,"Loop",DISP_POSITION|DISP_CLRSCR);
-		KEY_Flush_FIFO();
-		delay_and_wait_key(0,EXIT_KEY_ALL,0);
 	}//loop while
 
 	//free
