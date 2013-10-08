@@ -151,7 +151,7 @@ short ConnectServer(){
 short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败 
 	int RET = 0;
 
-	//测试信号强度
+	//测试信号强度	
 	RET = TestSignal();
 	if(RET != 0)
 	{
@@ -185,8 +185,9 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功，-1 表示返回失败 
 	int len=0;
 	int RET=-1;
-
+	
 	//测试是否联接上服务器
+	/*
 	RET = TCP_Check_Link();
 	if(RET != 0)
 	{
@@ -195,15 +196,20 @@ short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功
 		delay_and_wait_key(30,EXIT_KEY_ALL,30);
 		return RET;
 	}
-
+	*/
+	
 	RET = TCP_Recv_Data(recvdata,&len,3000,QUARTER_SECOND);
 
-	char Temp[40];
+	{//lzy tset
+		char TempA[40];
+		memset(TempA, '\0', sizeof(TempA));
+	
+		sprintf(TempA, "%d, %d, %s, %02X, %02X", len, RET, recvdata, recvdata[0], recvdata[1]);
 
-	memset(Temp, '\0', sizeof(Temp));
-	sprintf(Temp, "%d", len);
-	DispStr_CE(0,4, Temp,DISP_POSITION|DISP_CLRSCR); 
-	delay_and_wait_key(0,EXIT_KEY_F1,0);
+		DispStr_CE(0,12,TempA,DISP_CENTER|DISP_CLRSCR);
+		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
+	}
+	
 
 	if(RET==0){
 		return 0;
