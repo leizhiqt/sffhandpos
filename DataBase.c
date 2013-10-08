@@ -292,14 +292,12 @@ short HandleRecvData(unsigned char* recvdata){
 	
 	DispStr_CE(0,8,"recvdata",DISP_CENTER|DISP_CLRSCR);
 	DispStr_CE(0,10,(char *)recvdata,DISP_CENTER);
-	DispStr_CE(0,12,*recvdata,DISP_CENTER);
 	delay_and_wait_key(30,EXIT_KEY_ALL,30);
 
-	strncpy(rets,(char *)recvdata,2);
+	if(recvdata==NULL || strlen((char *)recvdata)<3)
+		return -1;
 
-	if(strcmp(rets,"*0")==0 || !strcmp(rets,"0")){
-		return 0;//完全正确
-	}
+	strncpy(rets,(char *)recvdata,2);
 
 	if(strcmp(rets,"*1")==0){	//用户名错误 无改用户 
 		return 1; 
@@ -313,7 +311,11 @@ short HandleRecvData(unsigned char* recvdata){
 		return 3;
 	}
 
-	return -1;
+	/*if(strcmp(rets,"*0")==0 || !strcmp(rets,"0")||!strcmp(rets,"o")){
+		return 0;//完全正确
+	}*/
+
+	return 0;
 }
 
 void UpdateDatabase(unsigned char* recvdata){
