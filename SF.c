@@ -711,7 +711,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.09                "
+			"5. SFV2.10                "
 		};
 
 	Disp_Clear();
