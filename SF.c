@@ -426,6 +426,9 @@ void SubmitData(){
 
 		//暂存没有数据
 		RET=EncodeSendData(sname,spass,data);		
+		//延时2秒
+		Sys_Delay_MS(64 * 2);
+		
 		/*
 		//lzy tset
 		{
@@ -489,7 +492,7 @@ void SubmitData(){
 				temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
 				if((EXIT_KEY_F1 == temp_value) && (cLoop == 3))
 				{
-					DispStr_CE(0,4,"正在注销，请稍等",DISP_CENTER|DISP_CLRSCR);
+					DispStr_CE(0,4,"正在注销，请稍等.",DISP_CENTER|DISP_CLRSCR);
 					DisConnectServer();
 					//退出 
 					//break;
@@ -562,7 +565,7 @@ void SubmitData(){
 	}//loop while
 
 	//free
-	DispStr_CE(0,4,"正在注销，请稍等",DISP_CENTER|DISP_CLRSCR);
+	DispStr_CE(0,4,"正在注销，请稍等..",DISP_CENTER|DISP_CLRSCR);
 	DisConnectServer();
  }
 
@@ -711,7 +714,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.10                "
+			"5. SFV2.11                "
 		};
 
 	Disp_Clear();

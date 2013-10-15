@@ -19,7 +19,7 @@
 // (1024 - 20) / (sizeof(DataInfo) + 10)
 //	20 为前面的数据
 // 10为记录与记录这类的分隔符
-#define PAGE_SIZE 15
+#define PAGE_SIZE 14
 
 //定义数据表结构 
 typedef struct {

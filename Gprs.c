@@ -122,7 +122,7 @@ short ConnectServer(){
 	//连接成功
 	for(i = 0; i < 3; i++)
 	{
-		Sys_Delay_MS(100);
+		Sys_Delay_MS(400);
 		RET = TCP_Create_Link(host,port);
 		if(RET==0){
 			return 0;
