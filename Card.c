@@ -27,13 +27,13 @@
 unsigned char	ULATQ[3];
 unsigned char	ULSNO[4];
 
-unsigned char username[USERNAME_LEN];//巡检用户名
-unsigned char password[USERNAME_LEN];//巡检密码
+unsigned char username[USERNAME_LEN + 1];//巡检用户名
+unsigned char password[USERNAME_LEN + 1];//巡检密码
 
-char anticode[ANTIFAKECODE_LEN];//防伪码 
+char anticode[ANTIFAKECODE_LEN + 1];//防伪码 
 
-unsigned char sname[USERNAME_LEN];//登录用户名
-unsigned char spass[USERNAME_LEN];////登录密码
+unsigned char sname[USERNAME_LEN + 1];//登录用户名
+unsigned char spass[USERNAME_LEN + 1];////登录密码
 
 /**
 *0

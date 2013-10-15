@@ -3,6 +3,11 @@
 
 #include "common.h"
 
+#define USERNAME_LEN 17 //max 8 chinese
+#define ANTIFAKECODE_LEN 17
+#define QUERYTIME_LEN 21
+
+
 //数据库表占块数
 #define BLOCKNUM 10
 
@@ -11,16 +16,24 @@
 
 //每次上传条数
 //GPRS一次最大能传输1024字节
-// 1024 / sizeof(DataInfo) + 10
+// (1024 - 20) / (sizeof(DataInfo) + 10)
+//	20 为前面的数据
 // 10为记录与记录这类的分隔符
-#define PAGE_SIZE 20
+#define PAGE_SIZE 15
 
 //定义数据表结构 
 typedef struct {
-	unsigned int id;//id号方便查找
-	char username[USERNAME_LEN];//用户名
-	char antifakecode[ANTIFAKECODE_LEN];//防伪码
-	char querytime[QUERYTIME_LEN];//巡检时间
+	//id号方便查找
+	unsigned int id;
+	
+	//用户名
+	char username[USERNAME_LEN];
+
+	//防伪码
+	char antifakecode[ANTIFAKECODE_LEN];
+
+	//巡检时间
+	char querytime[QUERYTIME_LEN];
 }DataInfo;
 
 extern char Menu[150*LINE_LEN+2];

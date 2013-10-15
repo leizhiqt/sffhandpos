@@ -210,7 +210,7 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 	DataInfo di;
 	DataInfo* pdi = NULL;
 	char flag = 0;	
-	char tempsenddata[30];
+	char tempsenddata[1024];
 	
 	//¼ì²éÊý¾Ý¿â 
 	RET = CheckDB();
@@ -244,8 +244,8 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 
 			i=i+5;
 
-			char tempid[10];
-			memset(tempid,0,10);
+			char tempid[40];
+			memset(tempid,0,sizeof(tempid));
 			sprintf(tempid,"%d",di.id);
 
 			strcat((char *)senddata,tempid);

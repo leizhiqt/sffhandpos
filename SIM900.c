@@ -357,6 +357,25 @@ int TCP_Send_Data(unsigned char *data,int len)
 	sprintf((char *)sBuf,"AT+CIPSEND=%d",len);
 	UART_Send_CMD(sBuf);
 	UART_Recv_Data(rBuf,&rLen,THREE_SECOND,QUARTER_SECOND);
+
+	/*
+	//lzy tset
+	{
+		char TempA[1024];
+		
+		memset(TempA, '\0', sizeof(TempA));
+		sprintf(TempA, "%d", rLen);
+		DispStr_CE(0, 0, TempA, DISP_CENTER | DISP_CLRSCR);
+
+		memset(TempA, '\0', sizeof(TempA));
+		sprintf(TempA, "Send: %s", rBuf);
+		DispStr_CE(0, 2, TempA, DISP_CENTER);
+		EXT_Display_Multi_Lines(TempA, 2 ,28);
+		
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+	}
+	*/
+	
 	if(strstr((char *)rBuf,">"))
 	{
 		UART_Send_Data(data,len);

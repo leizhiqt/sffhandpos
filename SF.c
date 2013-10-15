@@ -29,6 +29,7 @@
 #include "Gprs.h"
 #include "UiProg.h"
 #include "SF.h"
+#include "sim900.h"
 
 //======================================================================
 //函数名：main 
@@ -239,8 +240,14 @@ void Query(){
 			/*
 			{//lzy 生成测试数据
 				int i = 0;
-				for(i = 0; i < 400; i++)
+				char Temp[40];
+				
+				for(i = 0; i < 1000; i++)
 				{
+					memset(Temp, '\0', sizeof(Temp));
+					sprintf(Temp, "i = %d", i);
+					DispStr_CE(0,0,Temp,DISP_CENTER|DISP_CLRSCR); 
+					
 					memset(systime, '\0', sizeof(systime));
 					GetSysTime(systime);
 					AddOneRecord(username,systime,anticode,record);
@@ -309,10 +316,11 @@ short OpenGPRS(){
 void SubmitData(){
 	int cLoop =0;
 	int i=0;
+	int Len = 0;
 	int RET = 0;	
 	long choose = 0;
 	long key_value = 0; 
-	unsigned char data[1024];
+	unsigned char data[1024 * 2];
 	
 	choose = Alert(); 
 	switch(choose){
@@ -353,6 +361,18 @@ void SubmitData(){
 
 	//首次检查数据
 	RET=EncodeSendData(sname,spass,data);
+	/*
+	//lzy tset
+	{
+		char TempA[1024];
+		
+		memset(TempA, '\0', sizeof(TempA));
+		sprintf(TempA, "T1:%d", strlen(data));
+		DispStr_CE(0, 0, TempA, DISP_CENTER | DISP_CLRSCR);
+		
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+	}	
+	*/
 	if(RET<0){
 		CreateDatabase();
 
@@ -363,6 +383,17 @@ void SubmitData(){
 
 		return;
 	}
+	Len = strlen((char*)data);
+	if(Len > 1024)
+	{
+		WarningBeep(0); 
+		DispStr_CE(0,2,"提交数据太长，按任意键退出",DISP_POSITION|DISP_CLRSCR);
+		KEY_Flush_FIFO();
+		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+
+		return;		
+	}
+	
 	//初始化模块
 	RET = sim900_init();
 	if(RET != 0)
@@ -380,14 +411,13 @@ void SubmitData(){
 			break;
 		}
 	}
-
+	
 	//GPRS打开失败
 	if(RET != 0){ 
 		DispStr_CE(0,2,"请检查SIM卡或通信模块",DISP_POSITION|DISP_CLRSCR); 
 		DispStr_CE(0,4,"按任意键退出",DISP_POSITION); 
 		KEY_Flush_FIFO();
 		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
-
 		return;
 	}
  
@@ -395,7 +425,19 @@ void SubmitData(){
 		memset(data,'\0',sizeof(data));
 
 		//暂存没有数据
-		RET=EncodeSendData(sname,spass,data);
+		RET=EncodeSendData(sname,spass,data);		
+		/*
+		//lzy tset
+		{
+			char TempA[1024];
+			
+			memset(TempA, '\0', sizeof(TempA));
+			sprintf(TempA, "T2:%d", strlen(data));
+			DispStr_CE(0, 0, TempA, DISP_CENTER | DISP_CLRSCR);
+			
+			delay_and_wait_key(0,EXIT_KEY_ALL,0);
+		} 
+		*/
 		if(RET<1){
 			DB_erase_filesys(0);
 			//CreateDatabase();
@@ -407,6 +449,19 @@ void SubmitData(){
 
 			break;
 		}
+		Len = strlen((char*)data);
+		if(Len > 1024)
+		{
+			//断开联接关闭模块
+			DisConnectServer();
+			
+			WarningBeep(0); 
+			DispStr_CE(0,2,"提交数据太长，按任意键退出",DISP_POSITION|DISP_CLRSCR);
+			KEY_Flush_FIFO();
+			delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+						
+			return; 	
+		}
 
 		//上传数据
 		WarningBeep(0);
@@ -415,37 +470,58 @@ void SubmitData(){
 			break;
 		}
 
-		//发送数据
-		RET = SendData(data);
-
-		if(RET==-1){
-			//发送失败
-			cLoop++;
-			
-			WarningBeep(2);
-			DispStr_CE(0,4,"数据发送失败!",DISP_POSITION|DISP_CLRSCR);
-			DispStr_CE(0,36,"【F1退出重连】",DISP_POSITION | DISP_CLRLINE);
-			KEY_Flush_FIFO();
-			
-			long temp_value;
-			temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
-			if((EXIT_KEY_F1 == temp_value) && (cLoop == 3)){//退出 
-				break;
+		cLoop = 0;
+		while(1)
+		{
+			//发送数据
+			RET = SendData(data);
+			if(RET != 0)
+			{
+				//发送失败
+				cLoop++;
+				
+				WarningBeep(2);
+				DispStr_CE(0,4,"数据发送失败!",DISP_POSITION|DISP_CLRSCR);
+				DispStr_CE(0,36,"【F1退出重连】",DISP_POSITION | DISP_CLRLINE);
+				KEY_Flush_FIFO();
+				
+				long temp_value;
+				temp_value=delay_and_wait_key(30,EXIT_KEY_F1,30);
+				if((EXIT_KEY_F1 == temp_value) && (cLoop == 3))
+				{
+					DispStr_CE(0,4,"正在注销，请稍等",DISP_CENTER|DISP_CLRSCR);
+					DisConnectServer();
+					//退出 
+					//break;
+					return; 	
+				}
+				else
+				{
+					//判断是否联接服务器
+					RET = TCP_Check_Link();
+					if(RET != 0)
+					{
+						//重新联接服务器,只尝试一次
+						ConnectServer();
+					}					
+					continue;
+				}
 			}
-
-			continue;
+			else
+			{break;}
 		}
-
+		
 		memset(data, '\0', sizeof(data));
 		//发送成功 && 接收返回值
 		RET = GetRecvData(data);
 		if(RET<0){ //接收失败
 			WarningBeep(2);
-			DispStr_CE(0,4,"上传成功",DISP_POSITION|DISP_CLRSCR); 
+			//DispStr_CE(0,4,"上传成功!!",DISP_POSITION|DISP_CLRSCR); 
+			DispStr_CE(0,4,"接收返回数据失败",DISP_POSITION|DISP_CLRSCR); 
 			//DispStr_CE(0,36,"【F1退出】",DISP_POSITION | DISP_CLRLINE);
 			KEY_Flush_FIFO();
-			delay_and_wait_key(0,EXIT_KEY_ALL,0);
-			//break;
+			delay_and_wait_key(30, EXIT_KEY_ALL, 30);
+			break;
 		}
 		else
 		{
@@ -486,6 +562,7 @@ void SubmitData(){
 	}//loop while
 
 	//free
+	DispStr_CE(0,4,"正在注销，请稍等",DISP_CENTER|DISP_CLRSCR);
 	DisConnectServer();
  }
 

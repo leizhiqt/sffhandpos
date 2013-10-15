@@ -40,9 +40,8 @@ void sim900_close(void){
 //断开与服务器连接并关闭gprs模块
 void DisConnectServer(){
 	int Ret = 0;
-	DispStr_CE(0,4,"正在注销，请稍等",DISP_CENTER|DISP_CLRSCR);
+	
 	unsigned char cshut[4]= "*3#\n";
-
 
 	Ret = TCP_Check_Link();
 	if(Ret == 0)
@@ -161,15 +160,29 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 		delay_and_wait_key(30,EXIT_KEY_ALL,30);			
 		return RET;
 	}
-
+	
 	//测试是否联接上服务器
 	RET = TCP_Check_Link();
+	/*
+	//lzy tset
+	{
+		char TempA[1024];
+		
+		memset(TempA, '\0', sizeof(TempA));
+		sprintf(TempA, "%d, Len:%d", RET, strlen(data));
+		DispStr_CE(0, 0, TempA, DISP_CENTER | DISP_CLRSCR);
+
+		EXT_Display_Multi_Lines(data, 2 ,28);
+		
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+	}	
+	*/
 	if(RET != 0)
 	{
 		DispStr_CE(0,12,"服务器断开,不能上传.",DISP_CENTER|DISP_CLRSCR);
 		WarningBeep(2);
 		KEY_Flush_FIFO();
-		delay_and_wait_key(30,EXIT_KEY_ALL,30);				
+		delay_and_wait_key(30,EXIT_KEY_ALL,30); 			
 		return RET;
 	}
 	
@@ -187,16 +200,23 @@ short GetRecvData(unsigned char* recvdata){//接收服务器返回的结果 0 表示接收成功
 	int RET=-1;
 	
 	RET = TCP_Recv_Data(recvdata,&len,SEVEN_SECOND);
+	/*
 	//lzy tset
-	/*char TempA[40];
-	memset(TempA, '\0', sizeof(TempA));
+	{
+		char TempA[1024];
+		
+		memset(TempA, '\0', sizeof(TempA));
+		sprintf(TempA, "%d, %d", len, RET);
+		DispStr_CE(0, 0, TempA, DISP_CENTER | DISP_CLRSCR);
 
-	sprintf(TempA, "%d, %d, %s, %02X, %02X", len, RET, recvdata, recvdata[0], recvdata[1]);
-
-	DispStr_CE(0,12,TempA,DISP_CENTER|DISP_CLRSCR);
-	delay_and_wait_key(30,EXIT_KEY_ALL,30);
+		memset(TempA, '\0', sizeof(TempA));
+		sprintf(TempA, "%s", recvdata);
+		DispStr_CE(0, 2, TempA, DISP_CENTER);
+		EXT_Display_Multi_Lines(TempA, 2 ,28);
+		
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+	}
 	*/
-
 	if(RET==0){
 		return 0;
 	}
@@ -231,8 +251,9 @@ int TestSignal(void){    //发送数据    0 表示发送成功 -1 表示失败
 			Sys_Delay_MS(100);
 			return(0);	
 		}
-		
-		Sys_Delay_MS(500);
+
+		// 1 秒测试一次
+		Sys_Delay_MS(1000);
 		Key = KEY_read();
 		KEY_Flush_FIFO();
 		if(Key == KEY_F1)

@@ -3,14 +3,10 @@
 
 #include "api.h"
 
-#define USERNAME_LEN 17 //max 8 chinese
-#define ANTIFAKECODE_LEN 17
-#define QUERYTIME_LEN 21
-
 extern int g_LINESpacing;
 extern int g_DisplyLine;
 extern int AutoPowerOff;
-extern char systime[20];
+extern char systime[40];
 
 //ÑÕÉ«¶¨Òå
 
