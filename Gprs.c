@@ -119,10 +119,27 @@ short ConnectServer(){
 	unsigned char host[] = "118.123.244.109";
 	unsigned char port[] = "8000";	
 
+	if(SysObj.SimCard	== 0)
+	{
+		//移动卡
+		TCP_Set_APN((unsigned char *)"cmnet",(unsigned char *)"",(unsigned char *)"");	
+	}	
+	else if(SysObj.SimCard	== 1)
+	{
+		//联通卡
+		TCP_Set_APN((unsigned char *)"CMNET",(unsigned char *)"",(unsigned char *)"");	
+	}
+	else
+	{
+		DispStr_CE(0,10,"请重设置SIM卡运营商",DISP_POSITION|DISP_CLRSCR);	
+		delay_and_wait_key(30,EXIT_KEY_F2,30);	
+		return(-1);
+	}
+	
 	//连接成功
 	for(i = 0; i < 3; i++)
 	{
-		Sys_Delay_MS(400);
+		Sys_Delay_MS(400);		
 		RET = TCP_Create_Link(host,port);
 		if(RET==0){
 			return 0;

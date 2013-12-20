@@ -10,6 +10,8 @@ extern char Upload[];
 extern char Check[];
 extern char SysSet[];
 extern char VerInfo[]; 
+extern char SCard[]; 
+
 
 typedef struct
 {

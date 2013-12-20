@@ -3,6 +3,17 @@
 
 #include "api.h"
 
+//系统的参数结构
+typedef struct 
+{
+	//sim卡类型
+	// 0 移动GPRS卡 
+	// 1 联通GPRS卡 
+	//默认值 0
+	int SimCard;
+}SysPara;
+
+extern SysPara SysObj;
 extern int g_LINESpacing;
 extern int g_DisplyLine;
 extern int AutoPowerOff;
@@ -38,5 +49,8 @@ int input_date_time(int line,int maxNum,int minNum,int minValue,int maxValue, ch
 int Modify_Time(void);
 int Modify_Date(void);
 void DispStr_CEEX(unsigned int x, unsigned int y, char	*str, unsigned int  bgc, unsigned int  fc, int xyFlag);
+int browse_menu(int s_line, char *p_menu,int *p_cPtr,int *p_lPtr, int lineMax, int DisplyLine);
+short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag);
+void PackUpMenuData(char menu[], int MenuCount, int LineLen);
 
 #endif

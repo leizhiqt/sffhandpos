@@ -30,6 +30,9 @@ int  g_LINESpacing = 2;
 int g_DisplyLine = 9;
 */
 
+//存放系统参数
+SysPara SysObj;
+
 int g_LINESpacing = 1;
 int g_DisplyLine = 19;
 int AutoPowerOff = 0;
@@ -348,3 +351,121 @@ void DispStr_CEEX(unsigned int x, unsigned int y,
 	Disp_Write_Str_Col((unsigned char *)str, bgc, fc);
 	return;
 }
+
+
+/******************************************************************************************
+Description:Browse menus used for EH0518-A
+Parameter:	Input:	s_line -- starting line of the screen 
+					p_menu -- menus will display
+					p_cPtr -- current selected line 
+					p_lPtr -- starting line of the menus
+Return:		None
+*******************************************************************************************/
+int browse_menu(int s_line, char *p_menu,int *p_cPtr,int *p_lPtr, int lineMax, int DisplyLine)
+{
+	BROWINFO	bi;
+	int ret;
+	
+	//if(s_line>3) s_line = 0;
+	bi.startLine = s_line;       					// 屏幕显示的起始行
+	bi.dispLines = DisplyLine;						// 屏幕显示的行数
+	bi.iStr = p_menu;
+	bi.mInt = strlen(p_menu)/lineMax;
+	bi.lineMax = lineMax;
+	bi.sFont = 0;
+	bi.numEnable = 0;								// 允许键盘‘2’‘8’代替拨轮上下
+	bi.qEvent = EXIT_KEY_ALL|EXIT_AUTO_QUIT|EXIT_KEY_OK;		// 导致函数退出的事件标志
+	bi.autoexit = 30;								// 自动退出时间
+	bi.cPtr = *p_cPtr;             		// 当前行 相对于画面来说的,画面的第一行为0
+	bi.lPtr = *p_lPtr;								// 菜单显示的起始行
+	ret = brow_select(&bi);
+	*p_cPtr = bi.cPtr;
+	*p_lPtr = bi.lPtr;
+	if(ret < 0)
+	{
+		if(bi.qEvent==EXIT_KEY_POWER) return -1;
+		if((bi.qEvent==EXIT_KEY_F1) || (bi.qEvent==(long)EXIT_KEY_CANCEL)) return -2;
+		if(bi.qEvent==EXIT_KEY_F2) return -3;
+		if(bi.qEvent==EXIT_KEY_F3) return -4;
+		if(bi.qEvent==EXIT_KEY_CANCEL) return -4;
+		if(bi.qEvent==EXIT_KEY_COMM) return -5;
+		if(bi.qEvent==EXIT_AUTO_QUIT) return -6;
+		if(bi.qEvent==EXIT_KEY_F4) return -7;				
+		if(bi.qEvent==EXIT_KEY_ENTER)return -8;				
+		if(bi.qEvent==EXIT_KEY_0) return 0;		
+		if(bi.qEvent==EXIT_KEY_1) return 1;
+		if(bi.qEvent==EXIT_KEY_2) return 2;
+		if(bi.qEvent==EXIT_KEY_3) return 3;
+		if(bi.qEvent==EXIT_KEY_4) return 4;
+		if(bi.qEvent==EXIT_KEY_5) return 5;
+		if(bi.qEvent==EXIT_KEY_6) return 6;
+		if(bi.qEvent==EXIT_KEY_7) return 7;
+		if(bi.qEvent==EXIT_KEY_8) return 8;
+		if(bi.qEvent==EXIT_KEY_9) return 9;
+		if(bi.qEvent==EXIT_AUTO_QUIT) Sys_Power_Sleep(3);
+	}
+	return ret;
+}
+
+
+short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag ){
+	BROWINFO	bi;
+	short	ret = 0;
+
+	if(flag ==0){
+		Disp_Clear();
+		DispStr_CE(0,0,"本批次提交记录信息如下:",DISP_CENTER);
+		KEY_Flush_FIFO();
+		DispStr_CE(0,36,"【F1退出提交】【F3确认提交】",DISP_CLRLINE|DISP_CENTER);
+	}else if(flag ==1){
+		Disp_Clear();
+		DispStr_CE(0,0,"错误记录信息如下",DISP_CENTER);
+		DispStr_CE(0,36,"【F3退出浏览】",DISP_RIGHT | DISP_CLRLINE);
+	}
+
+	if(startline>18) startline = 2;
+
+	bi.startLine = startline;
+	bi.dispLines = 18 - startline;
+	bi.iStr = p_menu;
+	bi.mInt = strlen(p_menu)/28;
+	bi.lineMax = 28;
+	bi.sFont = 0;
+	bi.numEnable = 1;
+
+	if(flag ==1){
+		bi.qEvent = EXIT_KEY_F3;
+	}else if(flag ==0){
+		bi.qEvent = EXIT_KEY_F1|EXIT_KEY_F3;
+	}
+
+	bi.autoexit = 0;
+	bi.cPtr = *p_cPtr;
+	bi.lPtr = *p_lPtr;
+	ret = brow_info( &bi );
+	*p_cPtr = bi.cPtr;
+	*p_lPtr = bi.lPtr;
+
+	if(flag ==0) {
+		if(bi.qEvent==EXIT_KEY_F1)
+			return KEY_F1;
+
+		if(bi.qEvent==EXIT_KEY_F3)
+			return KEY_F3;
+	}else if(flag ==1){
+		if(bi.qEvent==EXIT_KEY_F3)
+			return KEY_F3;
+	}
+	return 0;
+}
+
+void PackUpMenuData(char menu[], int MenuCount, int LineLen){
+	int i = 0;
+	menu[MenuCount * LineLen + 2] = '\0';
+	for(i = 0; i < (MenuCount * LineLen + 1); ++i){
+		if(menu[i] == '\0'){
+			menu[i] = 0x20;
+		}
+	}
+}
+

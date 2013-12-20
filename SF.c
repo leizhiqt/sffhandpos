@@ -30,6 +30,7 @@
 #include "UiProg.h"
 #include "SF.h"
 #include "sim900.h"
+#include "common.h"
 
 //======================================================================
 //函数名：main 
@@ -41,68 +42,6 @@ int main(void){
 	InitSystem();
 	MainMenu();
 	return 0;
-}
-
-
-short browse_info(int startline,char *p_menu,int *p_cPtr,int *p_lPtr,short flag ){
-	BROWINFO	bi;
-	short	ret = 0;
-
-	if(flag ==0){
-		Disp_Clear();
-		DispStr_CE(0,0,"本批次提交记录信息如下:",DISP_CENTER);
-		KEY_Flush_FIFO();
-		DispStr_CE(0,36,"【F1退出提交】【F3确认提交】",DISP_CLRLINE|DISP_CENTER);
-	}else if(flag ==1){
-		Disp_Clear();
-		DispStr_CE(0,0,"错误记录信息如下",DISP_CENTER);
-		DispStr_CE(0,36,"【F3退出浏览】",DISP_RIGHT | DISP_CLRLINE);
-	}
-
-	if(startline>18) startline = 2;
-
-	bi.startLine = startline;
-	bi.dispLines = 18 - startline;
-	bi.iStr = p_menu;
-	bi.mInt = strlen(p_menu)/28;
-	bi.lineMax = 28;
-	bi.sFont = 0;
-	bi.numEnable = 1;
-
-	if(flag ==1){
-		bi.qEvent = EXIT_KEY_F3;
-	}else if(flag ==0){
-		bi.qEvent = EXIT_KEY_F1|EXIT_KEY_F3;
-	}
-
-	bi.autoexit = 0;
-	bi.cPtr = *p_cPtr;
-	bi.lPtr = *p_lPtr;
-	ret = brow_info( &bi );
-	*p_cPtr = bi.cPtr;
-	*p_lPtr = bi.lPtr;
-
-	if(flag ==0) {
-		if(bi.qEvent==EXIT_KEY_F1)
-			return KEY_F1;
-
-		if(bi.qEvent==EXIT_KEY_F3)
-			return KEY_F3;
-	}else if(flag ==1){
-		if(bi.qEvent==EXIT_KEY_F3)
-			return KEY_F3;
-	}
-	return 0;
-}
-
-void PackUpMenuData(char menu[], int MenuCount, int LineLen){
-	int i = 0;
-	menu[MenuCount * LineLen + 2] = '\0';
-	for(i = 0; i < (MenuCount * LineLen + 1); ++i){
-		if(menu[i] == '\0'){
-			menu[i] = 0x20;
-		}
-	}
 }
 
 short Display(short flag){
@@ -140,6 +79,7 @@ long Alert(){
 //======================================================================
 void InitSystem()
 {
+	int ret = 0;
   Disp_Init(DISP_INIT_ON);		//Open LCD
 	Disp_Clear();				
 	
@@ -157,6 +97,33 @@ void InitSystem()
 	Disp_Set_Color(SET_BACK_COLOR, 0xffff);	//green
 	Disp_set_color(SET_SELECT_COLOR,  0x07E0);	//Green
 	Disp_set_color(SET_CLEAR_COLOR, 0xffff);	//White
+
+
+	//判断数据库是否已被格式化
+	ret = DB_init_sys_param(0);
+	//数据库没有初始化
+	if(ret == -1)
+	{
+		//设置为默认值
+		SysObj.SimCard = 0;
+		//写参数到NorFalsh		
+		User_Param_Write(0, (unsigned char *)&SysObj, sizeof(SysPara));
+	}
+	//已格式化
+	else
+	{
+		//读参数据到结构
+		User_Param_Read(0, (unsigned char *)&SysObj, sizeof(SysPara));			
+		if((SysObj.SimCard != 0) && (SysObj.SimCard != 1))
+		{ 	
+			DispStr_CE(0,10,"SIM卡运营商参数错误",DISP_CENTER|DISP_CLRSCR); 
+			DispStr_CE(0,12,"强制设置为移动",DISP_CENTER);			
+			delay_and_wait_key(30,EXIT_KEY_F2,30);			
+		
+			SysObj.SimCard = 0;
+			User_Param_Write(0, (unsigned char *)&SysObj, sizeof(SysPara)); 	
+		}		
+	}
 }
 
 //======================================================================
@@ -601,25 +568,73 @@ void FormatDatabase(){
 	}
 }
 
+//选择SIM卡商
+void SelectCarriers(void)
+{
+	int lPtr = 0;
+	int cPtr = 0;
+	int ret = 0;
+	char MenuT[16 * 2 + 2] = {"01.移动SIM卡    02.联通SIM卡     \n"};
+
+	cPtr = SysObj.SimCard;	
+	if((cPtr != 0) && (cPtr != 1))
+	{		
+		DispStr_CE(0,10,"SIM卡运营商参数错误",DISP_CENTER|DISP_CLRSCR);	
+		DispStr_CE(0,12,"强制设置为移动",DISP_CENTER);			
+		delay_and_wait_key(30,EXIT_KEY_F2,30);			
+
+		cPtr = 0;
+		SysObj.SimCard = 0;
+		User_Param_Write(0, (unsigned char *)&SysObj, sizeof(SysPara));		
+	}
+	while(1)
+	{ 	
+		clr_scr();
+		DispStr_CEEX(0, 0, "请选择电信商", WHITE, BLUE, DISP_CENTER);
+		ret = browse_menu(2, MenuT, &cPtr, &lPtr, 16, 2);
+		switch(ret)
+		{
+			case 0:
+			case 1:
+			{
+				if(SysObj.SimCard != ret)
+				{
+					SysObj.SimCard = ret;
+					User_Param_Write(0, (unsigned char *)&SysObj, sizeof(SysPara));
+				}
+				
+				DispStr_CE(0, 8, "设置成功", DISP_CENTER | DISP_CLRSCR);
+				delay_and_wait_key(30, EXIT_KEY_ALL, 30);				
+			}break;
+
+			case -2:
+			{return;}
+		}
+	}	
+	
+}
+
 void  SysSetMenu(){
 	int ret = 0; 
 	int LineLen = 26;
 	SMemu SMemuObj =
 	{
-		1, 3, 1,
+		1, 4, 1,
 		{		
 			{
-				{12, 64,	SetTime,	0}, {88, 64, FormDB, 0}, {164, 64, ExitSet, 0}, 
+				{12, 64,	SetTime,	0}, {88, 64, FormDB, 0}, {164, 64, SCard, 0}, 
+				{12, 140, ExitSet, 0}, 
 			},	
 		},
-		{3, 0, 0},0, 0,
+		{4, 0, 0},0, 0,
 	};		
 
 	char MAIN_MENU[7 * 26 + 2] = 
 		{
 			"1. 设置时间               "
 			"2. 格式数据表             "
-			"3. 退出设置               "
+			"3. 选择电信商             "
+			"4. 退出设置               "
 		};
 
 
@@ -637,8 +652,14 @@ void  SysSetMenu(){
 				FormatDatabase(); 
 				break;
 			}
-			
+
+			//选择电信商
 			case 2:{
+				SelectCarriers();
+				break;
+			}
+			
+			case 3:{
 				return;
 				break;
 			}
@@ -695,7 +716,7 @@ void MainMenu(){
 	//初始化菜单 
 	short ret = 0;
 	int LineLen = 26;
-	
+	char Temp[40];
 	SMemu SMemuObj =
 	{
 		1, 5, 1,
@@ -714,13 +735,19 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.11                "
+			"5. SFV2.12                "
 		};
 
 	Disp_Clear();
-	while(1){
+	while(1)
+	{
 		Disp_Clear();
-		ret = Browse_Icon("请选择功能模块", MAIN_MENU, &SMemuObj, LineLen, 1, 0, 0);
+		memset(Temp, '\0', sizeof(Temp));
+		if(SysObj.SimCard == 0)
+		{sprintf(Temp, "请选择功能模块 %s", "移动");}
+		else
+		{sprintf(Temp, "请选择功能模块 %s", "联通");}			
+		ret = Browse_Icon(Temp, MAIN_MENU, &SMemuObj, LineLen, 1, 0, 0);
 		switch(ret){
 			
 			//巡检
