@@ -273,6 +273,184 @@ short OpenGPRS(){
 	KEY_Flush_FIFO();
 	return -1;
 }
+//======================================================================
+//功能  ：同步时间
+//参数  ：无 
+//返回值：无 
+//发送:*70#
+//返回信息:*0;70;2013-12-20 17:24:15#
+//======================================================================
+void SynTime(void)
+{
+	int i=0;
+	int Len = 0;
+	int RET = 0;	
+	char Temp[40];
+	char *PTemp1 = NULL;
+	char *PTemp2 = NULL;	
+	unsigned char data[1024 * 2];
+	
+	long choose = 0; 	
+	Time TObj;
+	typ_DATE_TIME DTObj;
+	
+	choose = Alert(); 
+	switch(choose)
+	{
+		case EXIT_KEY_F3:
+		case EXIT_KEY_ENTER: 
+		{}break;
+
+		default:
+		{return;}break;
+	}	
+	
+	//初始化模块
+	RET = sim900_init();
+	if(RET != 0)
+	{
+		DispStr_CE(0,4,"连接服务器失败，任意键退出",DISP_CENTER|DISP_CLRSCR);
+		KEY_Flush_FIFO();
+		delay_and_wait_key(0,EXIT_KEY_ALL,0);
+		return;
+	}
+	
+	//打开GPRS模块 && 服务器
+	for(i=0;i<3;i++)
+	{
+		RET = ConnectServer();
+		if(RET == 0)
+		{
+			break;
+		}
+	}
+	
+	//GPRS打开失败
+	if(RET != 0)
+	{ 
+		DispStr_CE(0,2,"请检查SIM卡或通信模块",DISP_POSITION|DISP_CLRSCR); 
+		DispStr_CE(0,4,"按任意键退出",DISP_POSITION); 
+		KEY_Flush_FIFO();
+		delay_and_wait_key(30,EXIT_AUTO_QUIT|EXIT_KEY_ALL,30);
+		goto LoopA;			
+	}	
+
+	//发送数据
+	memset(data, '\0', sizeof(data));
+	strcpy((char*)data, "*70#\n");
+	RET = SendData(data, 1);
+
+	//接收返回数据
+	memset(data, '\0', sizeof(data));
+	RET = GetRecvData(data);
+	if(RET < 0)
+	{ 
+		WarningBeep(2);
+		DispStr_CE(0, 2, "时间同步失败", DISP_POSITION | DISP_CLRSCR); 
+		DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
+		KEY_Flush_FIFO();
+		delay_and_wait_key(30, EXIT_KEY_ALL, 30);
+		goto LoopA;		
+	}
+	else
+	{
+		memset(Temp, '\0', sizeof(Temp));
+		strcpy(Temp, "*0;70;2013-12-20 17:24:15#");	
+		Len = strlen(Temp);
+		if((int)strlen((char*)data) < Len)
+		{
+			WarningBeep(2);
+			DispStr_CE(0, 2, "数据丢失", DISP_POSITION | DISP_CLRSCR); 
+			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
+			KEY_Flush_FIFO();
+			delay_and_wait_key(30, EXIT_KEY_ALL, 30);		
+			goto LoopA;			
+		}
+		
+		//校验数据的正确性
+		//*0;70;2013-12-20 17:24:15#
+		//判断报头
+		memset(Temp, '\0', sizeof(Temp));
+		strcpy(Temp, "*0;70;");
+		PTemp1 = strstr((char*)data, Temp);
+		if(PTemp1 == NULL)
+		{
+			WarningBeep(2);
+			DispStr_CE(0, 2, "报头丢失", DISP_POSITION | DISP_CLRSCR); 
+			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
+			KEY_Flush_FIFO();
+			delay_and_wait_key(30, EXIT_KEY_ALL, 30);		
+			goto LoopA;			
+		}
+
+		//移动指针到数据开始位置
+		PTemp1 += strlen(Temp);
+
+		//判断结束符
+		PTemp2 = strstr(PTemp1, "#");
+		if(PTemp2 == NULL)
+		{
+			WarningBeep(2);
+			DispStr_CE(0, 2, "报尾丢失", DISP_POSITION | DISP_CLRSCR); 
+			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
+			KEY_Flush_FIFO();
+			delay_and_wait_key(30, EXIT_KEY_ALL, 30); 	
+			goto LoopA;			
+		}
+
+		//数据长度
+		Len = (PTemp2 - PTemp1);
+		if(Len <= 0)
+		{
+			WarningBeep(2);
+			DispStr_CE(0, 2, "日期时间数据丢失", DISP_POSITION | DISP_CLRSCR); 
+			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
+			KEY_Flush_FIFO();
+			delay_and_wait_key(30, EXIT_KEY_ALL, 30); 	
+			goto LoopA;
+		}
+
+		//填充暂时结构
+		memset(&TObj, '\0', sizeof(Time));
+		memcpy(&TObj, PTemp1, sizeof(Time));
+		PTemp2 = (char*)&TObj;
+		//把-,:和空格换成字符串结束符\0
+		for(i = 0; i < Len; i++)
+		{
+			Temp[0] = PTemp2[i];
+			if((Temp[0] == '-') || (Temp[0] == ':') || (Temp[0] == 0x20))
+			{
+				PTemp2[i] = '\0';
+			}
+		}
+		
+		//填充真实的日期时间结构
+		memset(&DTObj, '\0', sizeof(typ_DATE_TIME));
+
+		DTObj.year = atoi(TObj.year);
+		DTObj.month = atoi(TObj.month);
+		DTObj.day = atoi(TObj.day);
+
+		DTObj.hour = atoi(TObj.hour);
+		DTObj.min = atoi(TObj.min);
+		DTObj.sec = atoi(TObj.sec);
+		DTObj.week = RTC_get_week(DTObj.year, DTObj.month, DTObj.day);		
+		RTC_Set_DateTime(&DTObj);		
+		
+		memset(Temp, '\0', sizeof(Temp));		
+		DispStr_CE(0, 2, "日期时间同步成功", DISP_POSITION | DISP_CLRSCR); 
+		sprintf(Temp, "%s", PTemp1);
+		DispStr_CE(0, 4, Temp, DISP_POSITION); 
+		WarningBeep(1);
+		KEY_Flush_FIFO();
+		delay_and_wait_key(30, EXIT_KEY_ALL, 30); 			
+	}
+LoopA:
+	
+	DispStr_CE(0,4,"正在注销，请稍等..",DISP_CENTER|DISP_CLRSCR);
+	DisConnectServer();	
+	KEY_Flush_FIFO();
+}
 
 //======================================================================
 //函数名：SubmitData 
@@ -299,7 +477,7 @@ void SubmitData(){
 		case EXIT_KEY_F3:
 		case EXIT_KEY_ENTER: {
 			break;
-		}
+		}		
 	}
 
 	//刷卡登陆 信息验证 
@@ -444,7 +622,7 @@ void SubmitData(){
 		while(1)
 		{
 			//发送数据
-			RET = SendData(data);
+			RET = SendData(data, 0);
 			if(RET != 0)
 			{
 				//发送失败
@@ -623,7 +801,7 @@ void  SysSetMenu(){
 		{		
 			{
 				{12, 64,	SetTime,	0}, {88, 64, FormDB, 0}, {164, 64, SCard, 0}, 
-				{12, 140, ExitSet, 0}, 
+				{12, 140, ExitSet, 0},
 			},	
 		},
 		{4, 0, 0},0, 0,
@@ -631,7 +809,7 @@ void  SysSetMenu(){
 
 	char MAIN_MENU[7 * 26 + 2] = 
 		{
-			"1. 设置时间               "
+			"1. 同步时间               "
 			"2. 格式数据表             "
 			"3. 选择电信商             "
 			"4. 退出设置               "
@@ -644,8 +822,9 @@ void  SysSetMenu(){
 		ret = Browse_Icon("请选择功能模块", MAIN_MENU, &SMemuObj, LineLen, 1, 0, 0);
 		switch(ret){
 			case 0:{
-				Modify_Date();
-				Modify_Time();
+				SynTime();
+				//Modify_Date();
+				//Modify_Time();
 				break;
 			}
 			case 1:{
@@ -663,6 +842,7 @@ void  SysSetMenu(){
 				return;
 				break;
 			}
+			
 			case -1:{
 				return;
 				}break;
@@ -735,7 +915,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.12                "
+			"5. SFV2.13                "
 		};
 
 	Disp_Clear();

@@ -85,6 +85,7 @@ void GetSysTime(char* time){
 // Return£º0		success
 //	  other		failure
 //======================================================================
+/*
  int 	Modify_Date(void)
 {
 	typ_DATE	tdate;
@@ -253,7 +254,6 @@ void GetSysTime(char* time){
 	}
 }
 
-
 //======================================================================
 // Name£ºinput_date_time
 // Function£ºinput date time value
@@ -296,6 +296,7 @@ int	input_date_time(int line,int maxNum,int minNum,int minValue,int maxValue,
 	
 	return ret;
 }
+*/
 
 char* filter(char *c1,char c2){
 

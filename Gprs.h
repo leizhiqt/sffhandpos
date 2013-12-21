@@ -10,7 +10,7 @@ short ConnectServer();
 
 void DisConnectServer();
 
-short SendData(unsigned char* data);
+short SendData(unsigned char* data, int flag);
 
 short GetRecvData(unsigned char* recvdata);
 

@@ -164,7 +164,8 @@ short ConnectServer(){
 	return RET;
 }
 
-short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败 
+//发送数据    0 表示发送成功 -1 表示失败 
+short SendData(unsigned char* data, int flag){    
 	int RET = 0;
 
 	//测试信号强度	
@@ -202,8 +203,11 @@ short SendData(unsigned char* data){    //发送数据    0 表示发送成功 -1 表示失败
 		delay_and_wait_key(30,EXIT_KEY_ALL,30); 			
 		return RET;
 	}
-	
-	DispStr_CE(0,12,"正在上传，请稍等...",DISP_CENTER|DISP_CLRSCR);
+
+	if(flag == 0)
+	{DispStr_CE(0,12,"正在上传，请稍等...",DISP_CENTER|DISP_CLRSCR);}
+	else
+	{DispStr_CE(0,12,"正在发送命令，请稍等...",DISP_CENTER|DISP_CLRSCR);}
 	RET=TCP_Send_Data(data,strlen((char *)data));
 	if(RET==0){//发送成功 
 		return 0;
