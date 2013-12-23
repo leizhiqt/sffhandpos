@@ -439,11 +439,14 @@ void SynTime(void)
 		
 		memset(Temp, '\0', sizeof(Temp));		
 		DispStr_CE(0, 2, "日期时间同步成功", DISP_POSITION | DISP_CLRSCR); 
+		/*
+		//用于测试，方便查看设置后与同点值
 		sprintf(Temp, "%s", PTemp1);
 		DispStr_CE(0, 4, Temp, DISP_POSITION); 
+		*/
 		WarningBeep(1);
 		KEY_Flush_FIFO();
-		delay_and_wait_key(30, EXIT_KEY_ALL, 30); 			
+		//delay_and_wait_key(30, EXIT_KEY_ALL, 30); 			
 	}
 LoopA:
 	
