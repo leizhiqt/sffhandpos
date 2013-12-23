@@ -349,7 +349,7 @@ void SynTime(void)
 		DispStr_CE(0, 2, "时间同步失败", DISP_POSITION | DISP_CLRSCR); 
 		DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
 		KEY_Flush_FIFO();
-		delay_and_wait_key(30, EXIT_KEY_ALL, 30);
+		//delay_and_wait_key(30, EXIT_KEY_ALL, 30);
 		goto LoopA;		
 	}
 	else
@@ -363,7 +363,7 @@ void SynTime(void)
 			DispStr_CE(0, 2, "数据丢失", DISP_POSITION | DISP_CLRSCR); 
 			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
 			KEY_Flush_FIFO();
-			delay_and_wait_key(30, EXIT_KEY_ALL, 30);		
+			//delay_and_wait_key(30, EXIT_KEY_ALL, 30);		
 			goto LoopA;			
 		}
 		
@@ -379,7 +379,7 @@ void SynTime(void)
 			DispStr_CE(0, 2, "报头丢失", DISP_POSITION | DISP_CLRSCR); 
 			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
 			KEY_Flush_FIFO();
-			delay_and_wait_key(30, EXIT_KEY_ALL, 30);		
+			//delay_and_wait_key(30, EXIT_KEY_ALL, 30);		
 			goto LoopA;			
 		}
 
@@ -394,7 +394,7 @@ void SynTime(void)
 			DispStr_CE(0, 2, "报尾丢失", DISP_POSITION | DISP_CLRSCR); 
 			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
 			KEY_Flush_FIFO();
-			delay_and_wait_key(30, EXIT_KEY_ALL, 30); 	
+			//delay_and_wait_key(30, EXIT_KEY_ALL, 30); 	
 			goto LoopA;			
 		}
 
@@ -406,7 +406,7 @@ void SynTime(void)
 			DispStr_CE(0, 2, "日期时间数据丢失", DISP_POSITION | DISP_CLRSCR); 
 			DispStr_CE(0, 4, "接收返回数据失败", DISP_POSITION); 
 			KEY_Flush_FIFO();
-			delay_and_wait_key(30, EXIT_KEY_ALL, 30); 	
+			//delay_and_wait_key(30, EXIT_KEY_ALL, 30); 	
 			goto LoopA;
 		}
 
