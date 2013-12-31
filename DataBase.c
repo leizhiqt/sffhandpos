@@ -226,7 +226,7 @@ short EncodeSendData(unsigned char* name ,unsigned char* passwd,unsigned char* s
 	}
 
 	memset(tempsenddata,0,30);
-	sprintf(tempsenddata,"*1;%s;%s;",name,passwd);
+	sprintf(tempsenddata,"*1;213;%s;%s;",name,passwd);
 	strcat((char *)senddata,tempsenddata);
 
 	memset(Menu,'\0',sizeof(Menu));

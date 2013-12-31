@@ -918,7 +918,7 @@ void MainMenu(){
 			"2. GPRS上传               "
 			"3. 标签校验               "
 			"4. 系统设置               "
-			"5. SFV2.13                "
+			"5. SFV2.14                "
 		};
 
 	Disp_Clear();
